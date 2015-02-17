@@ -1,0 +1,1144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="theme_park_model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="attractions">
+          <Key>
+            <PropertyRef Name="attractions_id" />
+          </Key>
+          <Property Name="attractions_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="attraction_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="theme_area_id" Type="int" Nullable="false" />
+          <Property Name="attraction_description" Type="varchar" MaxLength="200" />
+          <Property Name="picture_path" Type="varchar" MaxLength="50" />
+          <Property Name="is_working" Type="bool" Nullable="false" />
+          <Property Name="date_opened" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="breakdowns">
+          <Key>
+            <PropertyRef Name="breakdown_id" />
+          </Key>
+          <Property Name="breakdown_id" Type="int" Nullable="false" />
+          <Property Name="attraction_id" Type="int" Nullable="false" />
+          <Property Name="incidence_date" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="resolution_date" Type="timestamp" Precision="0" />
+          <Property Name="repair_cost" Type="decimal" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="daily_ride_report">
+          <Key>
+            <PropertyRef Name="ride_report_date" />
+          </Key>
+          <Property Name="ride_report_date" Type="date" Nullable="false" />
+          <Property Name="attraction_id" Type="int" Nullable="false" />
+          <Property Name="total_riders" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="daily_weather">
+          <Key>
+            <PropertyRef Name="weather_date" />
+          </Key>
+          <Property Name="weather_date" Type="date" Nullable="false" />
+          <Property Name="theme_park_id" Type="int" Nullable="false" />
+          <Property Name="weather_conditions" Type="enum" Nullable="false" />
+          <Property Name="high_temp" Type="int" Nullable="false" />
+          <Property Name="low_temp" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="ssn" />
+          </Key>
+          <Property Name="ssn" Type="int" Nullable="false" />
+          <Property Name="theme_park_id" Type="int" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="middle_initial" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="full_time" Type="bool" Nullable="false" />
+          <Property Name="payrate" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="hired_date" Type="date" Nullable="false" />
+          <Property Name="job_title_id" Type="int" Nullable="false" />
+          <Property Name="date_left" Type="date" />
+          <Property Name="rehireable" Type="bool" />
+        </EntityType>
+        <EntityType Name="food_categories">
+          <Key>
+            <PropertyRef Name="food_category_id" />
+          </Key>
+          <Property Name="food_category_id" Type="int" Nullable="false" />
+          <Property Name="food_categories_name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hotel_reservations">
+          <Key>
+            <PropertyRef Name="reservation_id" />
+          </Key>
+          <Property Name="reservation_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hotel_id" Type="int" Nullable="false" />
+          <Property Name="room_number" Type="int" Nullable="false" />
+          <Property Name="reservation_checkin_date" Type="date" Nullable="false" />
+          <Property Name="reservation_checkout_date" Type="date" Nullable="false" />
+          <Property Name="total_reservation_cost" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="paid_in_full" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hotel_rooms">
+          <Key>
+            <PropertyRef Name="hotel_id" />
+            <PropertyRef Name="room_number" />
+          </Key>
+          <Property Name="hotel_id" Type="int" Nullable="false" />
+          <Property Name="room_number" Type="int" Nullable="false" />
+          <Property Name="room_type_id" Type="int" Nullable="false" />
+          <Property Name="room_rate" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="occupied" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hotels">
+          <Key>
+            <PropertyRef Name="hotel_id" />
+          </Key>
+          <Property Name="hotel_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hotel_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="pets_allowed" Type="bool" Nullable="false" />
+          <Property Name="theme_area_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="job_titles">
+          <Key>
+            <PropertyRef Name="job_title_id" />
+          </Key>
+          <Property Name="job_title_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="job_title" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="restaurant_daily_reports">
+          <Key>
+            <PropertyRef Name="report_date" />
+          </Key>
+          <Property Name="report_date" Type="date" Nullable="false" />
+          <Property Name="restaurant_id" Type="int" Nullable="false" />
+          <Property Name="gross_income" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="patrons_served" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="restaurants">
+          <Key>
+            <PropertyRef Name="restaurant_id" />
+          </Key>
+          <Property Name="restaurant_id" Type="int" Nullable="false" />
+          <Property Name="restaurant_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="food_category_id" Type="int" Nullable="false" />
+          <Property Name="theme_area_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="room_types">
+          <Key>
+            <PropertyRef Name="room_type_id" />
+          </Key>
+          <Property Name="room_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="room_types_string" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="theme_areas">
+          <Key>
+            <PropertyRef Name="theme_area_id" />
+          </Key>
+          <Property Name="theme_area_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="theme_area_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="theme_area_description" Type="varchar" MaxLength="200" />
+          <Property Name="theme_area_pictures" Type="varchar" MaxLength="50" />
+          <Property Name="theme_park_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="theme_park">
+          <Key>
+            <PropertyRef Name="theme_park_id" />
+          </Key>
+          <Property Name="theme_park_id" Type="int" Nullable="false" />
+          <Property Name="theme_park_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="park_open" Type="time" Precision="0" Nullable="false" />
+          <Property Name="park_close" Type="time" Precision="0" Nullable="false" />
+          <Property Name="park_country" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="park_state_or_province" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="park_city" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="park_street_address" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ticket_sales">
+          <Key>
+            <PropertyRef Name="ticket_id" />
+          </Key>
+          <Property Name="ticket_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ticket_type_id" Type="int" Nullable="false" />
+          <Property Name="sale_date" Type="date" Nullable="false" />
+          <Property Name="redemption_date" Type="date" />
+          <Property Name="theme_park_id" Type="int" Nullable="false" />
+          <Property Name="sale_location" Type="enum" />
+        </EntityType>
+        <EntityType Name="ticket_types">
+          <Key>
+            <PropertyRef Name="ticket_type_id" />
+          </Key>
+          <Property Name="ticket_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ticket_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ticket_restrictions" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ticket_price" Type="float" />
+        </EntityType>
+        <Association Name="attraction_id_breakdowns">
+          <End Role="attractions" Type="Self.attractions" Multiplicity="1" />
+          <End Role="breakdowns" Type="Self.breakdowns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attractions">
+              <PropertyRef Name="attractions_id" />
+            </Principal>
+            <Dependent Role="breakdowns">
+              <PropertyRef Name="attraction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="attraction_id_ride_reports">
+          <End Role="attractions" Type="Self.attractions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="daily_ride_report" Type="Self.daily_ride_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attractions">
+              <PropertyRef Name="attractions_id" />
+            </Principal>
+            <Dependent Role="daily_ride_report">
+              <PropertyRef Name="attraction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="hotel_id_rooms">
+          <End Role="hotels" Type="Self.hotels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hotels">
+              <PropertyRef Name="hotel_id" />
+            </Principal>
+            <Dependent Role="hotel_rooms">
+              <PropertyRef Name="hotel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_title_id">
+          <End Role="job_titles" Type="Self.job_titles" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="job_titles">
+              <PropertyRef Name="job_title_id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="job_title_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="restaurant_id_reports">
+          <End Role="restaurants" Type="Self.restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="restaurant_daily_reports" Type="Self.restaurant_daily_reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="restaurants">
+              <PropertyRef Name="restaurant_id" />
+            </Principal>
+            <Dependent Role="restaurant_daily_reports">
+              <PropertyRef Name="restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="room_id_reservation">
+          <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="1" />
+          <End Role="hotel_reservations" Type="Self.hotel_reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hotel_rooms">
+              <PropertyRef Name="hotel_id" />
+              <PropertyRef Name="room_number" />
+            </Principal>
+            <Dependent Role="hotel_reservations">
+              <PropertyRef Name="hotel_id" />
+              <PropertyRef Name="room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="room_type_id_rooms">
+          <End Role="room_types" Type="Self.room_types" Multiplicity="1" />
+          <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="room_types">
+              <PropertyRef Name="room_type_id" />
+            </Principal>
+            <Dependent Role="hotel_rooms">
+              <PropertyRef Name="room_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_area_id">
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="attractions" Type="Self.attractions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_areas">
+              <PropertyRef Name="theme_area_id" />
+            </Principal>
+            <Dependent Role="attractions">
+              <PropertyRef Name="theme_area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_area_id_hotels">
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1" />
+          <End Role="hotels" Type="Self.hotels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_areas">
+              <PropertyRef Name="theme_area_id" />
+            </Principal>
+            <Dependent Role="hotels">
+              <PropertyRef Name="theme_area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_area_id_restaurants">
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="restaurants" Type="Self.restaurants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_areas">
+              <PropertyRef Name="theme_area_id" />
+            </Principal>
+            <Dependent Role="restaurants">
+              <PropertyRef Name="theme_area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_areas">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="theme_areas">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_id_employees">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_sales">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
+          <End Role="ticket_sales" Type="Self.ticket_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="ticket_sales">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_weather">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="daily_weather" Type="Self.daily_weather" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="daily_weather">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_type_sales">
+          <End Role="ticket_types" Type="Self.ticket_types" Multiplicity="1" />
+          <End Role="ticket_sales" Type="Self.ticket_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket_types">
+              <PropertyRef Name="ticket_type_id" />
+            </Principal>
+            <Dependent Role="ticket_sales">
+              <PropertyRef Name="ticket_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="theme_park_modelStoreContainer">
+          <EntitySet Name="attractions" EntityType="Self.attractions" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="breakdowns" EntityType="Self.breakdowns" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="daily_ride_report" EntityType="Self.daily_ride_report" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="daily_weather" EntityType="Self.daily_weather" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="food_categories" EntityType="Self.food_categories" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="hotel_reservations" EntityType="Self.hotel_reservations" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="hotel_rooms" EntityType="Self.hotel_rooms" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="hotels" EntityType="Self.hotels" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="job_titles" EntityType="Self.job_titles" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="restaurant_daily_reports" EntityType="Self.restaurant_daily_reports" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="restaurants" EntityType="Self.restaurants" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="room_types" EntityType="Self.room_types" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="theme_areas" EntityType="Self.theme_areas" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="theme_park" EntityType="Self.theme_park" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="ticket_sales" EntityType="Self.ticket_sales" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="ticket_types" EntityType="Self.ticket_types" Schema="theme_park_db" store:Type="Tables" />
+          <AssociationSet Name="attraction_id_breakdowns" Association="Self.attraction_id_breakdowns">
+            <End Role="attractions" EntitySet="attractions" />
+            <End Role="breakdowns" EntitySet="breakdowns" />
+          </AssociationSet>
+          <AssociationSet Name="attraction_id_ride_reports" Association="Self.attraction_id_ride_reports">
+            <End Role="attractions" EntitySet="attractions" />
+            <End Role="daily_ride_report" EntitySet="daily_ride_report" />
+          </AssociationSet>
+          <AssociationSet Name="hotel_id_rooms" Association="Self.hotel_id_rooms">
+            <End Role="hotels" EntitySet="hotels" />
+            <End Role="hotel_rooms" EntitySet="hotel_rooms" />
+          </AssociationSet>
+          <AssociationSet Name="job_title_id" Association="Self.job_title_id">
+            <End Role="job_titles" EntitySet="job_titles" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="restaurant_id_reports" Association="Self.restaurant_id_reports">
+            <End Role="restaurants" EntitySet="restaurants" />
+            <End Role="restaurant_daily_reports" EntitySet="restaurant_daily_reports" />
+          </AssociationSet>
+          <AssociationSet Name="room_id_reservation" Association="Self.room_id_reservation">
+            <End Role="hotel_rooms" EntitySet="hotel_rooms" />
+            <End Role="hotel_reservations" EntitySet="hotel_reservations" />
+          </AssociationSet>
+          <AssociationSet Name="room_type_id_rooms" Association="Self.room_type_id_rooms">
+            <End Role="room_types" EntitySet="room_types" />
+            <End Role="hotel_rooms" EntitySet="hotel_rooms" />
+          </AssociationSet>
+          <AssociationSet Name="theme_area_id" Association="Self.theme_area_id">
+            <End Role="theme_areas" EntitySet="theme_areas" />
+            <End Role="attractions" EntitySet="attractions" />
+          </AssociationSet>
+          <AssociationSet Name="theme_area_id_hotels" Association="Self.theme_area_id_hotels">
+            <End Role="theme_areas" EntitySet="theme_areas" />
+            <End Role="hotels" EntitySet="hotels" />
+          </AssociationSet>
+          <AssociationSet Name="theme_area_id_restaurants" Association="Self.theme_area_id_restaurants">
+            <End Role="theme_areas" EntitySet="theme_areas" />
+            <End Role="restaurants" EntitySet="restaurants" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_areas" Association="Self.theme_park_areas">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="theme_areas" EntitySet="theme_areas" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_id_employees" Association="Self.theme_park_id_employees">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_sales" Association="Self.theme_park_sales">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="ticket_sales" EntitySet="ticket_sales" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_weather" Association="Self.theme_park_weather">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="daily_weather" EntitySet="daily_weather" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_type_sales" Association="Self.ticket_type_sales">
+            <End Role="ticket_types" EntitySet="ticket_types" />
+            <End Role="ticket_sales" EntitySet="ticket_sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="theme_park_model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="attraction">
+          <Key>
+            <PropertyRef Name="attractions_id" />
+          </Key>
+          <Property Name="attractions_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="attraction_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="theme_area_id" Type="Int32" Nullable="false" />
+          <Property Name="attraction_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="picture_path" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="is_working" Type="Boolean" Nullable="false" />
+          <Property Name="date_opened" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="breakdowns" Relationship="Self.attraction_id_breakdowns" FromRole="attractions" ToRole="breakdowns" />
+          <NavigationProperty Name="daily_ride_report" Relationship="Self.attraction_id_ride_reports" FromRole="attractions" ToRole="daily_ride_report" />
+          <NavigationProperty Name="theme_areas" Relationship="Self.theme_area_id" FromRole="attractions" ToRole="theme_areas" />
+        </EntityType>
+        <EntityType Name="breakdown">
+          <Key>
+            <PropertyRef Name="breakdown_id" />
+          </Key>
+          <Property Name="breakdown_id" Type="Int32" Nullable="false" />
+          <Property Name="attraction_id" Type="Int32" Nullable="false" />
+          <Property Name="incidence_date" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="resolution_date" Type="DateTime" />
+          <Property Name="repair_cost" Type="Decimal" />
+          <NavigationProperty Name="attraction" Relationship="Self.attraction_id_breakdowns" FromRole="breakdowns" ToRole="attractions" />
+        </EntityType>
+        <EntityType Name="daily_ride_report">
+          <Key>
+            <PropertyRef Name="ride_report_date" />
+          </Key>
+          <Property Name="ride_report_date" Type="DateTime" Nullable="false" />
+          <Property Name="attraction_id" Type="Int32" Nullable="false" />
+          <Property Name="total_riders" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="attraction" Relationship="Self.attraction_id_ride_reports" FromRole="daily_ride_report" ToRole="attractions" />
+        </EntityType>
+        <EntityType Name="daily_weather">
+          <Key>
+            <PropertyRef Name="weather_date" />
+          </Key>
+          <Property Name="weather_date" Type="DateTime" Nullable="false" />
+          <Property Name="theme_park_id" Type="Int32" Nullable="false" />
+          <Property Name="weather_conditions" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="high_temp" Type="Int32" Nullable="false" />
+          <Property Name="low_temp" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="theme_park" Relationship="Self.theme_park_weather" FromRole="daily_weather" ToRole="theme_park" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="ssn" />
+          </Key>
+          <Property Name="ssn" Type="Int32" Nullable="false" />
+          <Property Name="theme_park_id" Type="Int32" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="middle_initial" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="full_time" Type="Boolean" Nullable="false" />
+          <Property Name="payrate" Type="Decimal" Nullable="false" />
+          <Property Name="hired_date" Type="DateTime" Nullable="false" />
+          <Property Name="job_title_id" Type="Int32" Nullable="false" />
+          <Property Name="date_left" Type="DateTime" />
+          <Property Name="rehireable" Type="Boolean" />
+          <NavigationProperty Name="job_titles" Relationship="Self.job_title_id" FromRole="employees" ToRole="job_titles" />
+          <NavigationProperty Name="theme_park" Relationship="Self.theme_park_id_employees" FromRole="employees" ToRole="theme_park" />
+        </EntityType>
+        <EntityType Name="food_categories">
+          <Key>
+            <PropertyRef Name="food_category_id" />
+          </Key>
+          <Property Name="food_category_id" Type="Int32" Nullable="false" />
+          <Property Name="food_categories_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hotel_reservations">
+          <Key>
+            <PropertyRef Name="reservation_id" />
+          </Key>
+          <Property Name="reservation_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hotel_id" Type="Int32" Nullable="false" />
+          <Property Name="room_number" Type="Int32" Nullable="false" />
+          <Property Name="reservation_checkin_date" Type="DateTime" Nullable="false" />
+          <Property Name="reservation_checkout_date" Type="DateTime" Nullable="false" />
+          <Property Name="total_reservation_cost" Type="Decimal" Nullable="false" />
+          <Property Name="paid_in_full" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="hotel_rooms" Relationship="Self.room_id_reservation" FromRole="hotel_reservations" ToRole="hotel_rooms" />
+        </EntityType>
+        <EntityType Name="hotel_rooms">
+          <Key>
+            <PropertyRef Name="hotel_id" />
+            <PropertyRef Name="room_number" />
+          </Key>
+          <Property Name="hotel_id" Type="Int32" Nullable="false" />
+          <Property Name="room_number" Type="Int32" Nullable="false" />
+          <Property Name="room_type_id" Type="Int32" Nullable="false" />
+          <Property Name="room_rate" Type="Decimal" Nullable="false" />
+          <Property Name="occupied" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="hotel_reservations" Relationship="Self.room_id_reservation" FromRole="hotel_rooms" ToRole="hotel_reservations" />
+          <NavigationProperty Name="hotel" Relationship="Self.hotel_id_rooms" FromRole="hotel_rooms" ToRole="hotels" />
+          <NavigationProperty Name="room_types" Relationship="Self.room_type_id_rooms" FromRole="hotel_rooms" ToRole="room_types" />
+        </EntityType>
+        <EntityType Name="hotel">
+          <Key>
+            <PropertyRef Name="hotel_id" />
+          </Key>
+          <Property Name="hotel_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hotel_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pets_allowed" Type="Boolean" Nullable="false" />
+          <Property Name="theme_area_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="hotel_rooms" Relationship="Self.hotel_id_rooms" FromRole="hotels" ToRole="hotel_rooms" />
+          <NavigationProperty Name="theme_areas" Relationship="Self.theme_area_id_hotels" FromRole="hotels" ToRole="theme_areas" />
+        </EntityType>
+        <EntityType Name="job_titles">
+          <Key>
+            <PropertyRef Name="job_title_id" />
+          </Key>
+          <Property Name="job_title_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="job_title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.job_title_id" FromRole="job_titles" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="restaurant_daily_reports">
+          <Key>
+            <PropertyRef Name="report_date" />
+          </Key>
+          <Property Name="report_date" Type="DateTime" Nullable="false" />
+          <Property Name="restaurant_id" Type="Int32" Nullable="false" />
+          <Property Name="gross_income" Type="Decimal" Nullable="false" />
+          <Property Name="patrons_served" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="restaurant" Relationship="Self.restaurant_id_reports" FromRole="restaurant_daily_reports" ToRole="restaurants" />
+        </EntityType>
+        <EntityType Name="restaurant">
+          <Key>
+            <PropertyRef Name="restaurant_id" />
+          </Key>
+          <Property Name="restaurant_id" Type="Int32" Nullable="false" />
+          <Property Name="restaurant_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="food_category_id" Type="Int32" Nullable="false" />
+          <Property Name="theme_area_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="restaurant_daily_reports" Relationship="Self.restaurant_id_reports" FromRole="restaurants" ToRole="restaurant_daily_reports" />
+          <NavigationProperty Name="theme_areas" Relationship="Self.theme_area_id_restaurants" FromRole="restaurants" ToRole="theme_areas" />
+        </EntityType>
+        <EntityType Name="room_types">
+          <Key>
+            <PropertyRef Name="room_type_id" />
+          </Key>
+          <Property Name="room_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="room_types_string" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="hotel_rooms" Relationship="Self.room_type_id_rooms" FromRole="room_types" ToRole="hotel_rooms" />
+        </EntityType>
+        <EntityType Name="theme_areas">
+          <Key>
+            <PropertyRef Name="theme_area_id" />
+          </Key>
+          <Property Name="theme_area_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="theme_area_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="theme_area_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="theme_area_pictures" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="theme_park_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="attractions" Relationship="Self.theme_area_id" FromRole="theme_areas" ToRole="attractions" />
+          <NavigationProperty Name="hotels" Relationship="Self.theme_area_id_hotels" FromRole="theme_areas" ToRole="hotels" />
+          <NavigationProperty Name="restaurants" Relationship="Self.theme_area_id_restaurants" FromRole="theme_areas" ToRole="restaurants" />
+          <NavigationProperty Name="theme_park" Relationship="Self.theme_park_areas" FromRole="theme_areas" ToRole="theme_park" />
+        </EntityType>
+        <EntityType Name="theme_park">
+          <Key>
+            <PropertyRef Name="theme_park_id" />
+          </Key>
+          <Property Name="theme_park_id" Type="Int32" Nullable="false" />
+          <Property Name="theme_park_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="park_open" Type="Time" Nullable="false" />
+          <Property Name="park_close" Type="Time" Nullable="false" />
+          <Property Name="park_country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="park_state_or_province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="park_city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="park_street_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="daily_weather" Relationship="Self.theme_park_weather" FromRole="theme_park" ToRole="daily_weather" />
+          <NavigationProperty Name="employees" Relationship="Self.theme_park_id_employees" FromRole="theme_park" ToRole="employees" />
+          <NavigationProperty Name="theme_areas" Relationship="Self.theme_park_areas" FromRole="theme_park" ToRole="theme_areas" />
+          <NavigationProperty Name="ticket_sales" Relationship="Self.theme_park_sales" FromRole="theme_park" ToRole="ticket_sales" />
+        </EntityType>
+        <EntityType Name="ticket_sales">
+          <Key>
+            <PropertyRef Name="ticket_id" />
+          </Key>
+          <Property Name="ticket_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ticket_type_id" Type="Int32" Nullable="false" />
+          <Property Name="sale_date" Type="DateTime" Nullable="false" />
+          <Property Name="redemption_date" Type="DateTime" />
+          <Property Name="theme_park_id" Type="Int32" Nullable="false" />
+          <Property Name="sale_location" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="theme_park" Relationship="Self.theme_park_sales" FromRole="ticket_sales" ToRole="theme_park" />
+          <NavigationProperty Name="ticket_types" Relationship="Self.ticket_type_sales" FromRole="ticket_sales" ToRole="ticket_types" />
+        </EntityType>
+        <EntityType Name="ticket_types">
+          <Key>
+            <PropertyRef Name="ticket_type_id" />
+          </Key>
+          <Property Name="ticket_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ticket_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ticket_restrictions" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ticket_price" Type="Single" />
+          <NavigationProperty Name="ticket_sales" Relationship="Self.ticket_type_sales" FromRole="ticket_types" ToRole="ticket_sales" />
+        </EntityType>
+        <Association Name="attraction_id_breakdowns">
+          <End Role="attractions" Type="Self.attraction" Multiplicity="1" />
+          <End Role="breakdowns" Type="Self.breakdown" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attractions">
+              <PropertyRef Name="attractions_id" />
+            </Principal>
+            <Dependent Role="breakdowns">
+              <PropertyRef Name="attraction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="attraction_id_ride_reports">
+          <End Role="attractions" Type="Self.attraction" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="daily_ride_report" Type="Self.daily_ride_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attractions">
+              <PropertyRef Name="attractions_id" />
+            </Principal>
+            <Dependent Role="daily_ride_report">
+              <PropertyRef Name="attraction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_area_id">
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="attractions" Type="Self.attraction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_areas">
+              <PropertyRef Name="theme_area_id" />
+            </Principal>
+            <Dependent Role="attractions">
+              <PropertyRef Name="theme_area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_weather">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="daily_weather" Type="Self.daily_weather" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="daily_weather">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_title_id">
+          <End Role="job_titles" Type="Self.job_titles" Multiplicity="1" />
+          <End Role="employees" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="job_titles">
+              <PropertyRef Name="job_title_id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="job_title_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_id_employees">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
+          <End Role="employees" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="room_id_reservation">
+          <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="1" />
+          <End Role="hotel_reservations" Type="Self.hotel_reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hotel_rooms">
+              <PropertyRef Name="hotel_id" />
+              <PropertyRef Name="room_number" />
+            </Principal>
+            <Dependent Role="hotel_reservations">
+              <PropertyRef Name="hotel_id" />
+              <PropertyRef Name="room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="hotel_id_rooms">
+          <End Role="hotels" Type="Self.hotel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hotels">
+              <PropertyRef Name="hotel_id" />
+            </Principal>
+            <Dependent Role="hotel_rooms">
+              <PropertyRef Name="hotel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="room_type_id_rooms">
+          <End Role="room_types" Type="Self.room_types" Multiplicity="1" />
+          <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="room_types">
+              <PropertyRef Name="room_type_id" />
+            </Principal>
+            <Dependent Role="hotel_rooms">
+              <PropertyRef Name="room_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_area_id_hotels">
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1" />
+          <End Role="hotels" Type="Self.hotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_areas">
+              <PropertyRef Name="theme_area_id" />
+            </Principal>
+            <Dependent Role="hotels">
+              <PropertyRef Name="theme_area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="restaurant_id_reports">
+          <End Role="restaurants" Type="Self.restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="restaurant_daily_reports" Type="Self.restaurant_daily_reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="restaurants">
+              <PropertyRef Name="restaurant_id" />
+            </Principal>
+            <Dependent Role="restaurant_daily_reports">
+              <PropertyRef Name="restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_area_id_restaurants">
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="restaurants" Type="Self.restaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_areas">
+              <PropertyRef Name="theme_area_id" />
+            </Principal>
+            <Dependent Role="restaurants">
+              <PropertyRef Name="theme_area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_areas">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="theme_areas">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="theme_park_sales">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
+          <End Role="ticket_sales" Type="Self.ticket_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="ticket_sales">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_type_sales">
+          <End Role="ticket_types" Type="Self.ticket_types" Multiplicity="1" />
+          <End Role="ticket_sales" Type="Self.ticket_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket_types">
+              <PropertyRef Name="ticket_type_id" />
+            </Principal>
+            <Dependent Role="ticket_sales">
+              <PropertyRef Name="ticket_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="theme_park_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="attractions" EntityType="Self.attraction" />
+          <EntitySet Name="breakdowns" EntityType="Self.breakdown" />
+          <EntitySet Name="daily_ride_report" EntityType="Self.daily_ride_report" />
+          <EntitySet Name="daily_weather" EntityType="Self.daily_weather" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="food_categories" EntityType="Self.food_categories" />
+          <EntitySet Name="hotel_reservations" EntityType="Self.hotel_reservations" />
+          <EntitySet Name="hotel_rooms" EntityType="Self.hotel_rooms" />
+          <EntitySet Name="hotels" EntityType="Self.hotel" />
+          <EntitySet Name="job_titles" EntityType="Self.job_titles" />
+          <EntitySet Name="restaurant_daily_reports" EntityType="Self.restaurant_daily_reports" />
+          <EntitySet Name="restaurants" EntityType="Self.restaurant" />
+          <EntitySet Name="room_types" EntityType="Self.room_types" />
+          <EntitySet Name="theme_areas" EntityType="Self.theme_areas" />
+          <EntitySet Name="theme_park" EntityType="Self.theme_park" />
+          <EntitySet Name="ticket_sales" EntityType="Self.ticket_sales" />
+          <EntitySet Name="ticket_types" EntityType="Self.ticket_types" />
+          <AssociationSet Name="attraction_id_breakdowns" Association="Self.attraction_id_breakdowns">
+            <End Role="attractions" EntitySet="attractions" />
+            <End Role="breakdowns" EntitySet="breakdowns" />
+          </AssociationSet>
+          <AssociationSet Name="attraction_id_ride_reports" Association="Self.attraction_id_ride_reports">
+            <End Role="attractions" EntitySet="attractions" />
+            <End Role="daily_ride_report" EntitySet="daily_ride_report" />
+          </AssociationSet>
+          <AssociationSet Name="theme_area_id" Association="Self.theme_area_id">
+            <End Role="theme_areas" EntitySet="theme_areas" />
+            <End Role="attractions" EntitySet="attractions" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_weather" Association="Self.theme_park_weather">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="daily_weather" EntitySet="daily_weather" />
+          </AssociationSet>
+          <AssociationSet Name="job_title_id" Association="Self.job_title_id">
+            <End Role="job_titles" EntitySet="job_titles" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_id_employees" Association="Self.theme_park_id_employees">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="room_id_reservation" Association="Self.room_id_reservation">
+            <End Role="hotel_rooms" EntitySet="hotel_rooms" />
+            <End Role="hotel_reservations" EntitySet="hotel_reservations" />
+          </AssociationSet>
+          <AssociationSet Name="hotel_id_rooms" Association="Self.hotel_id_rooms">
+            <End Role="hotels" EntitySet="hotels" />
+            <End Role="hotel_rooms" EntitySet="hotel_rooms" />
+          </AssociationSet>
+          <AssociationSet Name="room_type_id_rooms" Association="Self.room_type_id_rooms">
+            <End Role="room_types" EntitySet="room_types" />
+            <End Role="hotel_rooms" EntitySet="hotel_rooms" />
+          </AssociationSet>
+          <AssociationSet Name="theme_area_id_hotels" Association="Self.theme_area_id_hotels">
+            <End Role="theme_areas" EntitySet="theme_areas" />
+            <End Role="hotels" EntitySet="hotels" />
+          </AssociationSet>
+          <AssociationSet Name="restaurant_id_reports" Association="Self.restaurant_id_reports">
+            <End Role="restaurants" EntitySet="restaurants" />
+            <End Role="restaurant_daily_reports" EntitySet="restaurant_daily_reports" />
+          </AssociationSet>
+          <AssociationSet Name="theme_area_id_restaurants" Association="Self.theme_area_id_restaurants">
+            <End Role="theme_areas" EntitySet="theme_areas" />
+            <End Role="restaurants" EntitySet="restaurants" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_areas" Association="Self.theme_park_areas">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="theme_areas" EntitySet="theme_areas" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_sales" Association="Self.theme_park_sales">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="ticket_sales" EntitySet="ticket_sales" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_type_sales" Association="Self.ticket_type_sales">
+            <End Role="ticket_types" EntitySet="ticket_types" />
+            <End Role="ticket_sales" EntitySet="ticket_sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="theme_park_modelStoreContainer" CdmEntityContainer="theme_park_dbEntities">
+          <EntitySetMapping Name="attractions">
+            <EntityTypeMapping TypeName="theme_park_model.attraction">
+              <MappingFragment StoreEntitySet="attractions">
+                <ScalarProperty Name="attractions_id" ColumnName="attractions_id" />
+                <ScalarProperty Name="attraction_name" ColumnName="attraction_name" />
+                <ScalarProperty Name="theme_area_id" ColumnName="theme_area_id" />
+                <ScalarProperty Name="attraction_description" ColumnName="attraction_description" />
+                <ScalarProperty Name="picture_path" ColumnName="picture_path" />
+                <ScalarProperty Name="is_working" ColumnName="is_working" />
+                <ScalarProperty Name="date_opened" ColumnName="date_opened" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="breakdowns">
+            <EntityTypeMapping TypeName="theme_park_model.breakdown">
+              <MappingFragment StoreEntitySet="breakdowns">
+                <ScalarProperty Name="breakdown_id" ColumnName="breakdown_id" />
+                <ScalarProperty Name="attraction_id" ColumnName="attraction_id" />
+                <ScalarProperty Name="incidence_date" ColumnName="incidence_date" />
+                <ScalarProperty Name="resolution_date" ColumnName="resolution_date" />
+                <ScalarProperty Name="repair_cost" ColumnName="repair_cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="daily_ride_report">
+            <EntityTypeMapping TypeName="theme_park_model.daily_ride_report">
+              <MappingFragment StoreEntitySet="daily_ride_report">
+                <ScalarProperty Name="ride_report_date" ColumnName="ride_report_date" />
+                <ScalarProperty Name="attraction_id" ColumnName="attraction_id" />
+                <ScalarProperty Name="total_riders" ColumnName="total_riders" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="daily_weather">
+            <EntityTypeMapping TypeName="theme_park_model.daily_weather">
+              <MappingFragment StoreEntitySet="daily_weather">
+                <ScalarProperty Name="weather_date" ColumnName="weather_date" />
+                <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
+                <ScalarProperty Name="weather_conditions" ColumnName="weather_conditions" />
+                <ScalarProperty Name="high_temp" ColumnName="high_temp" />
+                <ScalarProperty Name="low_temp" ColumnName="low_temp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="theme_park_model.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="ssn" ColumnName="ssn" />
+                <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="middle_initial" ColumnName="middle_initial" />
+                <ScalarProperty Name="full_time" ColumnName="full_time" />
+                <ScalarProperty Name="payrate" ColumnName="payrate" />
+                <ScalarProperty Name="hired_date" ColumnName="hired_date" />
+                <ScalarProperty Name="job_title_id" ColumnName="job_title_id" />
+                <ScalarProperty Name="date_left" ColumnName="date_left" />
+                <ScalarProperty Name="rehireable" ColumnName="rehireable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="food_categories">
+            <EntityTypeMapping TypeName="theme_park_model.food_categories">
+              <MappingFragment StoreEntitySet="food_categories">
+                <ScalarProperty Name="food_category_id" ColumnName="food_category_id" />
+                <ScalarProperty Name="food_categories_name" ColumnName="food_categories_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hotel_reservations">
+            <EntityTypeMapping TypeName="theme_park_model.hotel_reservations">
+              <MappingFragment StoreEntitySet="hotel_reservations">
+                <ScalarProperty Name="reservation_id" ColumnName="reservation_id" />
+                <ScalarProperty Name="hotel_id" ColumnName="hotel_id" />
+                <ScalarProperty Name="room_number" ColumnName="room_number" />
+                <ScalarProperty Name="reservation_checkin_date" ColumnName="reservation_checkin_date" />
+                <ScalarProperty Name="reservation_checkout_date" ColumnName="reservation_checkout_date" />
+                <ScalarProperty Name="total_reservation_cost" ColumnName="total_reservation_cost" />
+                <ScalarProperty Name="paid_in_full" ColumnName="paid_in_full" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hotel_rooms">
+            <EntityTypeMapping TypeName="theme_park_model.hotel_rooms">
+              <MappingFragment StoreEntitySet="hotel_rooms">
+                <ScalarProperty Name="hotel_id" ColumnName="hotel_id" />
+                <ScalarProperty Name="room_number" ColumnName="room_number" />
+                <ScalarProperty Name="room_type_id" ColumnName="room_type_id" />
+                <ScalarProperty Name="room_rate" ColumnName="room_rate" />
+                <ScalarProperty Name="occupied" ColumnName="occupied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hotels">
+            <EntityTypeMapping TypeName="theme_park_model.hotel">
+              <MappingFragment StoreEntitySet="hotels">
+                <ScalarProperty Name="hotel_id" ColumnName="hotel_id" />
+                <ScalarProperty Name="hotel_name" ColumnName="hotel_name" />
+                <ScalarProperty Name="pets_allowed" ColumnName="pets_allowed" />
+                <ScalarProperty Name="theme_area_id" ColumnName="theme_area_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="job_titles">
+            <EntityTypeMapping TypeName="theme_park_model.job_titles">
+              <MappingFragment StoreEntitySet="job_titles">
+                <ScalarProperty Name="job_title_id" ColumnName="job_title_id" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="restaurant_daily_reports">
+            <EntityTypeMapping TypeName="theme_park_model.restaurant_daily_reports">
+              <MappingFragment StoreEntitySet="restaurant_daily_reports">
+                <ScalarProperty Name="report_date" ColumnName="report_date" />
+                <ScalarProperty Name="restaurant_id" ColumnName="restaurant_id" />
+                <ScalarProperty Name="gross_income" ColumnName="gross_income" />
+                <ScalarProperty Name="patrons_served" ColumnName="patrons_served" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="restaurants">
+            <EntityTypeMapping TypeName="theme_park_model.restaurant">
+              <MappingFragment StoreEntitySet="restaurants">
+                <ScalarProperty Name="restaurant_id" ColumnName="restaurant_id" />
+                <ScalarProperty Name="restaurant_name" ColumnName="restaurant_name" />
+                <ScalarProperty Name="food_category_id" ColumnName="food_category_id" />
+                <ScalarProperty Name="theme_area_id" ColumnName="theme_area_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="room_types">
+            <EntityTypeMapping TypeName="theme_park_model.room_types">
+              <MappingFragment StoreEntitySet="room_types">
+                <ScalarProperty Name="room_type_id" ColumnName="room_type_id" />
+                <ScalarProperty Name="room_types_string" ColumnName="room_types_string" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="theme_areas">
+            <EntityTypeMapping TypeName="theme_park_model.theme_areas">
+              <MappingFragment StoreEntitySet="theme_areas">
+                <ScalarProperty Name="theme_area_id" ColumnName="theme_area_id" />
+                <ScalarProperty Name="theme_area_name" ColumnName="theme_area_name" />
+                <ScalarProperty Name="theme_area_description" ColumnName="theme_area_description" />
+                <ScalarProperty Name="theme_area_pictures" ColumnName="theme_area_pictures" />
+                <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="theme_park">
+            <EntityTypeMapping TypeName="theme_park_model.theme_park">
+              <MappingFragment StoreEntitySet="theme_park">
+                <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
+                <ScalarProperty Name="theme_park_name" ColumnName="theme_park_name" />
+                <ScalarProperty Name="park_open" ColumnName="park_open" />
+                <ScalarProperty Name="park_close" ColumnName="park_close" />
+                <ScalarProperty Name="park_country" ColumnName="park_country" />
+                <ScalarProperty Name="park_state_or_province" ColumnName="park_state_or_province" />
+                <ScalarProperty Name="park_city" ColumnName="park_city" />
+                <ScalarProperty Name="park_street_address" ColumnName="park_street_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ticket_sales">
+            <EntityTypeMapping TypeName="theme_park_model.ticket_sales">
+              <MappingFragment StoreEntitySet="ticket_sales">
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="ticket_type_id" ColumnName="ticket_type_id" />
+                <ScalarProperty Name="sale_date" ColumnName="sale_date" />
+                <ScalarProperty Name="redemption_date" ColumnName="redemption_date" />
+                <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
+                <ScalarProperty Name="sale_location" ColumnName="sale_location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ticket_types">
+            <EntityTypeMapping TypeName="theme_park_model.ticket_types">
+              <MappingFragment StoreEntitySet="ticket_types">
+                <ScalarProperty Name="ticket_type_id" ColumnName="ticket_type_id" />
+                <ScalarProperty Name="ticket_name" ColumnName="ticket_name" />
+                <ScalarProperty Name="ticket_restrictions" ColumnName="ticket_restrictions" />
+                <ScalarProperty Name="ticket_price" ColumnName="ticket_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
