@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `Theme_Park_DB`.`attractions` (
   CONSTRAINT `theme_area_id`
     FOREIGN KEY (`theme_area_id`)
     REFERENCES `Theme_Park_DB`.`theme_areas` (`theme_area_id`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `Theme_Park_DB`.`daily_weather` (
   CONSTRAINT `theme_park_weather`
     FOREIGN KEY (`theme_park_id`)
     REFERENCES `Theme_Park_DB`.`theme_park` (`theme_park_id`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `Theme_Park_DB`.`hotel_rooms` (
   CONSTRAINT `hotel_id_rooms`
     FOREIGN KEY (`hotel_id`)
     REFERENCES `Theme_Park_DB`.`hotels` (`hotel_id`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `room_type_id_rooms`
     FOREIGN KEY (`room_type_id`)
@@ -261,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `Theme_Park_DB`.`restaurants` (
   CONSTRAINT `theme_area_id_restaurants`
     FOREIGN KEY (`theme_area_id`)
     REFERENCES `Theme_Park_DB`.`theme_areas` (`theme_area_id`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `Theme_Park_DB`.`restaurant_daily_reports` (
   CONSTRAINT `restaurant_id_reports`
     FOREIGN KEY (`restaurant_id`)
     REFERENCES `Theme_Park_DB`.`restaurants` (`restaurant_id`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `Theme_Park_DB`.`daily_ride_report` (
   CONSTRAINT `attraction_id_ride_reports`
     FOREIGN KEY (`attraction_id`)
     REFERENCES `Theme_Park_DB`.`attractions` (`attractions_id`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
