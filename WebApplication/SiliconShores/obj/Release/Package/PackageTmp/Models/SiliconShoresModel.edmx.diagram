@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="169b197a6d43452b9faacd0d524c5440" Name="Diagram1">
+        <EntityTypeShape EntityType="theme_park_model.attraction" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.breakdown" Width="1.5" PointX="7.5" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.daily_ride_report" Width="1.5" PointX="7.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.daily_weather" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.employee" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.food_categories" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.hotel_reservations" Width="1.5" PointX="12.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.hotel_rooms" Width="1.5" PointX="10.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.hotel" Width="1.5" PointX="5.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.job_titles" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.restaurant_daily_reports" Width="1.5" PointX="7.5" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.restaurant" Width="1.5" PointX="5.25" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.room_types" Width="1.5" PointX="8.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.theme_areas" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.theme_park" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.ticket_sales" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="theme_park_model.ticket_types" Width="1.5" PointX="3.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="theme_park_model.attraction_id_breakdowns" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.attraction_id_ride_reports" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.theme_area_id" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.theme_park_weather" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.job_title_id" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.theme_park_id_employees" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.room_id_reservation" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.hotel_id_rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.room_type_id_rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.theme_area_id_hotels" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.restaurant_id_reports" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.theme_area_id_restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.theme_park_areas" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.theme_park_sales" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.ticket_type_sales" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
