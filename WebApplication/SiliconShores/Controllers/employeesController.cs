@@ -2,179 +2,126 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using System.Web.Http.OData;
-using System.Web.Http.OData.Routing;
+using System.Web;
+using System.Web.Mvc;
 using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
 {
-    /*
-    The WebApiConfig class may require additional changes to add a route for this controller. Merge these statements into the Register method of the WebApiConfig class as applicable. Note that OData URLs are case sensitive.
-
-    using System.Web.Http.OData.Builder;
-    using System.Web.Http.OData.Extensions;
-    using SiliconShores.Models;
-    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<employee>("employees");
-    builder.EntitySet<job_titles>("job_titles"); 
-    builder.EntitySet<theme_park>("theme_park"); 
-    config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
-    */
-    public class employeesController : ODataController
+    public class employeesController : Controller
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
-        // GET: odata/employees
-        [EnableQuery]
-        public IQueryable<employee> Getemployees()
+        // GET: employees
+        public ActionResult Index()
         {
-            return db.employees;
+            var employees = db.employees.Include(e => e.job_titles).Include(e => e.theme_park);
+            return View(employees.ToList());
         }
 
-        // GET: odata/employees(5)
-        [EnableQuery]
-        public SingleResult<employee> Getemployee([FromODataUri] int key)
+        // GET: employees/Details/5
+        public ActionResult Details(int? id)
         {
-            return SingleResult.Create(db.employees.Where(employee => employee.ssn == key));
-        }
-
-        // PUT: odata/employees(5)
-        public IHttpActionResult Put([FromODataUri] int key, Delta<employee> patch)
-        {
-            Validate(patch.GetEntity());
-
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            employee employee = db.employees.Find(key);
+            employee employee = db.employees.Find(id);
             if (employee == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            patch.Put(employee);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!employeeExists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Updated(employee);
+            return View(employee);
         }
 
-        // POST: odata/employees
-        public IHttpActionResult Post(employee employee)
+        // GET: employees/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.employees.Add(employee);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (employeeExists(employee.ssn))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Created(employee);
+            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title");
+            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name");
+            return View();
         }
 
-        // PATCH: odata/employees(5)
-        [AcceptVerbs("PATCH", "MERGE")]
-        public IHttpActionResult Patch([FromODataUri] int key, Delta<employee> patch)
+        // POST: employees/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable")] employee employee)
         {
-            Validate(patch.GetEntity());
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                db.employees.Add(employee);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            employee employee = db.employees.Find(key);
+            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title", employee.job_title_id);
+            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name", employee.theme_park_id);
+            return View(employee);
+        }
+
+        // GET: employees/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            employee employee = db.employees.Find(id);
             if (employee == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            patch.Patch(employee);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!employeeExists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Updated(employee);
+            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title", employee.job_title_id);
+            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name", employee.theme_park_id);
+            return View(employee);
         }
 
-        // DELETE: odata/employees(5)
-        public IHttpActionResult Delete([FromODataUri] int key)
+        // POST: employees/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable")] employee employee)
         {
-            employee employee = db.employees.Find(key);
+            if (ModelState.IsValid)
+            {
+                db.Entry(employee).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title", employee.job_title_id);
+            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name", employee.theme_park_id);
+            return View(employee);
+        }
+
+        // GET: employees/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            employee employee = db.employees.Find(id);
             if (employee == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(employee);
+        }
 
+        // POST: employees/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            employee employee = db.employees.Find(id);
             db.employees.Remove(employee);
             db.SaveChanges();
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // GET: odata/employees(5)/job_titles
-        [EnableQuery]
-        public SingleResult<job_titles> Getjob_titles([FromODataUri] int key)
-        {
-            return SingleResult.Create(db.employees.Where(m => m.ssn == key).Select(m => m.job_titles));
-        }
-
-        // GET: odata/employees(5)/theme_park
-        [EnableQuery]
-        public SingleResult<theme_park> Gettheme_park([FromODataUri] int key)
-        {
-            return SingleResult.Create(db.employees.Where(m => m.ssn == key).Select(m => m.theme_park));
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -184,11 +131,6 @@ namespace SiliconShores.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool employeeExists(int key)
-        {
-            return db.employees.Count(e => e.ssn == key) > 0;
         }
     }
 }
