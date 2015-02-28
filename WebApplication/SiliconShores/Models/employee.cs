@@ -6,6 +6,14 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace SiliconShores.Models
 {
@@ -14,6 +22,7 @@ namespace SiliconShores.Models
     
     public partial class employee
     {
+        [Key]
         public int ssn { get; set; }
         public int theme_park_id { get; set; }
         public string first_name { get; set; }
