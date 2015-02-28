@@ -10,6 +10,7 @@
 namespace SiliconShores.Models
 {
     using System;
+    using System.Web;
     using System.Collections.Generic;
     
     public partial class theme_areas
@@ -31,5 +32,16 @@ namespace SiliconShores.Models
         public virtual ICollection<hotel> hotels { get; set; }
         public virtual ICollection<restaurant> restaurants { get; set; }
         public virtual theme_park theme_park { get; set; }
+
+        public List<String> getImagePaths()
+        {
+            List<String> images = new List<String>();
+            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("/Content/Images" + theme_area_pictures));
+            foreach (System.IO.FileInfo f in dir.GetFiles("*.*"))
+            {
+                images.Add("/Content/Images" + theme_area_pictures + "/" + f.Name);
+            }
+            return images;
+        }
     }
 }
