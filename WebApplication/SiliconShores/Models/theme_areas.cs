@@ -36,10 +36,9 @@ namespace SiliconShores.Models
         public List<String> getImagePaths()
         {
             List<String> images = new List<String>();
-            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(HttpContext.Current.Server.MapPath("/Content/Images" + theme_area_pictures));
-            foreach (System.IO.FileInfo f in dir.GetFiles("*.*"))
+            foreach (attraction attr in attractions)
             {
-                images.Add("/Content/Images" + theme_area_pictures + "/" + f.Name);
+                images.Add(attr.getImagePath());
             }
             return images;
         }

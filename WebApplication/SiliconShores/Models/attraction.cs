@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Web;
+
 namespace SiliconShores.Models
 {
     using System;
@@ -31,5 +33,10 @@ namespace SiliconShores.Models
         public virtual ICollection<breakdown> breakdowns { get; set; }
         public virtual ICollection<daily_ride_report> daily_ride_report { get; set; }
         public virtual theme_areas theme_areas { get; set; }
+
+        public String getImagePath()
+        {
+            return "/Content/Images" + theme_areas.theme_area_pictures + picture_path;
+        }
     }
 }
