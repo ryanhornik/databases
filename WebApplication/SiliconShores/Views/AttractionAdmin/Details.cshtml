@@ -1,0 +1,67 @@
+﻿@model SiliconShores.Models.attraction
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>attraction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.attraction_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.attraction_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.attraction_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.attraction_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.picture_path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.picture_path)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_working)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_working)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_opened)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_opened)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.theme_areas.theme_area_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.theme_areas.theme_area_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.attractions_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

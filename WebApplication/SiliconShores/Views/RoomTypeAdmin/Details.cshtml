@@ -1,0 +1,27 @@
+﻿@model SiliconShores.Models.room_types
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>room_types</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.room_types_string)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.room_types_string)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.room_type_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

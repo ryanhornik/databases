@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SiliconShores.Models.restaurant_daily_reports>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.gross_income)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.patrons_served)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.restaurant.restaurant_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.gross_income)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.patrons_served)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.restaurant.restaurant_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.report_date }) |
+            @Html.ActionLink("Details", "Details", new { id=item.report_date }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.report_date })
+        </td>
+    </tr>
+}
+
+</table>

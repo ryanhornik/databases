@@ -1,0 +1,51 @@
+﻿@model SiliconShores.Models.breakdown
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>breakdown</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.incidence_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.incidence_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resolution_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resolution_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.repair_cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.repair_cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.attraction.attraction_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.attraction.attraction_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.breakdown_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
