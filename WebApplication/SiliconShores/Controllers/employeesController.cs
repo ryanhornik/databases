@@ -49,7 +49,7 @@ namespace SiliconShores.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable")] employee employee)
+        public ActionResult Create([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable,username,password")] employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace SiliconShores.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable")] employee employee)
+        public ActionResult Edit([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable,username,password")] employee employee)
         {
             if (ModelState.IsValid)
             {
