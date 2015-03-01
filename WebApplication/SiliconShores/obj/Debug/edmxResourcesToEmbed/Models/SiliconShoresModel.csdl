@@ -29,6 +29,7 @@
   <EntityType Name="daily_ride_report">
     <Key>
       <PropertyRef Name="ride_report_date" />
+      <PropertyRef Name="attraction_id" />
     </Key>
     <Property Name="ride_report_date" Type="DateTime" Nullable="false" />
     <Property Name="attraction_id" Type="Int32" Nullable="false" />
@@ -123,6 +124,7 @@
   <EntityType Name="restaurant_daily_reports">
     <Key>
       <PropertyRef Name="report_date" />
+      <PropertyRef Name="restaurant_id" />
     </Key>
     <Property Name="report_date" Type="DateTime" Nullable="false" />
     <Property Name="restaurant_id" Type="Int32" Nullable="false" />
