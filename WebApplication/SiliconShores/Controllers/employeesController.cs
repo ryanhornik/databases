@@ -12,16 +12,24 @@ namespace SiliconShores.Controllers
 {
     public class employeesController : Controller
     {
+
+        
+
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: employees
         public ActionResult Index()
         {
             var employees = db.employees.Include(e => e.job_titles).Include(e => e.theme_park);
-            return View(employees.ToList());
+            employee tempEmployee = new employee();
+            return View(tempEmployee);
         }
 
         // GET: employees/Details/5
+        public ActionResult LogIn(employee tempEmployee)
+        {
+            return View();
+        }
         public ActionResult Details(int? id)
         {
             if (id == null)
