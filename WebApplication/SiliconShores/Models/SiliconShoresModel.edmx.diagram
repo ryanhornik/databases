@@ -37,6 +37,7 @@
         <AssociationConnector Association="theme_park_model.theme_park_areas" ManuallyRouted="false" />
         <AssociationConnector Association="theme_park_model.theme_park_sales" ManuallyRouted="false" />
         <AssociationConnector Association="theme_park_model.ticket_type_sales" ManuallyRouted="false" />
+        <AssociationConnector Association="theme_park_model.food_category_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

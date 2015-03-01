@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="theme_park_model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="theme_park_model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="attractions">
           <Key>
             <PropertyRef Name="attractions_id" />
@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="breakdown_id" />
           </Key>
-          <Property Name="breakdown_id" Type="int" Nullable="false" />
+          <Property Name="breakdown_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="attraction_id" Type="int" Nullable="false" />
           <Property Name="incidence_date" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="resolution_date" Type="timestamp" Precision="0" />
@@ -30,6 +30,7 @@
         <EntityType Name="daily_ride_report">
           <Key>
             <PropertyRef Name="ride_report_date" />
+            <PropertyRef Name="attraction_id" />
           </Key>
           <Property Name="ride_report_date" Type="date" Nullable="false" />
           <Property Name="attraction_id" Type="int" Nullable="false" />
@@ -53,13 +54,15 @@
           <Property Name="theme_park_id" Type="int" Nullable="false" />
           <Property Name="first_name" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="last_name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="middle_initial" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="middle_initial" Type="varchar" MaxLength="1" />
           <Property Name="full_time" Type="bool" Nullable="false" />
           <Property Name="payrate" Type="decimal" Precision="10" Scale="0" Nullable="false" />
           <Property Name="hired_date" Type="date" Nullable="false" />
           <Property Name="job_title_id" Type="int" Nullable="false" />
           <Property Name="date_left" Type="date" />
           <Property Name="rehireable" Type="bool" />
+          <Property Name="username" Type="varchar" MaxLength="45" />
+          <Property Name="password" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="food_categories">
           <Key>
@@ -110,6 +113,7 @@
         <EntityType Name="restaurant_daily_reports">
           <Key>
             <PropertyRef Name="report_date" />
+            <PropertyRef Name="restaurant_id" />
           </Key>
           <Property Name="report_date" Type="date" Nullable="false" />
           <Property Name="restaurant_id" Type="int" Nullable="false" />
@@ -188,9 +192,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="attraction_id_ride_reports">
-          <End Role="attractions" Type="Self.attractions" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="attractions" Type="Self.attractions" Multiplicity="1" />
           <End Role="daily_ride_report" Type="Self.daily_ride_report" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="attractions">
@@ -201,10 +203,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="food_category_id">
+          <End Role="food_categories" Type="Self.food_categories" Multiplicity="1" />
+          <End Role="restaurants" Type="Self.restaurants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_categories">
+              <PropertyRef Name="food_category_id" />
+            </Principal>
+            <Dependent Role="restaurants">
+              <PropertyRef Name="food_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="hotel_id_rooms">
-          <End Role="hotels" Type="Self.hotels" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="hotels" Type="Self.hotels" Multiplicity="1" />
           <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hotels">
@@ -228,9 +240,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="restaurant_id_reports">
-          <End Role="restaurants" Type="Self.restaurants" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="restaurants" Type="Self.restaurants" Multiplicity="1" />
           <End Role="restaurant_daily_reports" Type="Self.restaurant_daily_reports" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="restaurants">
@@ -268,9 +278,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="theme_area_id">
-          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1" />
           <End Role="attractions" Type="Self.attractions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="theme_areas">
@@ -294,9 +302,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="theme_area_id_restaurants">
-          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1" />
           <End Role="restaurants" Type="Self.restaurants" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="theme_areas">
@@ -344,9 +350,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="theme_park_weather">
-          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
           <End Role="daily_weather" Type="Self.daily_weather" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="theme_park">
@@ -394,6 +398,10 @@
           <AssociationSet Name="attraction_id_ride_reports" Association="Self.attraction_id_ride_reports">
             <End Role="attractions" EntitySet="attractions" />
             <End Role="daily_ride_report" EntitySet="daily_ride_report" />
+          </AssociationSet>
+          <AssociationSet Name="food_category_id" Association="Self.food_category_id">
+            <End Role="food_categories" EntitySet="food_categories" />
+            <End Role="restaurants" EntitySet="restaurants" />
           </AssociationSet>
           <AssociationSet Name="hotel_id_rooms" Association="Self.hotel_id_rooms">
             <End Role="hotels" EntitySet="hotels" />
@@ -448,8 +456,7 @@
             <End Role="ticket_sales" EntitySet="ticket_sales" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="theme_park_model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -516,6 +523,8 @@
           <Property Name="rehireable" Type="Boolean" />
           <NavigationProperty Name="job_titles" Relationship="Self.job_title_id" FromRole="employees" ToRole="job_titles" />
           <NavigationProperty Name="theme_park" Relationship="Self.theme_park_id_employees" FromRole="employees" ToRole="theme_park" />
+          <Property Name="username" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="food_categories">
           <Key>
@@ -523,6 +532,7 @@
           </Key>
           <Property Name="food_category_id" Type="Int32" Nullable="false" />
           <Property Name="food_categories_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="restaurants" Relationship="theme_park_model.food_category_id" FromRole="food_categories" ToRole="restaurant" />
         </EntityType>
         <EntityType Name="hotel_reservations">
           <Key>
@@ -590,6 +600,7 @@
           <Property Name="theme_area_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="restaurant_daily_reports" Relationship="Self.restaurant_id_reports" FromRole="restaurants" ToRole="restaurant_daily_reports" />
           <NavigationProperty Name="theme_areas" Relationship="Self.theme_area_id_restaurants" FromRole="restaurants" ToRole="theme_areas" />
+          <NavigationProperty Name="food_categories" Relationship="theme_park_model.food_category_id" FromRole="restaurant" ToRole="food_categories" />
         </EntityType>
         <EntityType Name="room_types">
           <Key>
@@ -925,7 +936,23 @@
             <End Role="ticket_types" EntitySet="ticket_types" />
             <End Role="ticket_sales" EntitySet="ticket_sales" />
           </AssociationSet>
+          <AssociationSet Name="food_category_id" Association="theme_park_model.food_category_id">
+            <End Role="food_categories" EntitySet="food_categories" />
+            <End Role="restaurant" EntitySet="restaurants" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="food_category_id">
+          <End Type="theme_park_model.food_categories" Role="food_categories" Multiplicity="1" />
+          <End Type="theme_park_model.restaurant" Role="restaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_categories">
+              <PropertyRef Name="food_category_id" />
+            </Principal>
+            <Dependent Role="restaurant">
+              <PropertyRef Name="food_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -979,6 +1006,8 @@
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="theme_park_model.employee">
               <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="ssn" ColumnName="ssn" />
                 <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
