@@ -45,7 +45,7 @@
     </Reference>
     <Reference Include="AspNet.Identity.MySQL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Downloads\AspNet.Identity.MySQL\Samples\Identity\AspNet.Identity.MySQL\bin\Release\AspNet.Identity.MySQL.dll</HintPath>
+      <HintPath>..\packages\AspNet.Identity.MySQL\AspNet.Identity.MySQL.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
