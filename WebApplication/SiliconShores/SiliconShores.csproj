@@ -383,6 +383,7 @@
     <Content Include="Views\employees\Details.cshtml" />
     <Content Include="Views\employees\Edit.cshtml" />
     <Content Include="Views\employees\Index.cshtml" />
+    <Content Include="Views\employees\LogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

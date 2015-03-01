@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SiliconShores.Models;
+using System.Linq;
 
 namespace SiliconShores.Controllers
 {
@@ -20,15 +21,29 @@ namespace SiliconShores.Controllers
         // GET: employees
         public ActionResult Index()
         {
-            var employees = db.employees.Include(e => e.job_titles).Include(e => e.theme_park);
+          
             employee tempEmployee = new employee();
             return View(tempEmployee);
         }
 
-        // GET: employees/Details/5
+   
         public ActionResult LogIn(employee tempEmployee)
         {
-            return View();
+            //var employees = db.employees.Include(e => e.job_titles).Include(e => e.theme_park);
+            //To anybody looking at this code I'm not proud of it but at least I'm learning :) 
+           var employees =
+               from employeeHolder in db.employees
+               where (employeeHolder.username == tempEmployee.username && employeeHolder.password == tempEmployee.password)
+               select employeeHolder;
+
+           employees.ToList<employee>();
+
+            if(employees.Count()!=0)
+            {
+                tempEmployee = employees.First();
+            }
+           
+            return View(tempEmployee);
         }
         public ActionResult Details(int? id)
         {
