@@ -17,7 +17,7 @@ using System;
     
 public partial class employee
 {
-
+    
     public int ssn { get; set; }
 
     public int theme_park_id { get; set; }

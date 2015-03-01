@@ -16,7 +16,7 @@
     <Key>
       <PropertyRef Name="breakdown_id" />
     </Key>
-    <Property Name="breakdown_id" Type="int" Nullable="false" />
+    <Property Name="breakdown_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="attraction_id" Type="int" Nullable="false" />
     <Property Name="incidence_date" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="resolution_date" Type="timestamp" Precision="0" />
@@ -25,6 +25,7 @@
   <EntityType Name="daily_ride_report">
     <Key>
       <PropertyRef Name="ride_report_date" />
+      <PropertyRef Name="attraction_id" />
     </Key>
     <Property Name="ride_report_date" Type="date" Nullable="false" />
     <Property Name="attraction_id" Type="int" Nullable="false" />
@@ -48,13 +49,15 @@
     <Property Name="theme_park_id" Type="int" Nullable="false" />
     <Property Name="first_name" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="last_name" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="middle_initial" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="middle_initial" Type="varchar" MaxLength="1" />
     <Property Name="full_time" Type="bool" Nullable="false" />
     <Property Name="payrate" Type="decimal" Precision="10" Scale="0" Nullable="false" />
     <Property Name="hired_date" Type="date" Nullable="false" />
     <Property Name="job_title_id" Type="int" Nullable="false" />
     <Property Name="date_left" Type="date" />
     <Property Name="rehireable" Type="bool" />
+    <Property Name="username" Type="varchar" MaxLength="45" />
+    <Property Name="password" Type="varchar" MaxLength="45" />
   </EntityType>
   <EntityType Name="food_categories">
     <Key>
@@ -105,6 +108,7 @@
   <EntityType Name="restaurant_daily_reports">
     <Key>
       <PropertyRef Name="report_date" />
+      <PropertyRef Name="restaurant_id" />
     </Key>
     <Property Name="report_date" Type="date" Nullable="false" />
     <Property Name="restaurant_id" Type="int" Nullable="false" />
@@ -183,9 +187,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="attraction_id_ride_reports">
-    <End Role="attractions" Type="Self.attractions" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="attractions" Type="Self.attractions" Multiplicity="1" />
     <End Role="daily_ride_report" Type="Self.daily_ride_report" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="attractions">
@@ -196,10 +198,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="food_category_id">
+    <End Role="food_categories" Type="Self.food_categories" Multiplicity="1" />
+    <End Role="restaurants" Type="Self.restaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="food_categories">
+        <PropertyRef Name="food_category_id" />
+      </Principal>
+      <Dependent Role="restaurants">
+        <PropertyRef Name="food_category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="hotel_id_rooms">
-    <End Role="hotels" Type="Self.hotels" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="hotels" Type="Self.hotels" Multiplicity="1" />
     <End Role="hotel_rooms" Type="Self.hotel_rooms" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="hotels">
@@ -223,9 +235,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="restaurant_id_reports">
-    <End Role="restaurants" Type="Self.restaurants" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="restaurants" Type="Self.restaurants" Multiplicity="1" />
     <End Role="restaurant_daily_reports" Type="Self.restaurant_daily_reports" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="restaurants">
@@ -263,9 +273,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="theme_area_id">
-    <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1" />
     <End Role="attractions" Type="Self.attractions" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="theme_areas">
@@ -289,9 +297,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="theme_area_id_restaurants">
-    <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="theme_areas" Type="Self.theme_areas" Multiplicity="1" />
     <End Role="restaurants" Type="Self.restaurants" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="theme_areas">
@@ -339,9 +345,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="theme_park_weather">
-    <End Role="theme_park" Type="Self.theme_park" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
     <End Role="daily_weather" Type="Self.daily_weather" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="theme_park">
@@ -389,6 +393,10 @@
     <AssociationSet Name="attraction_id_ride_reports" Association="Self.attraction_id_ride_reports">
       <End Role="attractions" EntitySet="attractions" />
       <End Role="daily_ride_report" EntitySet="daily_ride_report" />
+    </AssociationSet>
+    <AssociationSet Name="food_category_id" Association="Self.food_category_id">
+      <End Role="food_categories" EntitySet="food_categories" />
+      <End Role="restaurants" EntitySet="restaurants" />
     </AssociationSet>
     <AssociationSet Name="hotel_id_rooms" Association="Self.hotel_id_rooms">
       <End Role="hotels" EntitySet="hotels" />

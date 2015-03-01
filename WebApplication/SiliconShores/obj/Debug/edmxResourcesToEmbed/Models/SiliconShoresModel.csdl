@@ -63,6 +63,8 @@
     <Property Name="rehireable" Type="Boolean" />
     <NavigationProperty Name="job_titles" Relationship="Self.job_title_id" FromRole="employees" ToRole="job_titles" />
     <NavigationProperty Name="theme_park" Relationship="Self.theme_park_id_employees" FromRole="employees" ToRole="theme_park" />
+    <Property Name="username" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="food_categories">
     <Key>
@@ -70,6 +72,7 @@
     </Key>
     <Property Name="food_category_id" Type="Int32" Nullable="false" />
     <Property Name="food_categories_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="restaurants" Relationship="theme_park_model.food_category_id" FromRole="food_categories" ToRole="restaurant" />
   </EntityType>
   <EntityType Name="hotel_reservations">
     <Key>
@@ -137,6 +140,7 @@
     <Property Name="theme_area_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="restaurant_daily_reports" Relationship="Self.restaurant_id_reports" FromRole="restaurants" ToRole="restaurant_daily_reports" />
     <NavigationProperty Name="theme_areas" Relationship="Self.theme_area_id_restaurants" FromRole="restaurants" ToRole="theme_areas" />
+    <NavigationProperty Name="food_categories" Relationship="theme_park_model.food_category_id" FromRole="restaurant" ToRole="food_categories" />
   </EntityType>
   <EntityType Name="room_types">
     <Key>
@@ -472,5 +476,21 @@
       <End Role="ticket_types" EntitySet="ticket_types" />
       <End Role="ticket_sales" EntitySet="ticket_sales" />
     </AssociationSet>
+    <AssociationSet Name="food_category_id" Association="theme_park_model.food_category_id">
+      <End Role="food_categories" EntitySet="food_categories" />
+      <End Role="restaurant" EntitySet="restaurants" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="food_category_id">
+    <End Type="theme_park_model.food_categories" Role="food_categories" Multiplicity="1" />
+    <End Type="theme_park_model.restaurant" Role="restaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="food_categories">
+        <PropertyRef Name="food_category_id" />
+      </Principal>
+      <Dependent Role="restaurant">
+        <PropertyRef Name="food_category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

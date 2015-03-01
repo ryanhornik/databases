@@ -48,6 +48,8 @@
     <EntitySetMapping Name="employees">
       <EntityTypeMapping TypeName="theme_park_model.employee">
         <MappingFragment StoreEntitySet="employees">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="ssn" ColumnName="ssn" />
           <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
           <ScalarProperty Name="first_name" ColumnName="first_name" />
