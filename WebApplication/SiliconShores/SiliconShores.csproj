@@ -222,6 +222,7 @@
     <Compile Include="Controllers\HotelRoomAdminController.cs" />
     <Compile Include="Controllers\JobTitleAdminController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlanVacationController.cs" />
     <Compile Include="Controllers\RestaurantAdminController.cs" />
     <Compile Include="Controllers\RestaurantReportAdminController.cs" />
     <Compile Include="Controllers\RideReportAdminController.cs" />
@@ -492,6 +493,11 @@
     <Content Include="Views\TicketTypeAdmin\Details.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Edit.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Index.cshtml" />
+    <Content Include="Views\PlanVacation\Create.cshtml" />
+    <Content Include="Views\PlanVacation\Delete.cshtml" />
+    <Content Include="Views\PlanVacation\Details.cshtml" />
+    <Content Include="Views\PlanVacation\Edit.cshtml" />
+    <Content Include="Views\PlanVacation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
