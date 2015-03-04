@@ -12,16 +12,13 @@ namespace SiliconShores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class room_types
+    public partial class userclaim
     {
-        public room_types()
-        {
-            this.hotel_rooms = new HashSet<hotel_rooms>();
-        }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public int room_type_id { get; set; }
-        public string room_types_string { get; set; }
-    
-        public virtual ICollection<hotel_rooms> hotel_rooms { get; set; }
+        public virtual user user { get; set; }
     }
 }

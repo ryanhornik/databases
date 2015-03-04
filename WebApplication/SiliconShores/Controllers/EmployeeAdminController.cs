@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -16,12 +17,12 @@ namespace SiliconShores.Controllers
         // GET: EmployeeAdmin
         public ActionResult Index()
         {
-            var employees = db.employees.Include(e => e.job_titles).Include(e => e.theme_park);
+            var employees = db.employees.Include(e => e.theme_park).Include(e => e.user);
             return View(employees.ToList());
         }
 
         // GET: EmployeeAdmin/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -38,8 +39,8 @@ namespace SiliconShores.Controllers
         // GET: EmployeeAdmin/Create
         public ActionResult Create()
         {
-            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title");
             ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name");
+            ViewBag.employee_id = new SelectList(db.users, "Id", "Email");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace SiliconShores.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable")] employee employee)
+        public ActionResult Create([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,date_left,rehireable,employee_id")] employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -57,13 +58,13 @@ namespace SiliconShores.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title", employee.job_title_id);
             ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name", employee.theme_park_id);
+            ViewBag.employee_id = new SelectList(db.users, "Id", "Email", employee.employee_id);
             return View(employee);
         }
 
         // GET: EmployeeAdmin/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -74,8 +75,8 @@ namespace SiliconShores.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title", employee.job_title_id);
             ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name", employee.theme_park_id);
+            ViewBag.employee_id = new SelectList(db.users, "Id", "Email", employee.employee_id);
             return View(employee);
         }
 
@@ -84,7 +85,7 @@ namespace SiliconShores.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,job_title_id,date_left,rehireable")] employee employee)
+        public ActionResult Edit([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,date_left,rehireable,employee_id")] employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -92,13 +93,13 @@ namespace SiliconShores.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.job_title_id = new SelectList(db.job_titles, "job_title_id", "job_title", employee.job_title_id);
             ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name", employee.theme_park_id);
+            ViewBag.employee_id = new SelectList(db.users, "Id", "Email", employee.employee_id);
             return View(employee);
         }
 
         // GET: EmployeeAdmin/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -115,7 +116,7 @@ namespace SiliconShores.Controllers
         // POST: EmployeeAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             employee employee = db.employees.Find(id);
             db.employees.Remove(employee);

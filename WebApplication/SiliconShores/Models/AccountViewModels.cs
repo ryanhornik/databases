@@ -69,6 +69,29 @@ namespace SiliconShores.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+ /*       [Required]
+        [Display(Name ="First Name")]
+        public string first_name { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string last_name { get; set; }
+
+        [Display(Name = "Middle Initial")]
+        [MaxLength(1)]
+        public string middle_initial { get; set; }
+
+        [Required]
+        [RegularExpression("\\b[0-9]{10}\\b")]
+        public int SSN { get; set; }
+
+        [Display(Name = "Theme Park")]
+        public theme_park themePark { get; set; }
+
+        [Display(Name = "Full Time?")]
+        public bool full_time { get; set; }\
+  */
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -79,6 +102,8 @@ namespace SiliconShores.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public employee RegisterEmployee { get; set; }
     }
 
     public class ResetPasswordViewModel

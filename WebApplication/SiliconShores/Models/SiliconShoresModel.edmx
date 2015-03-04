@@ -48,7 +48,7 @@
         </EntityType>
         <EntityType Name="employees">
           <Key>
-            <PropertyRef Name="ssn" />
+            <PropertyRef Name="employee_id" />
           </Key>
           <Property Name="ssn" Type="int" Nullable="false" />
           <Property Name="theme_park_id" Type="int" Nullable="false" />
@@ -58,11 +58,9 @@
           <Property Name="full_time" Type="bool" Nullable="false" />
           <Property Name="payrate" Type="decimal" Precision="10" Scale="0" Nullable="false" />
           <Property Name="hired_date" Type="date" Nullable="false" />
-          <Property Name="job_title_id" Type="int" Nullable="false" />
           <Property Name="date_left" Type="date" />
           <Property Name="rehireable" Type="bool" />
-          <Property Name="username" Type="varchar" MaxLength="45" />
-          <Property Name="password" Type="varchar" MaxLength="45" />
+          <Property Name="employee_id" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="food_categories">
           <Key>
@@ -103,13 +101,6 @@
           <Property Name="pets_allowed" Type="bool" Nullable="false" />
           <Property Name="theme_area_id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="job_titles">
-          <Key>
-            <PropertyRef Name="job_title_id" />
-          </Key>
-          <Property Name="job_title_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="job_title" Type="varchar" MaxLength="45" Nullable="false" />
-        </EntityType>
         <EntityType Name="restaurant_daily_reports">
           <Key>
             <PropertyRef Name="report_date" />
@@ -128,6 +119,13 @@
           <Property Name="restaurant_name" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="food_category_id" Type="int" Nullable="false" />
           <Property Name="theme_area_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="room_types">
           <Key>
@@ -179,6 +177,92 @@
           <Property Name="ticket_restrictions" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ticket_price" Type="float" />
         </EntityType>
+        <EntityType Name="userclaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="longtext" />
+          <Property Name="ClaimValue" Type="longtext" />
+        </EntityType>
+        <EntityType Name="userlogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userroles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bool" Nullable="false" />
+          <Property Name="PasswordHash" Type="longtext" />
+          <Property Name="SecurityStamp" Type="longtext" />
+          <Property Name="PhoneNumber" Type="longtext" />
+          <Property Name="PhoneNumberConfirmed" Type="bool" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bool" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" Precision="0" />
+          <Property Name="LockoutEnabled" Type="bool" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <Association Name="ApplicationUser_Claims">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userclaims" Type="Self.userclaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="userclaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ApplicationUser_Logins">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userlogins" Type="Self.userlogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="userlogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ApplicationUser_Roles">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userroles" Type="Self.userroles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="userroles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="attraction_id_breakdowns">
           <End Role="attractions" Type="Self.attractions" Multiplicity="1" />
           <End Role="breakdowns" Type="Self.breakdowns" Multiplicity="*" />
@@ -200,6 +284,18 @@
             </Principal>
             <Dependent Role="daily_ride_report">
               <PropertyRef Name="attraction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_id">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -227,15 +323,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="job_title_id">
-          <End Role="job_titles" Type="Self.job_titles" Multiplicity="1" />
-          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+        <Association Name="IdentityRole_Users">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="userroles" Type="Self.userroles" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="job_titles">
-              <PropertyRef Name="job_title_id" />
+            <Principal Role="roles">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="employees">
-              <PropertyRef Name="job_title_id" />
+            <Dependent Role="userroles">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -383,14 +479,30 @@
           <EntitySet Name="hotel_reservations" EntityType="Self.hotel_reservations" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="hotel_rooms" EntityType="Self.hotel_rooms" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="hotels" EntityType="Self.hotels" Schema="theme_park_db" store:Type="Tables" />
-          <EntitySet Name="job_titles" EntityType="Self.job_titles" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="restaurant_daily_reports" EntityType="Self.restaurant_daily_reports" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="restaurants" EntityType="Self.restaurants" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="room_types" EntityType="Self.room_types" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="theme_areas" EntityType="Self.theme_areas" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="theme_park" EntityType="Self.theme_park" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="ticket_sales" EntityType="Self.ticket_sales" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="ticket_types" EntityType="Self.ticket_types" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="userclaims" EntityType="Self.userclaims" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="userlogins" EntityType="Self.userlogins" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="userroles" EntityType="Self.userroles" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="theme_park_db" store:Type="Tables" />
+          <AssociationSet Name="ApplicationUser_Claims" Association="Self.ApplicationUser_Claims">
+            <End Role="users" EntitySet="users" />
+            <End Role="userclaims" EntitySet="userclaims" />
+          </AssociationSet>
+          <AssociationSet Name="ApplicationUser_Logins" Association="Self.ApplicationUser_Logins">
+            <End Role="users" EntitySet="users" />
+            <End Role="userlogins" EntitySet="userlogins" />
+          </AssociationSet>
+          <AssociationSet Name="ApplicationUser_Roles" Association="Self.ApplicationUser_Roles">
+            <End Role="users" EntitySet="users" />
+            <End Role="userroles" EntitySet="userroles" />
+          </AssociationSet>
           <AssociationSet Name="attraction_id_breakdowns" Association="Self.attraction_id_breakdowns">
             <End Role="attractions" EntitySet="attractions" />
             <End Role="breakdowns" EntitySet="breakdowns" />
@@ -398,6 +510,10 @@
           <AssociationSet Name="attraction_id_ride_reports" Association="Self.attraction_id_ride_reports">
             <End Role="attractions" EntitySet="attractions" />
             <End Role="daily_ride_report" EntitySet="daily_ride_report" />
+          </AssociationSet>
+          <AssociationSet Name="employee_id" Association="Self.employee_id">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="users" EntitySet="users" />
           </AssociationSet>
           <AssociationSet Name="food_category_id" Association="Self.food_category_id">
             <End Role="food_categories" EntitySet="food_categories" />
@@ -407,9 +523,9 @@
             <End Role="hotels" EntitySet="hotels" />
             <End Role="hotel_rooms" EntitySet="hotel_rooms" />
           </AssociationSet>
-          <AssociationSet Name="job_title_id" Association="Self.job_title_id">
-            <End Role="job_titles" EntitySet="job_titles" />
-            <End Role="employees" EntitySet="employees" />
+          <AssociationSet Name="IdentityRole_Users" Association="Self.IdentityRole_Users">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="userroles" EntitySet="userroles" />
           </AssociationSet>
           <AssociationSet Name="restaurant_id_reports" Association="Self.restaurant_id_reports">
             <End Role="restaurants" EntitySet="restaurants" />
@@ -509,7 +625,7 @@
         </EntityType>
         <EntityType Name="employee">
           <Key>
-            <PropertyRef Name="ssn" />
+            <PropertyRef Name="employee_id" />
           </Key>
           <Property Name="ssn" Type="Int32" Nullable="false" />
           <Property Name="theme_park_id" Type="Int32" Nullable="false" />
@@ -519,13 +635,11 @@
           <Property Name="full_time" Type="Boolean" Nullable="false" />
           <Property Name="payrate" Type="Decimal" Nullable="false" />
           <Property Name="hired_date" Type="DateTime" Nullable="false" />
-          <Property Name="job_title_id" Type="Int32" Nullable="false" />
           <Property Name="date_left" Type="DateTime" />
           <Property Name="rehireable" Type="Boolean" />
-          <NavigationProperty Name="job_titles" Relationship="Self.job_title_id" FromRole="employees" ToRole="job_titles" />
           <NavigationProperty Name="theme_park" Relationship="Self.theme_park_id_employees" FromRole="employees" ToRole="theme_park" />
-          <Property Name="username" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="employee_id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="theme_park_model.employee_id" FromRole="employee" ToRole="user" />
         </EntityType>
         <EntityType Name="food_categories">
           <Key>
@@ -572,14 +686,6 @@
           <Property Name="theme_area_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="hotel_rooms" Relationship="Self.hotel_id_rooms" FromRole="hotels" ToRole="hotel_rooms" />
           <NavigationProperty Name="theme_areas" Relationship="Self.theme_area_id_hotels" FromRole="hotels" ToRole="theme_areas" />
-        </EntityType>
-        <EntityType Name="job_titles">
-          <Key>
-            <PropertyRef Name="job_title_id" />
-          </Key>
-          <Property Name="job_title_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="job_title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="employees" Relationship="Self.job_title_id" FromRole="job_titles" ToRole="employees" />
         </EntityType>
         <EntityType Name="restaurant_daily_reports">
           <Key>
@@ -717,18 +823,6 @@
             </Principal>
             <Dependent Role="daily_weather">
               <PropertyRef Name="theme_park_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="job_title_id">
-          <End Role="job_titles" Type="Self.job_titles" Multiplicity="1" />
-          <End Role="employees" Type="Self.employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="job_titles">
-              <PropertyRef Name="job_title_id" />
-            </Principal>
-            <Dependent Role="employees">
-              <PropertyRef Name="job_title_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -870,7 +964,6 @@
           <EntitySet Name="hotel_reservations" EntityType="Self.hotel_reservations" />
           <EntitySet Name="hotel_rooms" EntityType="Self.hotel_rooms" />
           <EntitySet Name="hotels" EntityType="Self.hotel" />
-          <EntitySet Name="job_titles" EntityType="Self.job_titles" />
           <EntitySet Name="restaurant_daily_reports" EntityType="Self.restaurant_daily_reports" />
           <EntitySet Name="restaurants" EntityType="Self.restaurant" />
           <EntitySet Name="room_types" EntityType="Self.room_types" />
@@ -893,10 +986,6 @@
           <AssociationSet Name="theme_park_weather" Association="Self.theme_park_weather">
             <End Role="theme_park" EntitySet="theme_park" />
             <End Role="daily_weather" EntitySet="daily_weather" />
-          </AssociationSet>
-          <AssociationSet Name="job_title_id" Association="Self.job_title_id">
-            <End Role="job_titles" EntitySet="job_titles" />
-            <End Role="employees" EntitySet="employees" />
           </AssociationSet>
           <AssociationSet Name="theme_park_id_employees" Association="Self.theme_park_id_employees">
             <End Role="theme_park" EntitySet="theme_park" />
@@ -942,6 +1031,26 @@
             <End Role="food_categories" EntitySet="food_categories" />
             <End Role="restaurant" EntitySet="restaurants" />
           </AssociationSet>
+          <EntitySet Name="userclaims" EntityType="theme_park_model.userclaim" />
+          <EntitySet Name="userlogins" EntityType="theme_park_model.userlogin" />
+          <EntitySet Name="users" EntityType="theme_park_model.user" />
+          <AssociationSet Name="employee_id" Association="theme_park_model.employee_id">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="ApplicationUser_Claims" Association="theme_park_model.ApplicationUser_Claims">
+            <End Role="user" EntitySet="users" />
+            <End Role="userclaim" EntitySet="userclaims" />
+          </AssociationSet>
+          <AssociationSet Name="ApplicationUser_Logins" Association="theme_park_model.ApplicationUser_Logins">
+            <End Role="user" EntitySet="users" />
+            <End Role="userlogin" EntitySet="userlogins" />
+          </AssociationSet>
+          <EntitySet Name="roles" EntityType="theme_park_model.role" />
+          <AssociationSet Name="userroles1" Association="theme_park_model.userroles1">
+            <End Role="user" EntitySet="users" />
+            <End Role="role" EntitySet="roles" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="food_category_id">
           <End Type="theme_park_model.food_categories" Role="food_categories" Multiplicity="1" />
@@ -954,6 +1063,100 @@
               <PropertyRef Name="food_category_id" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="userclaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ClaimValue" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="theme_park_model.ApplicationUser_Claims" FromRole="userclaim" ToRole="user" />
+        </EntityType>
+        <EntityType Name="userlogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="theme_park_model.ApplicationUser_Logins" FromRole="userlogin" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee" Relationship="theme_park_model.employee_id" FromRole="user" ToRole="employee" />
+          <NavigationProperty Name="userclaims" Relationship="theme_park_model.ApplicationUser_Claims" FromRole="user" ToRole="userclaim" />
+          <NavigationProperty Name="userlogins" Relationship="theme_park_model.ApplicationUser_Logins" FromRole="user" ToRole="userlogin" />
+          <NavigationProperty Name="roles" Relationship="theme_park_model.userroles1" FromRole="user" ToRole="role" />
+        </EntityType>
+        <Association Name="employee_id">
+          <End Type="theme_park_model.employee" Role="employee" Multiplicity="1" />
+          <End Type="theme_park_model.user" Role="user" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ApplicationUser_Claims">
+          <End Type="theme_park_model.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="theme_park_model.userclaim" Role="userclaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="userclaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ApplicationUser_Logins">
+          <End Type="theme_park_model.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="theme_park_model.userlogin" Role="userlogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="userlogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="users" Relationship="theme_park_model.userroles1" FromRole="role" ToRole="user" />
+        </EntityType>
+        <Association Name="userroles1">
+          <End Type="theme_park_model.user" Role="user" Multiplicity="*" />
+          <End Type="theme_park_model.role" Role="role" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1008,8 +1211,7 @@
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="theme_park_model.employee">
               <MappingFragment StoreEntitySet="employees">
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="ssn" ColumnName="ssn" />
                 <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
@@ -1018,7 +1220,6 @@
                 <ScalarProperty Name="full_time" ColumnName="full_time" />
                 <ScalarProperty Name="payrate" ColumnName="payrate" />
                 <ScalarProperty Name="hired_date" ColumnName="hired_date" />
-                <ScalarProperty Name="job_title_id" ColumnName="job_title_id" />
                 <ScalarProperty Name="date_left" ColumnName="date_left" />
                 <ScalarProperty Name="rehireable" ColumnName="rehireable" />
               </MappingFragment>
@@ -1063,14 +1264,6 @@
                 <ScalarProperty Name="hotel_name" ColumnName="hotel_name" />
                 <ScalarProperty Name="pets_allowed" ColumnName="pets_allowed" />
                 <ScalarProperty Name="theme_area_id" ColumnName="theme_area_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="job_titles">
-            <EntityTypeMapping TypeName="theme_park_model.job_titles">
-              <MappingFragment StoreEntitySet="job_titles">
-                <ScalarProperty Name="job_title_id" ColumnName="job_title_id" />
-                <ScalarProperty Name="job_title" ColumnName="job_title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1149,6 +1342,59 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="userclaims">
+            <EntityTypeMapping TypeName="theme_park_model.userclaim">
+              <MappingFragment StoreEntitySet="userclaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userlogins">
+            <EntityTypeMapping TypeName="theme_park_model.userlogin">
+              <MappingFragment StoreEntitySet="userlogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="theme_park_model.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="theme_park_model.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="userroles1" TypeName="theme_park_model.userroles1" StoreEntitySet="userroles">
+            <EndProperty Name="role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="user">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

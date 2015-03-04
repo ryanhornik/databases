@@ -16,6 +16,7 @@ namespace SiliconShores.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
+        private theme_park_dbEntities db = new theme_park_dbEntities();
 
         public AccountController()
         {
@@ -152,14 +153,21 @@ namespace SiliconShores.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            model.RegisterEmployee.employee_id = "TEMPORARY_ID";
+            model.RegisterEmployee.hired_date = DateTime.Today;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                model.RegisterEmployee.employee_id = user.Id;
+                db.employees.Add(model.RegisterEmployee);// Must be done before invoking the user manager
+                db.SaveChanges();
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -168,6 +176,8 @@ namespace SiliconShores.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+
+                db.employees.Remove(model.RegisterEmployee);//delete employee if there are errors to prevent duplicate employees
                 AddErrors(result);
             }
 

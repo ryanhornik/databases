@@ -12,6 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.ssn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ssn)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.first_name)
         </dt>
 
@@ -76,14 +84,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.job_titles.job_title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.job_titles.job_title)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.theme_park.theme_park_name)
         </dt>
 
@@ -91,9 +91,17 @@
             @Html.DisplayFor(model => model.theme_park.theme_park_name)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.user.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.Email)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ssn }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.employee_id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

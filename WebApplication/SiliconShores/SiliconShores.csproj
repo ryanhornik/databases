@@ -212,7 +212,6 @@
     <Compile Include="App_Start\WebApiConfig2.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttractionAdminController.cs" />
-    <Compile Include="Controllers\employeesController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
     <Compile Include="Controllers\FoodCategoryAdminController.cs" />
@@ -220,12 +219,12 @@
     <Compile Include="Controllers\HotelAdminController.cs" />
     <Compile Include="Controllers\HotelReservationAdminController.cs" />
     <Compile Include="Controllers\HotelRoomAdminController.cs" />
-    <Compile Include="Controllers\JobTitleAdminController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlanVacationController.cs" />
     <Compile Include="Controllers\RestaurantAdminController.cs" />
     <Compile Include="Controllers\RestaurantReportAdminController.cs" />
     <Compile Include="Controllers\RideReportAdminController.cs" />
+    <Compile Include="Controllers\RoleAdminController.cs" />
     <Compile Include="Controllers\RoomTypeAdminController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\ThemeAreaAdminController.cs" />
@@ -265,14 +264,14 @@
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\job_titles.cs">
-      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\restaurant.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\restaurant_daily_reports.cs">
+      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\role.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\room_types.cs">
@@ -303,6 +302,15 @@
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ticket_types.cs">
+      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user.cs">
+      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\userclaim.cs">
+      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\userlogin.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -406,11 +414,6 @@
     <Content Include="Views\AttractionAdmin\Create.cshtml" />
     <Content Include="Views\AttractionAdmin\Delete.cshtml" />
     <Content Include="Views\AttractionAdmin\Details.cshtml" />
-    <Content Include="Views\employees\Create.cshtml" />
-    <Content Include="Views\employees\Delete.cshtml" />
-    <Content Include="Views\employees\Details.cshtml" />
-    <Content Include="Views\employees\Edit.cshtml" />
-    <Content Include="Views\employees\Index.cshtml" />
     <Content Include="Views\AttractionAdmin\Edit.cshtml" />
     <Content Include="Views\AttractionAdmin\Index.cshtml" />
     <Content Include="Views\BreakdownAdmin\Create.cshtml" />
@@ -428,11 +431,6 @@
     <Content Include="Views\WeatherAdmin\Details.cshtml" />
     <Content Include="Views\WeatherAdmin\Edit.cshtml" />
     <Content Include="Views\WeatherAdmin\Index.cshtml" />
-    <Content Include="Views\EmployeeAdmin\Create.cshtml" />
-    <Content Include="Views\EmployeeAdmin\Delete.cshtml" />
-    <Content Include="Views\EmployeeAdmin\Details.cshtml" />
-    <Content Include="Views\EmployeeAdmin\Edit.cshtml" />
-    <Content Include="Views\EmployeeAdmin\Index.cshtml" />
     <Content Include="Views\FoodCategoryAdmin\Create.cshtml" />
     <Content Include="Views\FoodCategoryAdmin\Delete.cshtml" />
     <Content Include="Views\FoodCategoryAdmin\Details.cshtml" />
@@ -453,11 +451,6 @@
     <Content Include="Views\HotelRoomAdmin\Details.cshtml" />
     <Content Include="Views\HotelRoomAdmin\Edit.cshtml" />
     <Content Include="Views\HotelRoomAdmin\Index.cshtml" />
-    <Content Include="Views\JobTitleAdmin\Create.cshtml" />
-    <Content Include="Views\JobTitleAdmin\Delete.cshtml" />
-    <Content Include="Views\JobTitleAdmin\Details.cshtml" />
-    <Content Include="Views\JobTitleAdmin\Edit.cshtml" />
-    <Content Include="Views\JobTitleAdmin\Index.cshtml" />
     <Content Include="Views\RestaurantAdmin\Create.cshtml" />
     <Content Include="Views\RestaurantAdmin\Delete.cshtml" />
     <Content Include="Views\RestaurantAdmin\Details.cshtml" />
@@ -498,6 +491,16 @@
     <Content Include="Views\PlanVacation\Details.cshtml" />
     <Content Include="Views\PlanVacation\Edit.cshtml" />
     <Content Include="Views\PlanVacation\Index.cshtml" />
+    <Content Include="Views\EmployeeAdmin\Create.cshtml" />
+    <Content Include="Views\EmployeeAdmin\Delete.cshtml" />
+    <Content Include="Views\EmployeeAdmin\Details.cshtml" />
+    <Content Include="Views\EmployeeAdmin\Edit.cshtml" />
+    <Content Include="Views\EmployeeAdmin\Index.cshtml" />
+    <Content Include="Views\RoleAdmin\Create.cshtml" />
+    <Content Include="Views\RoleAdmin\Delete.cshtml" />
+    <Content Include="Views\RoleAdmin\Details.cshtml" />
+    <Content Include="Views\RoleAdmin\Edit.cshtml" />
+    <Content Include="Views\RoleAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
