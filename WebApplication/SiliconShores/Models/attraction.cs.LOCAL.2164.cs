@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Web;
 
 namespace SiliconShores.Models
 {
@@ -51,10 +50,6 @@ public partial class attraction
 
     public virtual theme_areas theme_areas { get; set; }
 
-        public String getImagePath()
-        {
-            return "/Content/Images" + theme_areas.theme_area_pictures + picture_path;
-        }
 }
 
 }

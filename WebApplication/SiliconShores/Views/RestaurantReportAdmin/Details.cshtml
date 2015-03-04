@@ -1,0 +1,43 @@
+﻿@model SiliconShores.Models.restaurant_daily_reports
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>restaurant_daily_reports</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.gross_income)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gross_income)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.patrons_served)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.patrons_served)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.restaurant.restaurant_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.restaurant.restaurant_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.report_date }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

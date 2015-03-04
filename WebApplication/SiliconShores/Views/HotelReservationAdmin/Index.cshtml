@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SiliconShores.Models.hotel_reservations>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.reservation_checkin_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reservation_checkout_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total_reservation_cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paid_in_full)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hotel_rooms.hotel_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.reservation_checkin_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reservation_checkout_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.total_reservation_cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.paid_in_full)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hotel_rooms.hotel_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.reservation_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.reservation_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.reservation_id })
+        </td>
+    </tr>
+}
+
+</table>
