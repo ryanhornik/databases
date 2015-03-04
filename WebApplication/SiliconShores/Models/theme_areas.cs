@@ -13,7 +13,6 @@ namespace SiliconShores.Models
 {
 
 using System;
-    using System.Web;
     using System.Collections.Generic;
     
 public partial class theme_areas
@@ -51,15 +50,6 @@ public partial class theme_areas
 
     public virtual theme_park theme_park { get; set; }
 
-        public List<String> getImagePaths()
-        {
-            List<String> images = new List<String>();
-            foreach (attraction attr in attractions)
-            {
-                images.Add(attr.getImagePath());
-            }
-            return images;
-        }
 }
 
 }
