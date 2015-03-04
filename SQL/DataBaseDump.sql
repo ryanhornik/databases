@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `theme_park_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `theme_park_db`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: theme_park_db
@@ -16,6 +18,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table ` room_types`
+--
+
+DROP TABLE IF EXISTS ` room_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE ` room_types` (
+  `room_type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_types_string` varchar(255) NOT NULL,
+  PRIMARY KEY (`room_type_id`),
+  UNIQUE KEY `room_types_string_UNIQUE` (`room_types_string`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table ` room_types`
+--
+
+LOCK TABLES ` room_types` WRITE;
+/*!40000 ALTER TABLE ` room_types` DISABLE KEYS */;
+INSERT INTO ` room_types` VALUES (3,'Admin'),(1,'Standard'),(2,'SuperUser');
+/*!40000 ALTER TABLE ` room_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `attractions`
 --
 
@@ -26,7 +53,7 @@ CREATE TABLE `attractions` (
   `attractions_id` int(11) NOT NULL AUTO_INCREMENT,
   `attraction_name` varchar(50) NOT NULL,
   `theme_area_id` int(11) NOT NULL,
-  `attraction_description` varchar(200) DEFAULT NULL,
+  `attraction_description` varchar(5000) DEFAULT NULL,
   `picture_path` varchar(50) DEFAULT NULL,
   `is_working` tinyint(1) NOT NULL,
   `date_opened` date NOT NULL,
@@ -42,7 +69,7 @@ CREATE TABLE `attractions` (
 
 LOCK TABLES `attractions` WRITE;
 /*!40000 ALTER TABLE `attractions` DISABLE KEYS */;
-INSERT INTO `attractions` VALUES (1,'The Flip-Flop',1,'RollerCoaster',NULL,1,'2014-12-20'),(2,'Sign Extender',1,'RollerCoaster',NULL,1,'2014-12-20'),(3,'Short Circuit',1,'RollerCoaster',NULL,0,'2014-12-29'),(4,'IOStream',1,'WaterRide',NULL,1,'2014-12-30');
+INSERT INTO `attractions` VALUES (1,'The Flip-Flop',1,'Get ready for the ride of your life when the input changes!','/tff.png',1,'2014-12-20'),(2,'Sign Extender',2,'Go inside the ALU in this award winning multimedia experience.','/se.png',1,'2014-12-20'),(3,'Short Circuit',1,'Things heat up on this short but oh so sweet roller coaster as we take you from 0 to -2147483648 in 2 seconds','/sc.png',0,'2014-12-29'),(4,'IOStream',3,'A nice lazy river to float around in while your kids have the time of their lives in South Bridgia','/ios.png',1,'2014-12-30');
 /*!40000 ALTER TABLE `attractions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,13 +174,11 @@ CREATE TABLE `employees` (
   `full_time` tinyint(1) NOT NULL,
   `payrate` decimal(10,0) NOT NULL,
   `hired_date` date NOT NULL,
-  `job_title_id` int(11) NOT NULL,
   `date_left` date DEFAULT NULL,
   `rehireable` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`ssn`),
+  `employee_id` varchar(128) NOT NULL,
+  PRIMARY KEY (`employee_id`),
   KEY `theme_park_id_employees_idx` (`theme_park_id`),
-  KEY `job_title_id_idx` (`job_title_id`),
-  CONSTRAINT `job_title_id` FOREIGN KEY (`job_title_id`) REFERENCES `job_titles` (`job_title_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `theme_park_id_employees` FOREIGN KEY (`theme_park_id`) REFERENCES `theme_park` (`theme_park_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -164,7 +189,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (123456666,6,'Smircio','JayHam',NULL,1,1,'2014-12-02',3,NULL,NULL),(555455555,6,'Jane','Smith',NULL,0,30,'2014-12-02',2,NULL,NULL),(555555555,6,'Jon','Doe',NULL,1,7,'2014-12-02',1,NULL,NULL);
+INSERT INTO `employees` VALUES (1234561000,6,'Johnathan','Hornik','R',1,10,'2015-03-04',NULL,NULL,'02d6fc47-b47e-45e7-932a-469e7bfa6a16');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,32 +303,8 @@ CREATE TABLE `hotels` (
 
 LOCK TABLES `hotels` WRITE;
 /*!40000 ALTER TABLE `hotels` DISABLE KEYS */;
-INSERT INTO `hotels` VALUES (1,'Screen Saver',1,2),(2,'Motel 0110',0,2);
+INSERT INTO `hotels` VALUES (1,'Screen Saver',1,3),(2,'Motel 0110',0,1);
 /*!40000 ALTER TABLE `hotels` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `job_titles`
---
-
-DROP TABLE IF EXISTS `job_titles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `job_titles` (
-  `job_title_id` int(11) NOT NULL AUTO_INCREMENT,
-  `job_title` varchar(45) NOT NULL,
-  PRIMARY KEY (`job_title_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `job_titles`
---
-
-LOCK TABLES `job_titles` WRITE;
-/*!40000 ALTER TABLE `job_titles` DISABLE KEYS */;
-INSERT INTO `job_titles` VALUES (1,'Roller Coaster Tech'),(2,'Manager'),(3,'Engineer');
-/*!40000 ALTER TABLE `job_titles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -348,6 +349,8 @@ CREATE TABLE `restaurants` (
   `theme_area_id` int(11) NOT NULL,
   PRIMARY KEY (`restaurant_id`),
   KEY `theme_area_id_restaurants` (`theme_area_id`),
+  KEY `restaurant_type_id_idx` (`food_category_id`),
+  CONSTRAINT `food_category_id` FOREIGN KEY (`food_category_id`) REFERENCES `food_categories` (`food_category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `theme_area_id_restaurants` FOREIGN KEY (`theme_area_id`) REFERENCES `theme_areas` (`theme_area_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -358,33 +361,32 @@ CREATE TABLE `restaurants` (
 
 LOCK TABLES `restaurants` WRITE;
 /*!40000 ALTER TABLE `restaurants` DISABLE KEYS */;
-INSERT INTO `restaurants` VALUES (1,'MegaByte',1,3),(2,'The Stack',2,3),(3,'GonePhishing',3,3);
+INSERT INTO `restaurants` VALUES (1,'MegaByte',1,1),(2,'The Stack',2,3),(3,'GonePhishing',3,2);
 /*!40000 ALTER TABLE `restaurants` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `room_types`
+-- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `room_types`;
+DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `room_types` (
-  `room_type_id` int(11) NOT NULL AUTO_INCREMENT,
-  `room_types_string` varchar(100) NOT NULL,
-  PRIMARY KEY (`room_type_id`),
-  UNIQUE KEY `room_types_string_UNIQUE` (`room_types_string`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE `roles` (
+  `Id` varchar(128) NOT NULL,
+  `Name` varchar(45) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `room_types`
+-- Dumping data for table `roles`
 --
 
-LOCK TABLES `room_types` WRITE;
-/*!40000 ALTER TABLE `room_types` DISABLE KEYS */;
-INSERT INTO `room_types` VALUES (3,'Admin'),(1,'Standard'),(2,'SuperUser');
-/*!40000 ALTER TABLE `room_types` ENABLE KEYS */;
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES ('1','Roller Coaster Tech'),('2','Manager'),('3','Engineer');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -397,7 +399,7 @@ DROP TABLE IF EXISTS `theme_areas`;
 CREATE TABLE `theme_areas` (
   `theme_area_id` int(11) NOT NULL AUTO_INCREMENT,
   `theme_area_name` varchar(45) NOT NULL,
-  `theme_area_description` varchar(200) DEFAULT NULL,
+  `theme_area_description` varchar(5000) DEFAULT NULL,
   `theme_area_pictures` varchar(50) DEFAULT NULL,
   `theme_park_id` int(11) NOT NULL,
   PRIMARY KEY (`theme_area_id`),
@@ -412,7 +414,7 @@ CREATE TABLE `theme_areas` (
 
 LOCK TABLES `theme_areas` WRITE;
 /*!40000 ALTER TABLE `theme_areas` DISABLE KEYS */;
-INSERT INTO `theme_areas` VALUES (1,'Main Frame','Roller Coasters',NULL,6),(2,'Sleep Mode','Hotels',NULL,6),(3,'The Bytes','Food',NULL,6);
+INSERT INTO `theme_areas` VALUES (1,'North Bridgia','Located at the northern area of our park this section includes many thrill rides and roller coasters','/nb',6),(2,'GP-Universe','An area of the park famous for it\'s multimedia heavy attractions','/gpu',6),(3,'South Bridgia','Located at the southern end of the park, this area is perfect for small children','/sb',6);
 /*!40000 ALTER TABLE `theme_areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,7 +444,7 @@ CREATE TABLE `theme_park` (
 
 LOCK TABLES `theme_park` WRITE;
 /*!40000 ALTER TABLE `theme_park` DISABLE KEYS */;
-INSERT INTO `theme_park` VALUES (6,'Silicon Shores','06:00:00','22:00:00','USA','TX','Houston','Team6GetsAnA 6 Blvd.');
+INSERT INTO `theme_park` VALUES (5,'Not Silicon Shores','10:00:00','12:00:00','USA','CA','Los Angeles','24132 dasf st'),(6,'Silicon Shores','06:00:00','22:00:00','USA','TX','Houston','Team6GetsAnA 6 Blvd.');
 /*!40000 ALTER TABLE `theme_park` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,7 +467,7 @@ CREATE TABLE `ticket_sales` (
   KEY `theme_park_id_sales` (`theme_park_id`),
   CONSTRAINT `theme_park_sales` FOREIGN KEY (`theme_park_id`) REFERENCES `theme_park` (`theme_park_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `ticket_type_sales` FOREIGN KEY (`ticket_type_id`) REFERENCES `ticket_types` (`ticket_type_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,8 +502,123 @@ CREATE TABLE `ticket_types` (
 
 LOCK TABLES `ticket_types` WRITE;
 /*!40000 ALTER TABLE `ticket_types` DISABLE KEYS */;
-INSERT INTO `ticket_types` VALUES (1,'Adult','One admit',30),(2,'Child','Child must be 12 years old or younger',15),(3,'Senior','Must be 65 years of age or older',22),(4,'Military','Must present valid military ID',22);
+INSERT INTO `ticket_types` VALUES (1,'Adult','One admit',30),(2,'Child','Child must be 12 years old or younger',15),(3,'Senior','Must be 65 years of age or older',22),(4,'Military/Veteran','Must present valid military ID',22);
 /*!40000 ALTER TABLE `ticket_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userclaims`
+--
+
+DROP TABLE IF EXISTS `userclaims`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userclaims` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `UserId` varchar(128) NOT NULL,
+  `ClaimType` longtext,
+  `ClaimValue` longtext,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `Id` (`Id`),
+  KEY `UserId` (`UserId`),
+  CONSTRAINT `ApplicationUser_Claims` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userclaims`
+--
+
+LOCK TABLES `userclaims` WRITE;
+/*!40000 ALTER TABLE `userclaims` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userclaims` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userlogins`
+--
+
+DROP TABLE IF EXISTS `userlogins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userlogins` (
+  `LoginProvider` varchar(128) NOT NULL,
+  `ProviderKey` varchar(128) NOT NULL,
+  `UserId` varchar(128) NOT NULL,
+  PRIMARY KEY (`LoginProvider`,`ProviderKey`,`UserId`),
+  KEY `ApplicationUser_Logins` (`UserId`),
+  CONSTRAINT `ApplicationUser_Logins` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userlogins`
+--
+
+LOCK TABLES `userlogins` WRITE;
+/*!40000 ALTER TABLE `userlogins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userlogins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userroles`
+--
+
+DROP TABLE IF EXISTS `userroles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userroles` (
+  `UserId` varchar(128) NOT NULL,
+  `RoleId` varchar(128) NOT NULL,
+  PRIMARY KEY (`UserId`,`RoleId`),
+  KEY `IdentityRole_Users` (`RoleId`),
+  CONSTRAINT `ApplicationUser_Roles` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `IdentityRole_Users` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userroles`
+--
+
+LOCK TABLES `userroles` WRITE;
+/*!40000 ALTER TABLE `userroles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userroles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `Id` varchar(128) NOT NULL,
+  `Email` varchar(256) DEFAULT NULL,
+  `EmailConfirmed` tinyint(1) NOT NULL,
+  `PasswordHash` longtext,
+  `SecurityStamp` longtext,
+  `PhoneNumber` longtext,
+  `PhoneNumberConfirmed` tinyint(1) NOT NULL,
+  `TwoFactorEnabled` tinyint(1) NOT NULL,
+  `LockoutEndDateUtc` datetime DEFAULT NULL,
+  `LockoutEnabled` tinyint(1) NOT NULL,
+  `AccessFailedCount` int(11) NOT NULL,
+  `UserName` varchar(256) NOT NULL,
+  PRIMARY KEY (`Id`),
+  CONSTRAINT `employee_id` FOREIGN KEY (`Id`) REFERENCES `employees` (`employee_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('02d6fc47-b47e-45e7-932a-469e7bfa6a16','ryanhornik@gmail.com',0,'AMaOQpmoSHfo5TYpO+N7RP8pdHPcscMRcTiPcI3VZO2ShKD2BAXzPeqSgK0TvYlICA==','d8d9489b-c3e5-4ce2-8109-80ac5f4bbca5',NULL,0,0,'2015-03-04 02:05:25',0,0,'ryanhornik@gmail.com');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -513,4 +630,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-21 14:08:47
+-- Dump completed on 2015-03-04  3:03:59
