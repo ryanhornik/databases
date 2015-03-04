@@ -11,9 +11,13 @@
 
 namespace SiliconShores.Models
 {
+<<<<<<< HEAD
 
 using System;
+=======
+    using System;
     using System.Web;
+>>>>>>> origin/develop
     using System.Collections.Generic;
     
 public partial class theme_areas
@@ -21,6 +25,7 @@ public partial class theme_areas
 
     public theme_areas()
     {
+<<<<<<< HEAD
 
         this.attractions = new HashSet<attraction>();
 
@@ -28,6 +33,35 @@ public partial class theme_areas
 
         this.restaurants = new HashSet<restaurant>();
 
+=======
+        public theme_areas()
+        {
+            this.attractions = new HashSet<attraction>();
+            this.hotels = new HashSet<hotel>();
+            this.restaurants = new HashSet<restaurant>();
+        }
+    
+        public int theme_area_id { get; set; }
+        public string theme_area_name { get; set; }
+        public string theme_area_description { get; set; }
+        public string theme_area_pictures { get; set; }
+        public int theme_park_id { get; set; }
+    
+        public virtual ICollection<attraction> attractions { get; set; }
+        public virtual ICollection<hotel> hotels { get; set; }
+        public virtual ICollection<restaurant> restaurants { get; set; }
+        public virtual theme_park theme_park { get; set; }
+
+        public List<String> getImagePaths()
+        {
+            List<String> images = new List<String>();
+            foreach (attraction attr in attractions)
+            {
+                images.Add(attr.getImagePath());
+            }
+            return images;
+        }
+>>>>>>> origin/develop
     }
 
 
@@ -51,15 +85,6 @@ public partial class theme_areas
 
     public virtual theme_park theme_park { get; set; }
 
-        public List<String> getImagePaths()
-        {
-            List<String> images = new List<String>();
-            foreach (attraction attr in attractions)
-            {
-                images.Add(attr.getImagePath());
-            }
-            return images;
-        }
 }
 
 }

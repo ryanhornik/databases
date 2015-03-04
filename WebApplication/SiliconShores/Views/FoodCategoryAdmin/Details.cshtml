@@ -1,0 +1,27 @@
+﻿@model SiliconShores.Models.food_categories
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>food_categories</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.food_categories_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.food_categories_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.food_category_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

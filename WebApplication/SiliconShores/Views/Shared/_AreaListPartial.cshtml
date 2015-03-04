@@ -1,0 +1,14 @@
+﻿@using SiliconShores.Models
+@{
+    ViewBag.SectionList = (new theme_park_dbEntities()).theme_areas;
+}
+
+
+@foreach (theme_areas t in ViewBag.SectionList)
+{
+    <li>@Html.ActionLink(t.theme_area_name,
+                         "Index",
+                         "Sections",
+                         new { id = t.theme_area_id },
+                         null)</li>
+}

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SiliconShores.Models.theme_areas>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.theme_area_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.theme_area_description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.theme_area_pictures)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.theme_park.theme_park_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.theme_area_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.theme_area_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.theme_area_pictures)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.theme_park.theme_park_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.theme_area_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.theme_area_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.theme_area_id })
+        </td>
+    </tr>
+}
+
+</table>

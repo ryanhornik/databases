@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SiliconShores.Models.theme_park>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.theme_park_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.park_open)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.park_close)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.park_country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.park_state_or_province)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.park_city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.park_street_address)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.theme_park_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.park_open)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.park_close)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.park_country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.park_state_or_province)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.park_city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.park_street_address)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.theme_park_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.theme_park_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.theme_park_id })
+        </td>
+    </tr>
+}
+
+</table>

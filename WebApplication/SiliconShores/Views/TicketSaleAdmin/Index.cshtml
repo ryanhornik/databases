@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SiliconShores.Models.ticket_sales>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sale_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.redemption_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sale_location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.theme_park.theme_park_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ticket_types.ticket_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sale_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.redemption_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sale_location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.theme_park.theme_park_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticket_types.ticket_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ticket_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ticket_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ticket_id })
+        </td>
+    </tr>
+}
+
+</table>
