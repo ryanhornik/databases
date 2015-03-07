@@ -9,6 +9,7 @@ using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
 {
+    [Authorize]
     public class RideReportAdminController : Controller
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();

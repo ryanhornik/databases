@@ -10,6 +10,7 @@ using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
 {
+    [Authorize]
     public class EmployeeAdminController : Controller
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
