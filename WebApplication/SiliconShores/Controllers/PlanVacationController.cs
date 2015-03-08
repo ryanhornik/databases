@@ -61,22 +61,6 @@ namespace SiliconShores.Controllers
             return View(hotel_reservations);
         }
 
-        // GET: PlanVacation/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            hotel_reservations hotel_reservations = db.hotel_reservations.Find(id);
-            if (hotel_reservations == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.hotel_id = new SelectList(db.hotel_rooms, "hotel_id", "hotel_id", hotel_reservations.hotel_id);
-            return View(hotel_reservations);
-        }
-
         // POST: PlanVacation/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
