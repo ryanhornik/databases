@@ -41,6 +41,5 @@ namespace SiliconShores.Models
             }
             return images;
         }
-    
     }
 }

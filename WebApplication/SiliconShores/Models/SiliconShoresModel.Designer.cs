@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Ryan\OneDrive\Documents\Spring 2015\Databases\TeamProject\Repo\WebApplication\SiliconShores\Models\SiliconShoresModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Ryan\SkyDrive\Documents\Spring 2015\Databases\TeamProject\Repo\WebApplication\SiliconShores\Models\SiliconShoresModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
