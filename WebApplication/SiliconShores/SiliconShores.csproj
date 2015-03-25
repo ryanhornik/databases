@@ -254,6 +254,7 @@
     <Compile Include="Models\theme_park.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TicketsViewModel.cs" />
     <Compile Include="Models\ticket_sales.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
