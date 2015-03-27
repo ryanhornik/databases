@@ -23,11 +23,16 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sections
-                            <span class="caret"></span></a>
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
                             @Html.Partial("_AreaListPartial")
                         </ul>
                     </li>
+                    <li>@Html.ActionLink("Planing","Planning","Home")
+                        
+                    </li>
+                        
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
