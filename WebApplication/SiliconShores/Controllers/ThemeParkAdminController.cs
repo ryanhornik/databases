@@ -21,13 +21,13 @@ namespace SiliconShores.Controllers
         }
 
         // GET: ThemeParkAdmin/Details/5
-        public ActionResult Details(char name)
+        public ActionResult Details(int? id)
         {
-            if (name == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            theme_park theme_park = db.theme_park.Find("Silicon Shores");
+            theme_park theme_park = db.theme_park.Find(id);
             if (theme_park == null)
             {
                 return HttpNotFound();
