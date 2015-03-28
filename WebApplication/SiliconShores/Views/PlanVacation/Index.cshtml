@@ -4,55 +4,71 @@
     ViewBag.Title = "Planning";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<html>
+<body>
+    <header>
+        <h2>Plan Your Perfect Day</h2>
+        <link rel="stylesheet" href="styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="styles/kendo.default.min.css" />
+        <link rel="stylesheet" href="styles/kendo.dataviz.min.css" />
+        <link rel="stylesheet" href="styles/kendo.dataviz.default.min.css" />
 
-<h2>Plan The Perfect Day</h2>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/kendo.all.min.js"></script>
 
-<p>
-    <a class="btn btn-primary btn-lg">Create New</a></p>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.reservation_checkin_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.reservation_checkout_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.total_reservation_cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.paid_in_full)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hotel_rooms.hotel_id)
-        </th>
-        <th></th>
-    </tr>
+    </header>
+    <br />
+    <h4>Arrival:</h4>
+    <input type="text" id="datepicker" name="arrivalDate" />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.reservation_checkin_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.reservation_checkout_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.total_reservation_cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.paid_in_full)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hotel_rooms.hotel_id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.reservation_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.reservation_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.reservation_id })
-        </td>
-    </tr>
-}
+    <h4>Nights:</h4>
+    <input type="number" name="numberOfNights" />
 
-</table>
+    <h4>Adults:</h4>
+    <input type="number" name="numberOfAdults" />
+
+
+    <br />
+    <input type="submit" value="Create New" a class="btn btn-primary btn-lg" />
+
+
+    <script>
+    $(document).ready(function () {
+        // create DatePicker from input HTML element
+        $("#datepicker").kendoDatePicker();
+
+        $("#monthpicker").kendoDatePicker({
+            // defines the start view
+            start: "year",
+
+            // defines when the calendar should return date
+            depth: "year",
+
+            // display month and year in the input
+            format: "MMMM yyyy"
+        });
+    });
+    </script>
+    <style>
+        .demo-section {
+            width: 400px;
+        }
+
+            .demo-section p {
+                margin-top: 2em;
+            }
+
+            .demo-section label {
+                display: inline-block;
+                width: 180px;
+                padding-right: 5px;
+                text-align: right;
+            }
+
+        #example .k-datepicker {
+            vertical-align: middle;
+        }
+    </style>
+
+</body>
+</html>
