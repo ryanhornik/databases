@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AttractionAdminController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
+    <Compile Include="Controllers\EmployeeMainController.cs" />
     <Compile Include="Controllers\FoodCategoryAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelAdminController.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Controllers\ThemeAreaAdminController.cs" />
     <Compile Include="Controllers\ThemeParkAdminController.cs" />
     <Compile Include="Controllers\TicketSaleAdminController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TicketTypeAdminController.cs" />
     <Compile Include="Controllers\WeatherAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -254,7 +256,6 @@
     <Compile Include="Models\theme_park.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TicketsViewModel.cs" />
     <Compile Include="Models\ticket_sales.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
@@ -432,6 +433,9 @@
     <Content Include="Views\TicketTypeAdmin\Details.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Edit.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Index.cshtml" />
+    <Content Include="Views\EmployeeMain\Main.cshtml" />
+    <Content Include="Views\Tickets\TicketInformation.cshtml" />
+    <Content Include="Views\Tickets\TicketPurchase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
