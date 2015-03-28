@@ -1,9 +1,9 @@
-﻿@{
+﻿@model IEnumerable<SiliconShores.Models.theme_park>
+@{
     ViewBag.Title = "Home Page";
 }
-
 <div class="jumbotron">
-    <h1>Silicon Shores</h1>
+    <h1>@Html.DisplayFor(model => model.theme_park_name)</h1> 
     <p class="lead">Silicon Shores is the greatest vacation destination for families big and small</p>
     <p><a href="/Home/About" class="btn btn-primary btn-lg">About us... &raquo;</a></p>
 </div>
