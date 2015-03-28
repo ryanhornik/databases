@@ -214,6 +214,7 @@
     <Compile Include="Controllers\AttractionAdminController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
+    <Compile Include="Controllers\EmployeeMainController.cs" />
     <Compile Include="Controllers\FoodCategoryAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelAdminController.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Controllers\ThemeAreaAdminController.cs" />
     <Compile Include="Controllers\ThemeParkAdminController.cs" />
     <Compile Include="Controllers\TicketSaleAdminController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TicketTypeAdminController.cs" />
     <Compile Include="Controllers\WeatherAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -489,6 +491,9 @@
     <Content Include="Views\PlanVacation\Create.cshtml" />
     <Content Include="Views\PlanVacation\Delete.cshtml" />
     <Content Include="Views\PlanVacation\Details.cshtml" />
+    <Content Include="Views\EmployeeMain\Main.cshtml" />
+    <Content Include="Views\Tickets\TicketInformation.cshtml" />
+    <Content Include="Views\Tickets\TicketPurchase.cshtml" />
     <Content Include="Views\PlanVacation\Edit.cshtml" />
     <Content Include="Views\PlanVacation\Index.cshtml" />
     <Content Include="Views\EmployeeAdmin\Create.cshtml" />
