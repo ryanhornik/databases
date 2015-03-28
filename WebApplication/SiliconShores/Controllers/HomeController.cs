@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.Mvc;
 using SiliconShores.Models;
 
@@ -13,18 +14,17 @@ namespace SiliconShores.Controllers
 
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
-        public ActionResult Index(char? name)
+        public ActionResult Index()
         {
-            if (name == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            theme_park theme_park = db.theme_park.Find("Silicon Shores");
-            if (theme_park == null)
+            var theme_parks = from m in db.theme_park
+                select m;
+            theme_parks = theme_parks.Where(s => s.theme_park_name.Equals("Silicon Shores"));
+            theme_park themePark = theme_parks.First();
+            if (themePark == null)
             {
                 return HttpNotFound();
             }
-            return View(theme_park);
+            return View(themePark);
         }
 
         public ActionResult About()
