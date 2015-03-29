@@ -493,7 +493,6 @@
     <Content Include="Views\PlanVacation\Details.cshtml" />
     <Content Include="Views\EmployeeMain\Main.cshtml" />
     <Content Include="Views\Tickets\TicketInformation.cshtml" />
-    <Content Include="Views\Tickets\TicketPurchase.cshtml" />
     <Content Include="Views\PlanVacation\Edit.cshtml" />
     <Content Include="Views\PlanVacation\Index.cshtml" />
     <Content Include="Views\EmployeeAdmin\Create.cshtml" />
@@ -506,6 +505,7 @@
     <Content Include="Views\RoleAdmin\Details.cshtml" />
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
     <Content Include="Views\RoleAdmin\Index.cshtml" />
+    <Content Include="Views\Tickets\TicketPurchase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
