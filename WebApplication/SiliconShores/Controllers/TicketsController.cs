@@ -17,5 +17,22 @@ namespace SiliconShores.Controllers
         {
             return View(db.ticket_types.ToList());
         }
+
+        public ActionResult TicketPurchase() 
+        {
+            return View();
+        }
+
+        public ActionResult ProcessTickets(int ChildrenTickets, int AdultTickets, int SeniorTickets, int MilitaryTickets) 
+        {
+
+            for (int i = 0; i < ChildrenTickets; i++) 
+            {
+               
+            }
+
+                return View();//placeholder
+        }
+
     }
 }
