@@ -1,0 +1,39 @@
+﻿@model SiliconShores.Models.ticket_sales
+
+@{
+    ViewBag.Title = "TicketPurchase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ticket Purchase</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <lable>Children Tickets:</lable>
+        <input name="ChildrenTickets" type="number" min="0" max="10" />
+    </div>
+    
+    <div class=" form-group">
+        <lable>Adult Tickets:   </lable>
+        <input name="AdultTickets" type="number" min="0" max="10" />
+    </div>
+    
+    <div class="form-group">
+        <lable>Senior Tickets:  </lable>
+        <input name="SeniorTickets" type="number" min="0" max="10" />
+    </div>
+    
+    <div class="form-group">
+        <lable>Military Tickets:    </lable>
+        <input name="MilitaryTickets" type="number" min="0" max="10" />
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Purchase" class="btn btn-default" />
+        </div>
+    </div>
+}

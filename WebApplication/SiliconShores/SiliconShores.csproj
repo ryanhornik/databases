@@ -435,7 +435,7 @@
     <Content Include="Views\TicketTypeAdmin\Index.cshtml" />
     <Content Include="Views\EmployeeMain\Main.cshtml" />
     <Content Include="Views\Tickets\TicketInformation.cshtml" />
-    <Content Include="Views\Tickets\TicketPurchase.cshtml" />
+    <Content Include="Views\Tickets\Ticketbuy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
