@@ -4,71 +4,16 @@
     ViewBag.Title = "Planning";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<html>
-<body>
-    <header>
-        <h2>Plan Your Perfect Day</h2>
-        <link rel="stylesheet" href="styles/kendo.common.min.css" />
-        <link rel="stylesheet" href="styles/kendo.default.min.css" />
-        <link rel="stylesheet" href="styles/kendo.dataviz.min.css" />
-        <link rel="stylesheet" href="styles/kendo.dataviz.default.min.css" />
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/kendo.all.min.js"></script>
-
-    </header>
-    <br />
-    <h4>Arrival:</h4>
-    <input type="text" id="datepicker" name="arrivalDate" />
-
-    <h4>Nights:</h4>
-    <input type="number" name="numberOfNights" />
-
-    <h4>Adults:</h4>
-    <input type="number" name="numberOfAdults" />
-
-
-    <br />
-    <input type="submit" value="Create New" a class="btn btn-primary btn-lg" />
-
-
-    <script>
-    $(document).ready(function () {
-        // create DatePicker from input HTML element
-        $("#datepicker").kendoDatePicker();
-
-        $("#monthpicker").kendoDatePicker({
-            // defines the start view
-            start: "year",
-
-            // defines when the calendar should return date
-            depth: "year",
-
-            // display month and year in the input
-            format: "MMMM yyyy"
-        });
-    });
-    </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Plan Your Perfect Day</title>
     <style>
-        .demo-section {
-            width: 400px;
-        }
-
-            .demo-section p {
-                margin-top: 2em;
-            }
-
-            .demo-section label {
-                display: inline-block;
-                width: 180px;
-                padding-right: 5px;
-                text-align: right;
-            }
-
-        #example .k-datepicker {
-            vertical-align: middle;
-        }
+        body {margin:auto; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:medium}
     </style>
 
-</body>
+
+
+</head>
 </html>
