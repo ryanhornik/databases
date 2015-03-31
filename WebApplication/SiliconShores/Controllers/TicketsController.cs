@@ -12,7 +12,7 @@ namespace SiliconShores.Controllers
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
-        // GET: Tickets
+         GET: Tickets
         public ActionResult TicketInformation()
         {
             return View(db.ticket_types.ToList());
@@ -26,12 +26,58 @@ namespace SiliconShores.Controllers
         public ActionResult ProcessTickets(int ChildrenTickets, int AdultTickets, int SeniorTickets, int MilitaryTickets) 
         {
 
-            for (int i = 0; i < ChildrenTickets; i++) 
+            if (ModelState.IsValid)
             {
-               
-            }
+                for (int i = 0; i < ChildrenTickets; i++)
+                {
+                    ticket_sales sale = new ticket_sales();
+                    sale.ticket_type_id = 1;
+                    sale.redemption_date = DateTime.Today;
+                    sale.redemption_date = null;
+                    sale.theme_park_id = 2;
+                    sale.sale_location = "Online";
+                    db.ticket_sales.Add(sale);
+                    db.SaveChanges();
+                }
 
-                return View();//placeholder
+                for (int i = 0; i < AdultTickets; i++)
+                {
+                    ticket_sales sale = new ticket_sales();
+                    sale.ticket_type_id = 2;
+                    sale.redemption_date = DateTime.Today;
+                    sale.redemption_date = null;
+                    sale.theme_park_id = 2;
+                    sale.sale_location = "Online";
+                    db.ticket_sales.Add(sale);
+                    db.SaveChanges();
+                }
+
+                for (int i = 0; i < SeniorTickets; i++)
+                {
+                    ticket_sales sale = new ticket_sales();
+                    sale.ticket_type_id = 3;
+                    sale.redemption_date = DateTime.Today;
+                    sale.redemption_date = null;
+                    sale.theme_park_id = 2;
+                    sale.sale_location = "Online";
+                    db.ticket_sales.Add(sale);
+                    db.SaveChanges();
+                }
+
+                for (int i = 0; i < MilitaryTickets; i++)
+                {
+                    ticket_sales sale = new ticket_sales();
+                    sale.ticket_type_id = 4;
+                    sale.redemption_date = DateTime.Today;
+                    sale.redemption_date = null;
+                    sale.theme_park_id = 2;
+                    sale.sale_location = "Online";
+                    db.ticket_sales.Add(sale);
+                    db.SaveChanges();
+                }
+            }
+            //change this later to move to a finalization page
+            return RedirectToAction("Home");
         }
 
     }
