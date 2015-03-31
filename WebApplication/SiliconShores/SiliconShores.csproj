@@ -265,6 +265,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ReservationCheckInModels.cs" />
     <Compile Include="Models\restaurant.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>

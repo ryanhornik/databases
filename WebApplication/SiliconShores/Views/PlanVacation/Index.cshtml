@@ -1,19 +1,24 @@
-﻿@model IEnumerable<SiliconShores.Models.hotel_reservations>
+﻿@model IEnumerable<SiliconShores.Models.ReservationCheckInModels>
 
 @{
     ViewBag.Title = "Planning";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var header = "Plan Your Perfect Day";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Plan Your Perfect Day</title>
-    <style>
-        body {margin:auto; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:medium}
-    </style>
+<h2>@header</h2>
 
-
-
-</head>
-</html>
+@using(Html.BeginForm("Planning","PlanVacation",FormMethod.Post, new{@class="form-horizontal", role="form"}))
+{
+    @Html.AntiForgeryToken()
+    <h4>Arrival Date:</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger"})
+    <div class="form-group">
+        @Html.TextBoxFor(arrivalDate, new { @class = "form-control" })
+        <div class="col-md-10">
+            @Html.Label("EX: MM/DD/YYYY")
+        </div>
+    </div>
+    
+}
