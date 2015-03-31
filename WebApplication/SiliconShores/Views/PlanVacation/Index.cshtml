@@ -8,14 +8,14 @@
 
 <h2>@header</h2>
 
-@using(Html.BeginForm("Planning","PlanVacation",FormMethod.Post, new{@class="form-horizontal", role="form"}))
+@using(Html.BeginForm("Index","PlanVacation",FormMethod.Post, new{@class="form-horizontal", role="form"}))
 {
     @Html.AntiForgeryToken()
     <h4>Arrival Date:</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger"})
     <div class="form-group">
-        @Html.TextBoxFor(arrivalDate, new { @class = "form-control" })
+        @Html.LabelFor(m => m.ArrivalDate, new { @class = "form-control" })
         <div class="col-md-10">
             @Html.Label("EX: MM/DD/YYYY")
         </div>

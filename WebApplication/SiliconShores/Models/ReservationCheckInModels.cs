@@ -6,15 +6,15 @@ namespace SiliconShores.Models
     {
         [Required]
         [Display(Name = "Arrival Date")]
-        public string arrivalDate { get; set; }
+        public string ArrivalDate { get; set; }
 
         [Required]
         [Display(Name = "Nights")]
-        public int nights { get; set; }
+        public int Nights { get; set; }
 
         [Required]
         [Display(Name = "Adults")]
-        public int adults { get; set; }
+        public int Adults { get; set; }
 
         
     }
