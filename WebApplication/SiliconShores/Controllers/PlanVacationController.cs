@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using SiliconShores.Models;
 using System.Data.Entity;
-using System.Linq;
+using System;
 using System.Net;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
 {
@@ -17,100 +16,14 @@ namespace SiliconShores.Controllers
         // GET: PlanVacation
         public ActionResult Index()
         {
-            var hotel_reservations = db.hotel_reservations.Include(h => h.hotel_rooms);
-            return View(hotel_reservations.ToList());
-        }
-
-        // GET: PlanVacation/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            hotel_reservations hotel_reservations = db.hotel_reservations.Find(id);
-            if (hotel_reservations == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hotel_reservations);
-        }
-
-        // GET: PlanVacation/Create
-        public ActionResult Create()
-        {
-            ViewBag.hotel_id = new SelectList(db.hotel_rooms, "hotel_id", "hotel_id");
+            //ViewBag.ticket_types_id = new SelectList(db.ticket_types, "ticket_types_id", "ticket_name");
+            //ViewBag.room_types_id = new SelectList(db.room_types, "room_types_id", "room_types_string");
             return View();
         }
 
-        // POST: PlanVacation/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "reservation_id,hotel_id,room_number,reservation_checkin_date,reservation_checkout_date,total_reservation_cost,paid_in_full")] hotel_reservations hotel_reservations)
+        public ActionResult TicketInformation()
         {
-            if (ModelState.IsValid)
-            {
-                db.hotel_reservations.Add(hotel_reservations);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.hotel_id = new SelectList(db.hotel_rooms, "hotel_id", "hotel_id", hotel_reservations.hotel_id);
-            return View(hotel_reservations);
-        }
-
-        // POST: PlanVacation/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "reservation_id,hotel_id,room_number,reservation_checkin_date,reservation_checkout_date,total_reservation_cost,paid_in_full")] hotel_reservations hotel_reservations)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(hotel_reservations).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.hotel_id = new SelectList(db.hotel_rooms, "hotel_id", "hotel_id", hotel_reservations.hotel_id);
-            return View(hotel_reservations);
-        }
-
-        // GET: PlanVacation/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            hotel_reservations hotel_reservations = db.hotel_reservations.Find(id);
-            if (hotel_reservations == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hotel_reservations);
-        }
-
-        // POST: PlanVacation/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            hotel_reservations hotel_reservations = db.hotel_reservations.Find(id);
-            db.hotel_reservations.Remove(hotel_reservations);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return View(db.ticket_types.ToList());
         }
     }
 }

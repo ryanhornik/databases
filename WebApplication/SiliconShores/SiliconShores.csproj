@@ -265,7 +265,6 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ReservationCheckInModels.cs" />
     <Compile Include="Models\restaurant.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
@@ -314,6 +313,7 @@
     <Compile Include="Models\userlogin.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VacationPlanModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -487,11 +487,6 @@
     <Content Include="Views\TicketTypeAdmin\Details.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Edit.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Index.cshtml" />
-    <Content Include="Views\PlanVacation\Create.cshtml" />
-    <Content Include="Views\PlanVacation\Delete.cshtml" />
-    <Content Include="Views\PlanVacation\Details.cshtml" />
-    <Content Include="Views\PlanVacation\Edit.cshtml" />
-    <Content Include="Views\PlanVacation\Index.cshtml" />
     <Content Include="Views\EmployeeAdmin\Create.cshtml" />
     <Content Include="Views\EmployeeAdmin\Delete.cshtml" />
     <Content Include="Views\EmployeeAdmin\Details.cshtml" />
@@ -502,6 +497,8 @@
     <Content Include="Views\RoleAdmin\Details.cshtml" />
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
     <Content Include="Views\RoleAdmin\Index.cshtml" />
+    <Content Include="Views\PlanVacation.cshtml" />
+    <Content Include="Views\PlanVacation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
