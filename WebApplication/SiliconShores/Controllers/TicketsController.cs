@@ -12,7 +12,7 @@ namespace SiliconShores.Controllers
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
-         GET: Tickets
+         //GET: Tickets
         public ActionResult TicketInformation()
         {
             return View(db.ticket_types.ToList());
@@ -76,7 +76,7 @@ namespace SiliconShores.Controllers
                     db.SaveChanges();
                 }
             }
-            //change this later to move to a finalization page
+
             return RedirectToAction("Home");
         }
 
