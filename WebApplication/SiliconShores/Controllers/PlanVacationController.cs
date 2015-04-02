@@ -14,27 +14,11 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: PlanVacation
-        public ActionResult Index()
+        public ActionResult Index(string submit)
         {
             //ViewBag.ticket_types_id = new SelectList(db.ticket_types, "ticket_types_id", "ticket_name");
             ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
             return View();
-        }
-
-        public ActionResult TicketInformation()
-        {
-            return View(db.ticket_types.ToList());
-        }
-
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CheckNow()
-        {
-
-
-            return RedirectToAction("Index");
         }
     }
 }
