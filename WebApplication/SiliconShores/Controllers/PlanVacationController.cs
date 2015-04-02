@@ -25,5 +25,14 @@ namespace SiliconShores.Controllers
         {
             return View(db.ticket_types.ToList());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CheckNow()
+        {
+
+
+            return RedirectToAction("Index");
+        }
     }
 }
