@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="navbar text-center center-block" style="background-color: lightgrey">
+    
+    <h2>Employee Portal</h2>
+    <div class="container" style="width: 105%">
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Employee Management
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Employees", "Index", "EmployeeAdmin")</li>
+                        <li>@Html.ActionLink("Job Titles", "Index", "RoleAdmin")</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Theme Park Management
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Theme Park", "Index", "ThemeParkAdmin")</li>
+                        <li>@Html.ActionLink("Theme Areas", "Index", "ThemeAreaAdmin")</li>
+                        <li>@Html.ActionLink("Weather Logs", "Index", "WeatherAdmin")</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Attraction Management
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Attractions", "Index", "AttractionAdmin")</li>
+                        <li>@Html.ActionLink("Ride Reports", "Index", "RideReportAdmin")</li>
+                        <li>@Html.ActionLink("Breakdowns", "Index", "BreakdownAdmin")</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Hotel Management
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Hotels", "Index", "HotelAdmin")</li>
+                        <li>@Html.ActionLink("Hotel Reservations", "Index", "HotelReservationAdmin")</li>
+                        <li>@Html.ActionLink("Hotel Rooms", "Index", "HotelRoomAdmin")</li>
+                        <li>@Html.ActionLink("Room Types", "Index", "RoomTypeAdmin")</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Restaurant Management
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Restaurants", "Index", "RestaurantAdmin")</li>
+                        <li>@Html.ActionLink("Restaurant Reports", "Index", "RestaurantReportAdmin")</li>
+                        <li>@Html.ActionLink("Restaurant Categories", "Index", "FoodCategoryAdmin")</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Ticket Management
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Ticket Sales", "Index", "TicketSaleAdmin")</li>
+                        <li>@Html.ActionLink("Ticket Types", "Index", "TicketTypeAdmin")</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using AspNet.Identity.MySQL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -86,6 +87,11 @@ namespace SiliconShores.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            if (returnUrl.IsEmpty())
+            {
+                returnUrl = ("portal");
             }
 
             

@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace SiliconShores.Controllers
 {
-    public class EmployeeMainController : Controller
+    public class PortalController : Controller
     {
-        // GET: EmployeeMain
-        public ActionResult Main()
+        // GET: Portal
+        public ActionResult Index()
         {
             return View();
         }

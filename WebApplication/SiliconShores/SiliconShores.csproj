@@ -214,7 +214,7 @@
     <Compile Include="Controllers\AttractionAdminController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
-    <Compile Include="Controllers\EmployeeMainController.cs" />
+    <Compile Include="Controllers\PortalController.cs" />
     <Compile Include="Controllers\FoodCategoryAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelAdminController.cs" />
@@ -491,7 +491,7 @@
     <Content Include="Views\PlanVacation\Create.cshtml" />
     <Content Include="Views\PlanVacation\Delete.cshtml" />
     <Content Include="Views\PlanVacation\Details.cshtml" />
-    <Content Include="Views\EmployeeMain\Main.cshtml" />
+    <Content Include="Views\Portal\Index.cshtml" />
     <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Views\PlanVacation\Edit.cshtml" />
     <Content Include="Views\PlanVacation\Index.cshtml" />
