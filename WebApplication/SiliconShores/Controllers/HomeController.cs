@@ -35,8 +35,7 @@ namespace SiliconShores.Controllers
 
         public ActionResult Contact()
         {
-            
-            ViewBag.Message = "Contact us";
+            ViewBag.Message = "Contact Us";
 
             return View();
         }
