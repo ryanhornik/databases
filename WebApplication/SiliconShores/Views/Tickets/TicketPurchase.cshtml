@@ -2,7 +2,7 @@
     ViewBag.Title = "TicketPurchase";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    int numChildren, numAdult, numSenior, numMilitary;    
+    int numChildren=1, numAdult=0, numSenior=0, numMilitary=0;    
 }
 
 <h2>Ticket Purchase</h2>
@@ -34,7 +34,12 @@
 
     <div class="form-group">
         <div class="col-md col-md-10">
-            <input type="button" value="Purchase" class="btn btn-default" onclick="@Url.Action("ProcessTickets","TicketsController")" 
+            <input type="button" value="Purchase" class="btn btn-default" onclick="@Url.Action("ProcessTickets",
+                                                                                               "TicketsController",
+                                                                                               new {ChildrenTickets = numChildren,
+                                                                                                    AdultTickets = numAdult,
+                                                                                                    SeniorTickets = numSenior,
+                                                                                                    MilitaryTickets = numMilitary})" 
             
             />
         </div>
