@@ -13,71 +13,56 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
          //GET: Tickets
-        public ActionResult TicketInformation()
+        public ActionResult Index()
         {
             return View(db.ticket_types.ToList());
         }
 
-        public ActionResult TicketPurchase() 
+        public ActionResult Buy() 
         {
             return View();
         }
 
-        public ActionResult ProcessTickets(int ChildrenTickets, int AdultTickets, int SeniorTickets, int MilitaryTickets) 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Buy(int childrenTickets = 0, int adultTickets = 0, int seniorTickets = 0, int militaryTickets = 0)
         {
+            var theme_park = db.theme_park.First(s => s.theme_park_name.Equals("Silicon Shores"));
+            var ticket_types = db.ticket_types;
+            var sale_date = DateTime.Today;
 
+            
             if (ModelState.IsValid)
             {
-                for (int i = 0; i < ChildrenTickets; i++)
-                {
-                    ticket_sales sale = new ticket_sales();
-                    sale.ticket_type_id = 1;
-                    sale.redemption_date = DateTime.Today;
-                    sale.redemption_date = null;
-                    sale.theme_park_id = 2;
-                    sale.sale_location = "Online";
-                    db.ticket_sales.Add(sale);
-                    db.SaveChanges();
-                }
+                ticket_sales sale = new ticket_sales();
+                sale.sale_date = sale_date;
+                sale.redemption_date = null;
+                sale.theme_park = theme_park;
+                sale.sale_location = "Online";
 
-                for (int i = 0; i < AdultTickets; i++)
-                {
-                    ticket_sales sale = new ticket_sales();
-                    sale.ticket_type_id = 2;
-                    sale.redemption_date = DateTime.Today;
-                    sale.redemption_date = null;
-                    sale.theme_park_id = 2;
-                    sale.sale_location = "Online";
-                    db.ticket_sales.Add(sale);
-                    db.SaveChanges();
-                }
+                List<ticket_sales> fullSale = new List<ticket_sales>();
 
-                for (int i = 0; i < SeniorTickets; i++)
-                {
-                    ticket_sales sale = new ticket_sales();
-                    sale.ticket_type_id = 3;
-                    sale.redemption_date = DateTime.Today;
-                    sale.redemption_date = null;
-                    sale.theme_park_id = 2;
-                    sale.sale_location = "Online";
-                    db.ticket_sales.Add(sale);
-                    db.SaveChanges();
-                }
+                sale.ticket_types = ticket_types.First(s => s.ticket_name.Equals("Child"));
+                fullSale.AddRange(Enumerable.Repeat(sale, childrenTickets));
 
-                for (int i = 0; i < MilitaryTickets; i++)
+                sale.ticket_types = ticket_types.First(s => s.ticket_name.Equals("Adult"));
+                fullSale.AddRange(Enumerable.Repeat(sale, adultTickets));
+
+                sale.ticket_types = ticket_types.First(s => s.ticket_name.Equals("Senior"));
+                fullSale.AddRange(Enumerable.Repeat(sale, seniorTickets));
+                
+                sale.ticket_types = ticket_types.First(s => s.ticket_name.Equals("Military/Veteran"));
+                fullSale.AddRange(Enumerable.Repeat(sale, militaryTickets));
+
+                foreach (var ticket in fullSale)
                 {
-                    ticket_sales sale = new ticket_sales();
-                    sale.ticket_type_id = 4;
-                    sale.redemption_date = DateTime.Today;
-                    sale.redemption_date = null;
-                    sale.theme_park_id = 2;
-                    sale.sale_location = "Online";
-                    db.ticket_sales.Add(sale);
+                    db.ticket_sales.Add(ticket);
                     db.SaveChanges();
                 }
+                
             }
 
-            return RedirectToAction("/Home/Index");
+            return RedirectToAction("Index");
         }
 
     }
