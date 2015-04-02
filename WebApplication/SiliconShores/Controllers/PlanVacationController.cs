@@ -16,8 +16,13 @@ namespace SiliconShores.Controllers
         // GET: PlanVacation
         public ActionResult Index(string submit)
         {
-            //ViewBag.ticket_types_id = new SelectList(db.ticket_types, "ticket_types_id", "ticket_name");
             ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
+
+            if (!string.IsNullOrEmpty(submit))
+            {
+                Response.Write(submit);
+
+            }
             return View();
         }
     }
