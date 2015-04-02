@@ -17,7 +17,7 @@ namespace SiliconShores.Controllers
         public ActionResult Index()
         {
             //ViewBag.ticket_types_id = new SelectList(db.ticket_types, "ticket_types_id", "ticket_name");
-            //ViewBag.room_types_id = new SelectList(db.room_types, "room_types_id", "room_types_string");
+            ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
             return View();
         }
 
@@ -25,6 +25,8 @@ namespace SiliconShores.Controllers
         {
             return View(db.ticket_types.ToList());
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -16,16 +16,23 @@ namespace SiliconShores.Models
         public int Nights { get; set; }
 
         [Required]
-        [Display(Name = "Ticket Types")]
-        public ticket_types TicketType { get; set; }
+        [Display(Name = "Adults")]
+        public int Adults { get; set; }
 
         [Required]
-        [Display(Name = "Number of Tickets")]
-        public int NumberOfTickets { get; set; }
+        [Display(Name = "Children")]
+        public int Children { get; set; }
+
+        [Required]
+        [Display(Name = "Infants")]
+        public int Infants { get; set; }
 
         [Required]
         [Display(Name = "Room Type")]
         public room_types RoomType { get; set; }
 
+        [Required]
+        [Display(Name = "Rooms")]
+        public int Rooms { get; set; }
     }
 }
