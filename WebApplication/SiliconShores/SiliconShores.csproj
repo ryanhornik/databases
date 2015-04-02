@@ -333,6 +333,11 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SiliconShoresModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Home\map.jpg" />
+    <Content Include="Home\plan vacation.gif" />
+    <Content Include="Home\plan vacation.jpg" />
+    <Content Include="Home\rollercoaster pic.png" />
+    <Content Include="Home\tickets.png" />
     <Content Include="Models\SiliconShoresModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SiliconShoresModel.edmx</DependentUpon>
@@ -357,6 +362,9 @@
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\coin-slider-styles.css" />
+    <Content Include="Scripts\coin-slider.js" />
+    <Content Include="Scripts\coin-slider.min.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
@@ -383,9 +391,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\PlanVacation\Home\About.cshtml" />
+    <Content Include="Views\PlanVacation\Home\Contact.cshtml" />
+    <Content Include="Views\PlanVacation\Home\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />

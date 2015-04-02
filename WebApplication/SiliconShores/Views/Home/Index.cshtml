@@ -1,15 +1,21 @@
 ﻿@model SiliconShores.Models.theme_park
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
+
 }
-<div class="jumbotron">
+
+<script type="text/javascript" src="jquery-1.4.2.js"></script>
+<script type="text/javascript" src="coin-slider.min.js"></script>
+<link rel="stylesheet" href="coin-slider-styles.css" type="text/css" />
+
+<div class="jumbotron" id="title">
     <h1>@Html.DisplayFor(model => model.theme_park_name)</h1> 
     <p class="lead">Silicon Shores is the greatest vacation destination for families big and small</p>
     <p><a href="/Home/About" class="btn btn-primary btn-lg">About us... &raquo;</a></p>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+ <!----  <div class="col-md-4">
         <h2>Book your vacation</h2>
         <p>
             Unfortunately our online booking system is not yet up. However, you can still book by contacting us
@@ -17,9 +23,111 @@
         </p>
         <p><a class="btn btn-default" href="/Home/Contact">Contact us &raquo;</a></p>
     </div>
-    <div class="col-md-4">
+   <div class="col-md-4">
         <h2>Not Convinced Yet?</h2>
         <p>Your loss, I would link you to more info to convince you but there is nothing else to link you to yet</p>
         <p><a class="btn btn-default" href="/">This link just reloads the page &raquo;</a></p>
+    </div> 
+     -->
+    
+  
+    <div id="outer">
+        <div id="rides">
+            <br />
+            <img src="~/Home/rollercoaster pic.png" alt="Sample Image" width="560" height="300" />
+            <h1><strong>Rides</strong></h1>
+        </div>
+
+        <div id="tickets">
+            <br />
+            <img src="~/Home/tickets.png" alt="Sample Image" width="550" height="300"/>
+            <h1><strong>Buy Tickets</strong> </h1>
+        </div>
+
+        <div id="vacation">
+            <br />
+            <img src="~/Home/plan vacation.gif" alt="Sample Image" width="550" height="300" />
+            <h1> <strong>Plan Vacation</strong> </h1>
+        </div>
+
+        <div id="map">
+            <br />
+            <img src="~/Home/map.jpg" alt="Sample Image" width="550" height="300" />
+            <h1><strong>Map</strong></h1>
+        </div>
+
     </div>
-</div>
+
+ </div>
+
+<style>
+    #outer {
+	
+    left:0;
+    width:100%;
+   
+}
+
+#rides {
+	
+	top:80%;
+	left: 50%;
+	width: 575px;
+    height:400px;
+	position: absolute;
+	background-color: white;
+	text-align: center;
+	border-style: solid;
+    border-width: 5px;
+
+}
+
+#tickets {
+	top:80%;
+	left: 20%;
+	width: 575px;
+    height: 400px;
+	position:absolute;
+	background-color: white;
+	text-align: center;
+	border-style: solid;
+    border-width: 5px;
+
+}
+
+#vacation {
+	
+	left: 20%;
+	width: 575px;
+    height: 400px;
+	position:absolute;
+	background-color: white;
+	text-align: center;
+	border-style: solid;
+    border-width: 5px;
+
+}
+
+#map {
+	width: 575px;
+	left: 50%;
+    height:400px;
+	position:absolute;
+	background-color: white;
+	text-align: center;
+	border-style: solid;
+    border-width: 5px;
+}
+
+body {
+	background-color: #b0c4de;
+}
+
+#title
+{
+    width:1150px;
+    border-style: solid;
+    border-width: 5px;
+    background-color:white;
+}
+</style>

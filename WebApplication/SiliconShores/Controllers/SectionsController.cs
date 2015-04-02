@@ -26,8 +26,9 @@ namespace SiliconShores.Controllers
             {
                 return HttpNotFound();
             }
-
+            
             ViewBag.ImageList = theme_areas.getImagePaths();
+            
 
             return View(theme_areas);
         }
