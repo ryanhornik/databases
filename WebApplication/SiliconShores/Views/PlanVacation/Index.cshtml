@@ -51,8 +51,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.RoomType, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.RoomType, new { @class = "form-control" })
-            <!--Html.DropDownList("room_types",new SelectList(ViewBag.RoomTypes,"room_type_id","room_types_string"))-->
+            @Html.DropDownList("RoomTypes", null,htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
 
