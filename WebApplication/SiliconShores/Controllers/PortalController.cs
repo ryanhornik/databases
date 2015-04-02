@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace SiliconShores.Controllers
 {
+    [Authorize]
     public class PortalController : Controller
     {
         // GET: Portal
