@@ -7,7 +7,7 @@
 
 <h2>Plan Your Perfect Day</h2>
 <hr />
-@using (Html.BeginForm("Planning", "PlanVacation", FormMethod.Get, new {@class = "form-horizontal", role = "form"}))
+@using (Html.BeginForm("CheckNow", "PlanVacation", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
 {
     @Html.AntiForgeryToken()
 
@@ -61,6 +61,6 @@
             @Html.TextBoxFor(m => m.Rooms, null, htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
-    <input type="submit" value="Check Now" class="btn btn-success"/>
+    <input type="submit" value="Check Now" class="btn btn-success" />
 }
 
