@@ -66,19 +66,15 @@ namespace SiliconShores.Controllers
                 sale.ticket_types = ticket_types.First(s => s.ticket_name.Equals("Child"));
                 fullSale.AddRange(Enumerable.Repeat(sale, children));
 
+
                 foreach (var ticket in fullSale)
                 {
                     db.ticket_sales.Add(ticket);
                     db.SaveChanges();
                 }
-
-
-                db.hotel_reservations.Add(reservation);
-                db.SaveChanges();
             }
 
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
 
