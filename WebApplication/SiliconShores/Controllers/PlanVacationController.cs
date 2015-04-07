@@ -17,6 +17,9 @@ namespace SiliconShores.Controllers
         public ActionResult Index(string submit)
         {
             ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
+            ViewBag.Hotels = new SelectList(db.hotels, "hotel_id", "hotel_name");
+            ViewBag.Rooms = new SelectList(db.hotel_rooms);
+            ViewBag.TicketTypes = db.ticket_types.ToDictionary(type => type, type => 0);
             return View();
         }
 
