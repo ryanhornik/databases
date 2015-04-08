@@ -8,51 +8,39 @@
 
 <h2>Plan Your Perfect Day</h2>
 <hr />
-@using (Html.BeginForm("CheckNow", "PlanVacation", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.ArrivalDate, new { @class = "col-md-2 control-label"})
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ArrivalDate, new { @class = "form-control" })
-            @Html.Label("Format: MM/DD/YYYY")
+    <div class="form-horizontal">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.ArrivalDate, new { @class = "col-md-2 control-label"})
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.ArrivalDate, new { @class = "form-control" })
+                @Html.Label("Format: MM/DD/YYYY")
+            </div>
         </div>
-    </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(m => m.Nights, new { @class = "col-md-2 control-label"})
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Nights, new { @class = "form-control" })
-        </div>
-    </div>
 
-    foreach (KeyValuePair<ticket_types, int> kvp in ViewBag.TicketTypes)
-     {
-        var inputID = "id_" + kvp.Key.ticket_name;
-         <div class="form-group">
-             <label for=inputID class="col-md-2 control-label">@kvp.Key.ticket_name</label>
-             <div class="col-md-10">
-                <input name=@(ViewBag.TicketTypes[kvp.Key]) type="number" id=inputID value="@kvp.Value"/>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Nights, new {@class = "col-md-2 control-label"})
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Nights, new {@class = "form-control"})
+            </div>
+        </div>
+        @{ var count = 0;}
+        @foreach (var t in ViewBag.TicketTypes)
+         {
+            var inputID = "id_" + t.ticket_name;
+             <div class="form-group">
+                 <label for=@inputID class="col-md-2 control-label">@t.ticket_name</label>
+                 <input type="hidden" name="@("ticketPurchase[" + count + "]").Key" value="@t.ticket_type_id"/>
+                 <div class="col-md-10">
+                     <input name="@("ticketPurchase[" + count + "]").Value" type="number" id=@inputID value="0" class="form-control" min="0"/>
+                 </div>
              </div>
-         </div>
-     }
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.RoomType, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownList("RoomTypes", null,htmlAttributes: new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Room, new {@class = "col-md-2 control-label"})
-        <div class="col-md-10">
-            @Html.DropDownList("Room", null, htmlAttributes: new {@class = "form-control"})
-        </div>
-    </div>
-
-    <input type="submit" value="Check Now" class="btn btn-success" />
+             count++;
+         }
+     
+        <input type="submit" value="Go" class="btn btn-success"/>
+    </div>   
 }
-
