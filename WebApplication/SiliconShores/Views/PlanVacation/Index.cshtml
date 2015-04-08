@@ -27,6 +27,7 @@
                 @Html.TextBoxFor(m => m.Nights, new {@class = "form-control"})
             </div>
         </div>
+
         @{ var count = 0;}
         @foreach (var t in ViewBag.TicketTypes)
          {
@@ -40,7 +41,40 @@
              </div>
              count++;
          }
-     
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Hotel</label>
+            <div class="col-md-10">
+                @Html.DropDownList("Hotels", null, htmlAttributes: new {@class = "form-control", @onChange = "updateRooms();", @id = "id_hotel"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Room Type</label>
+            <div class="col-md-10">
+                @Html.DropDownList("RoomTypes", null, htmlAttributes: new { @class = "form-control", @onChange = "updateRooms();", @id = "id_room_type"})
+            </div>
+        </div>
+
         <input type="submit" value="Go" class="btn btn-success"/>
     </div>   
 }
+
+<script type="text/javascript">
+    function updateRooms($, window) {
+        var rooms = document.getElementById("id_room");
+        var hotel = document.getElementById("id_hotel");
+        var roomType = document.getElementById("id_room_type");
+
+        var selectedHotel = hotel.options[hotel.selectedIndex].value;
+        var selectedRoomType = roomType.options[roomType.selectedIndex].value;
+
+        var list = @ViewBag.Rooms;
+        for (var k = 0; k < list.length; k++) {
+            if (list[k].hotel_id != selectedHotel || list[k].room_type_id != selectedRoomType) {
+                list.remove(k);
+            }
+        }
+        
+    }
+</script>
