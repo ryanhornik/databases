@@ -74,9 +74,9 @@ namespace SiliconShores.Controllers
                 TimeSpan duration = new TimeSpan(nights,0,0,0);
                 DateTime endDate = arrivalDate.Add(duration);
                 reservation.reservation_checkout_date = endDate;
-                reservation.reservation_id = 1111;
+                reservation.reservation_id = 3;
                 reservation.hotel_id = 2;
-                reservation.room_number = 102;
+                reservation.room_number = 3;
 
                 decimal price = 102.99m;
                 reservation.total_reservation_cost = price;
@@ -96,6 +96,9 @@ namespace SiliconShores.Controllers
                     db.ticket_sales.Add(ticket);
                     db.SaveChanges();
                 }
+
+                db.hotel_reservations.Add(reservation);
+                db.SaveChanges();
             }
 
             return RedirectToAction("Index","Home");

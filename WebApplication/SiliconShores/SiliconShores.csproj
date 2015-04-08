@@ -499,6 +499,7 @@
     <Content Include="Views\RoleAdmin\Index.cshtml" />
     <Content Include="Views\PlanVacation.cshtml" />
     <Content Include="Views\PlanVacation\Index.cshtml" />
+    <Content Include="Views\Maps\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
