@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class restaurant
     {
@@ -18,14 +19,28 @@ namespace SiliconShores.Models
         {
             this.restaurant_daily_reports = new HashSet<restaurant_daily_reports>();
         }
-    
+
+        [Required]
+        [Display(Name = "Restaurant ID")]
         public int restaurant_id { get; set; }
+        [Required]
+        [Display(Name = "Restaurant Name")]
         public string restaurant_name { get; set; }
+        [Required]
+        [Display(Name = "Food Category ID")]
         public int food_category_id { get; set; }
+        [Required]
+        [Display(Name = "Theme Area ID")]
         public int theme_area_id { get; set; }
-    
+
+        [Required]
+        [Display(Name = "Restaurant Daily Reports")]
         public virtual ICollection<restaurant_daily_reports> restaurant_daily_reports { get; set; }
+        [Required]
+        [Display(Name = "Theme Areas")]
         public virtual theme_areas theme_areas { get; set; }
+        [Required]
+        [Display(Name = "Food Categories")]
         public virtual food_categories food_categories { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class hotel
     {
@@ -18,13 +19,24 @@ namespace SiliconShores.Models
         {
             this.hotel_rooms = new HashSet<hotel_rooms>();
         }
-    
+
+        [Required]
+        [Display(Name = "Hotel ID")]
         public int hotel_id { get; set; }
+        [Required]
+        [Display(Name = "Hotel Name")]
         public string hotel_name { get; set; }
+        [Required]
+        [Display(Name = "Pets Allowed")]
         public bool pets_allowed { get; set; }
+        [Required]
+        [Display(Name = "Theme Area ID")]
         public int theme_area_id { get; set; }
-    
+        [Required]
+        [Display(Name = "Hotel Rooms")]
         public virtual ICollection<hotel_rooms> hotel_rooms { get; set; }
+        [Required]
+        [Display(Name = "Theme Areas")]
         public virtual theme_areas theme_areas { get; set; }
     }
 }

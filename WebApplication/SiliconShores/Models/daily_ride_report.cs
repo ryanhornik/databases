@@ -11,13 +11,22 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class daily_ride_report
     {
+        [Required]
+        [Display(Name = "Ride Report Date")]
         public System.DateTime ride_report_date { get; set; }
+        [Required]
+        [Display(Name = "Attraction ID")]
         public int attraction_id { get; set; }
+        [Required]
+        [Display(Name = "Total Riders")]
         public int total_riders { get; set; }
-    
+
+        [Required]
+        [Display(Name = "Attraction")]
         public virtual attraction attraction { get; set; }
     }
 }

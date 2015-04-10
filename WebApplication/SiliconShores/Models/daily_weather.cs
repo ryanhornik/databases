@@ -11,14 +11,27 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class daily_weather
     {
+        [Required]
+        [Display(Name = "Weather Date")]
         public System.DateTime weather_date { get; set; }
+        [Required]
+        [Display(Name = "Theme Park ID")]
         public int theme_park_id { get; set; }
+        [Required]
+        [Display(Name = "Weather Conditions")]
         public string weather_conditions { get; set; }
+        [Required]
+        [Display(Name = "High Temperture")]
         public int high_temp { get; set; }
+        [Required]
+        [Display(Name = "Low Temperture")]
         public int low_temp { get; set; }
+        [Required]
+        [Display(Name = "Theme Park")]
     
         public virtual theme_park theme_park { get; set; }
     }

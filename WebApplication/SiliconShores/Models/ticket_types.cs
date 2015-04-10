@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class ticket_types
     {
@@ -19,11 +20,20 @@ namespace SiliconShores.Models
             this.ticket_sales = new HashSet<ticket_sales>();
         }
     
+        [Required]
+        [Display(Name = "Ticket Type ID")]
         public int ticket_type_id { get; set; }
+        [Required]
+        [Display(Name = "Ticke Name")]
         public string ticket_name { get; set; }
+        [Required]
+        [Display(Name = "Ticket Restrictions")]
         public string ticket_restrictions { get; set; }
+        [Required]
+        [Display(Name = "Ticket Price")]
         public Nullable<float> ticket_price { get; set; }
-    
+        [Required]
+        [Display(Name = "Ticket Sales")]
         public virtual ICollection<ticket_sales> ticket_sales { get; set; }
     }
 }
