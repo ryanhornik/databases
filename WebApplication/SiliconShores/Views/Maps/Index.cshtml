@@ -1,18 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Map";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Theme Park Map</h2>
 
 
-
+<!DOCTYPE html>
+<html>
 <body>
-    <div id="map">
-        <img src="http://maps.googleapis.com/maps/api/staticmap?center=108+The+Terrace,Wellington,New+Zealand&zoom=14&size=600x300&markers=color:red|108+The+Terrace,Wellington,New+Zealand&sensor=true" alt="Static fallback image showing the location of 108 The Terrace, Wellington" width="600" height="300" />
-    </div>
-
-
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=true"></script>
-</body>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE4UYVqq6uRxKVfmMxSscZ2nhEoSo8EDw&sensor=true">
+    </script>
+</body>   
+</html>

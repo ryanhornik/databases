@@ -221,6 +221,7 @@
     <Compile Include="Controllers\HotelReservationAdminController.cs" />
     <Compile Include="Controllers\HotelRoomAdminController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PlanVacationController.cs" />
     <Compile Include="Controllers\RestaurantAdminController.cs" />
     <Compile Include="Controllers\RestaurantReportAdminController.cs" />
