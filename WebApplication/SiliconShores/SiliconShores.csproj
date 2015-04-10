@@ -214,6 +214,7 @@
     <Compile Include="Controllers\AttractionAdminController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
+    <Compile Include="Controllers\PortalController.cs" />
     <Compile Include="Controllers\FoodCategoryAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelAdminController.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Controllers\ThemeAreaAdminController.cs" />
     <Compile Include="Controllers\ThemeParkAdminController.cs" />
     <Compile Include="Controllers\TicketSaleAdminController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TicketTypeAdminController.cs" />
     <Compile Include="Controllers\WeatherAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -487,6 +489,8 @@
     <Content Include="Views\TicketTypeAdmin\Details.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Edit.cshtml" />
     <Content Include="Views\TicketTypeAdmin\Index.cshtml" />
+    <Content Include="Views\Portal\Index.cshtml" />
+    <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Views\EmployeeAdmin\Create.cshtml" />
     <Content Include="Views\EmployeeAdmin\Delete.cshtml" />
     <Content Include="Views\EmployeeAdmin\Details.cshtml" />
