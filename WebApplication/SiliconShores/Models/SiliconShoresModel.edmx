@@ -12,7 +12,7 @@
           <Property Name="attractions_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="attraction_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="theme_area_id" Type="int" Nullable="false" />
-          <Property Name="attraction_description" Type="varchar" MaxLength="200" />
+          <Property Name="attraction_description" Type="text" />
           <Property Name="picture_path" Type="varchar" MaxLength="50" />
           <Property Name="is_working" Type="bool" Nullable="false" />
           <Property Name="date_opened" Type="date" Nullable="false" />
@@ -132,7 +132,7 @@
             <PropertyRef Name="room_type_id" />
           </Key>
           <Property Name="room_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="room_types_string" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="room_types_string" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="theme_areas">
           <Key>
@@ -140,7 +140,7 @@
           </Key>
           <Property Name="theme_area_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="theme_area_name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="theme_area_description" Type="varchar" MaxLength="200" />
+          <Property Name="theme_area_description" Type="text" />
           <Property Name="theme_area_pictures" Type="varchar" MaxLength="50" />
           <Property Name="theme_park_id" Type="int" Nullable="false" />
         </EntityType>
@@ -176,6 +176,7 @@
           <Property Name="ticket_name" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="ticket_restrictions" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ticket_price" Type="float" />
+          <Property Name="theme_park_id" Type="int" />
         </EntityType>
         <EntityType Name="userclaims">
           <Key>
@@ -220,6 +221,59 @@
           <Property Name="LockoutEnabled" Type="bool" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.theme_park_db.report_restaurant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="report_restaurant">
+          <Key>
+            <PropertyRef Name="report_date" />
+            <PropertyRef Name="restaurant_id" />
+            <PropertyRef Name="gross_income" />
+            <PropertyRef Name="patrons_served" />
+            <PropertyRef Name="restaurant_name" />
+          </Key>
+          <Property Name="report_date" Type="date" Nullable="false" />
+          <Property Name="restaurant_id" Type="int" Nullable="false" />
+          <Property Name="gross_income" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="patrons_served" Type="int" Nullable="false" />
+          <Property Name="restaurant_name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.theme_park_db.report_rides' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="report_rides">
+          <Key>
+            <PropertyRef Name="report_date" />
+            <PropertyRef Name="attraction_id" />
+            <PropertyRef Name="total_riders" />
+            <PropertyRef Name="attraction_name" />
+            <PropertyRef Name="date_opened" />
+          </Key>
+          <Property Name="report_date" Type="date" Nullable="false" />
+          <Property Name="attraction_id" Type="int" Nullable="false" />
+          <Property Name="total_riders" Type="int" Nullable="false" />
+          <Property Name="attraction_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date_opened" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.theme_park_db.report_ticketsales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="report_ticketsales">
+          <Key>
+            <PropertyRef Name="sale_date" />
+            <PropertyRef Name="ticket_id" />
+            <PropertyRef Name="weather_date" />
+            <PropertyRef Name="weather_conditions" />
+            <PropertyRef Name="high_temp" />
+            <PropertyRef Name="low_temp" />
+          </Key>
+          <Property Name="sale_date" Type="date" Nullable="false" />
+          <Property Name="redemption_date" Type="date" />
+          <Property Name="sale_location" Type="enum" />
+          <Property Name="ticket_id" Type="int" Nullable="false" />
+          <Property Name="ticket_price" Type="float" />
+          <Property Name="weather_date" Type="date" Nullable="false" />
+          <Property Name="weather_conditions" Type="enum" Nullable="false" />
+          <Property Name="high_temp" Type="int" Nullable="false" />
+          <Property Name="low_temp" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="ApplicationUser_Claims">
           <End Role="users" Type="Self.users" Multiplicity="1">
@@ -421,6 +475,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="theme_park_id">
+          <End Role="theme_park" Type="Self.theme_park" Multiplicity="0..1" />
+          <End Role="ticket_types" Type="Self.ticket_types" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="ticket_types">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="theme_park_id_employees">
           <End Role="theme_park" Type="Self.theme_park" Multiplicity="1" />
           <End Role="employees" Type="Self.employees" Multiplicity="*" />
@@ -491,6 +557,37 @@
           <EntitySet Name="userlogins" EntityType="Self.userlogins" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="userroles" EntityType="Self.userroles" Schema="theme_park_db" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="theme_park_db" store:Type="Tables" />
+          <EntitySet Name="report_restaurant" EntityType="Self.report_restaurant" store:Type="Views" store:Schema="theme_park_db">
+            <DefiningQuery>SELECT
+`report_restaurant`.`report_date`, 
+`report_restaurant`.`restaurant_id`, 
+`report_restaurant`.`gross_income`, 
+`report_restaurant`.`patrons_served`, 
+`report_restaurant`.`restaurant_name`
+FROM `report_restaurant` AS `report_restaurant`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="report_rides" EntityType="Self.report_rides" store:Type="Views" store:Schema="theme_park_db">
+            <DefiningQuery>SELECT
+`report_rides`.`report_date`, 
+`report_rides`.`attraction_id`, 
+`report_rides`.`total_riders`, 
+`report_rides`.`attraction_name`, 
+`report_rides`.`date_opened`
+FROM `report_rides` AS `report_rides`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="report_ticketsales" EntityType="Self.report_ticketsales" store:Type="Views" store:Schema="theme_park_db">
+            <DefiningQuery>SELECT
+`report_ticketsales`.`sale_date`, 
+`report_ticketsales`.`redemption_date`, 
+`report_ticketsales`.`sale_location`, 
+`report_ticketsales`.`ticket_id`, 
+`report_ticketsales`.`ticket_price`, 
+`report_ticketsales`.`weather_date`, 
+`report_ticketsales`.`weather_conditions`, 
+`report_ticketsales`.`high_temp`, 
+`report_ticketsales`.`low_temp`
+FROM `report_ticketsales` AS `report_ticketsales`</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="ApplicationUser_Claims" Association="Self.ApplicationUser_Claims">
             <End Role="users" EntitySet="users" />
             <End Role="userclaims" EntitySet="userclaims" />
@@ -554,6 +651,10 @@
           <AssociationSet Name="theme_park_areas" Association="Self.theme_park_areas">
             <End Role="theme_park" EntitySet="theme_park" />
             <End Role="theme_areas" EntitySet="theme_areas" />
+          </AssociationSet>
+          <AssociationSet Name="theme_park_id" Association="Self.theme_park_id">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="ticket_types" EntitySet="ticket_types" />
           </AssociationSet>
           <AssociationSet Name="theme_park_id_employees" Association="Self.theme_park_id_employees">
             <End Role="theme_park" EntitySet="theme_park" />
@@ -748,6 +849,7 @@
           <NavigationProperty Name="employees" Relationship="Self.theme_park_id_employees" FromRole="theme_park" ToRole="employees" />
           <NavigationProperty Name="theme_areas" Relationship="Self.theme_park_areas" FromRole="theme_park" ToRole="theme_areas" />
           <NavigationProperty Name="ticket_sales" Relationship="Self.theme_park_sales" FromRole="theme_park" ToRole="ticket_sales" />
+          <NavigationProperty Name="ticket_types" Relationship="theme_park_model.theme_park_id" FromRole="theme_park" ToRole="ticket_types" />
         </EntityType>
         <EntityType Name="ticket_sales">
           <Key>
@@ -771,6 +873,8 @@
           <Property Name="ticket_restrictions" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ticket_price" Type="Single" />
           <NavigationProperty Name="ticket_sales" Relationship="Self.ticket_type_sales" FromRole="ticket_types" ToRole="ticket_sales" />
+          <Property Name="theme_park_id" Type="Int32" />
+          <NavigationProperty Name="theme_park" Relationship="theme_park_model.theme_park_id" FromRole="ticket_types" ToRole="theme_park" />
         </EntityType>
         <Association Name="attraction_id_breakdowns">
           <End Role="attractions" Type="Self.attraction" Multiplicity="1" />
@@ -1051,6 +1155,13 @@
             <End Role="user" EntitySet="users" />
             <End Role="role" EntitySet="roles" />
           </AssociationSet>
+          <EntitySet Name="report_restaurant" EntityType="theme_park_model.report_restaurant" />
+          <EntitySet Name="report_rides" EntityType="theme_park_model.report_rides" />
+          <EntitySet Name="report_ticketsales" EntityType="theme_park_model.report_ticketsales" />
+          <AssociationSet Name="theme_park_id" Association="theme_park_model.theme_park_id">
+            <End Role="theme_park" EntitySet="theme_park" />
+            <End Role="ticket_types" EntitySet="ticket_types" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="food_category_id">
           <End Type="theme_park_model.food_categories" Role="food_categories" Multiplicity="1" />
@@ -1157,6 +1268,65 @@
         <Association Name="userroles1">
           <End Type="theme_park_model.user" Role="user" Multiplicity="*" />
           <End Type="theme_park_model.role" Role="role" Multiplicity="*" />
+        </Association>
+        <EntityType Name="report_restaurant">
+          <Key>
+            <PropertyRef Name="report_date" />
+            <PropertyRef Name="restaurant_id" />
+            <PropertyRef Name="gross_income" />
+            <PropertyRef Name="patrons_served" />
+            <PropertyRef Name="restaurant_name" />
+          </Key>
+          <Property Name="report_date" Type="DateTime" Nullable="false" />
+          <Property Name="restaurant_id" Type="Int32" Nullable="false" />
+          <Property Name="gross_income" Type="Decimal" Nullable="false" />
+          <Property Name="patrons_served" Type="Int32" Nullable="false" />
+          <Property Name="restaurant_name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="report_rides">
+          <Key>
+            <PropertyRef Name="report_date" />
+            <PropertyRef Name="attraction_id" />
+            <PropertyRef Name="total_riders" />
+            <PropertyRef Name="attraction_name" />
+            <PropertyRef Name="date_opened" />
+          </Key>
+          <Property Name="report_date" Type="DateTime" Nullable="false" />
+          <Property Name="attraction_id" Type="Int32" Nullable="false" />
+          <Property Name="total_riders" Type="Int32" Nullable="false" />
+          <Property Name="attraction_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_opened" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="report_ticketsales">
+          <Key>
+            <PropertyRef Name="sale_date" />
+            <PropertyRef Name="ticket_id" />
+            <PropertyRef Name="weather_date" />
+            <PropertyRef Name="weather_conditions" />
+            <PropertyRef Name="high_temp" />
+            <PropertyRef Name="low_temp" />
+          </Key>
+          <Property Name="sale_date" Type="DateTime" Nullable="false" />
+          <Property Name="redemption_date" Type="DateTime" />
+          <Property Name="sale_location" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_id" Type="Int32" Nullable="false" />
+          <Property Name="ticket_price" Type="Single" />
+          <Property Name="weather_date" Type="DateTime" Nullable="false" />
+          <Property Name="weather_conditions" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="high_temp" Type="Int32" Nullable="false" />
+          <Property Name="low_temp" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="theme_park_id">
+          <End Type="theme_park_model.theme_park" Role="theme_park" Multiplicity="0..1" />
+          <End Type="theme_park_model.ticket_types" Role="ticket_types" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme_park">
+              <PropertyRef Name="theme_park_id" />
+            </Principal>
+            <Dependent Role="ticket_types">
+              <PropertyRef Name="theme_park_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1335,6 +1505,7 @@
           <EntitySetMapping Name="ticket_types">
             <EntityTypeMapping TypeName="theme_park_model.ticket_types">
               <MappingFragment StoreEntitySet="ticket_types">
+                <ScalarProperty Name="theme_park_id" ColumnName="theme_park_id" />
                 <ScalarProperty Name="ticket_type_id" ColumnName="ticket_type_id" />
                 <ScalarProperty Name="ticket_name" ColumnName="ticket_name" />
                 <ScalarProperty Name="ticket_restrictions" ColumnName="ticket_restrictions" />
@@ -1395,6 +1566,43 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="report_restaurant">
+            <EntityTypeMapping TypeName="theme_park_model.report_restaurant">
+              <MappingFragment StoreEntitySet="report_restaurant">
+                <ScalarProperty Name="restaurant_name" ColumnName="restaurant_name" />
+                <ScalarProperty Name="patrons_served" ColumnName="patrons_served" />
+                <ScalarProperty Name="gross_income" ColumnName="gross_income" />
+                <ScalarProperty Name="restaurant_id" ColumnName="restaurant_id" />
+                <ScalarProperty Name="report_date" ColumnName="report_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="report_rides">
+            <EntityTypeMapping TypeName="theme_park_model.report_rides">
+              <MappingFragment StoreEntitySet="report_rides">
+                <ScalarProperty Name="date_opened" ColumnName="date_opened" />
+                <ScalarProperty Name="attraction_name" ColumnName="attraction_name" />
+                <ScalarProperty Name="total_riders" ColumnName="total_riders" />
+                <ScalarProperty Name="attraction_id" ColumnName="attraction_id" />
+                <ScalarProperty Name="report_date" ColumnName="report_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="report_ticketsales">
+            <EntityTypeMapping TypeName="theme_park_model.report_ticketsales">
+              <MappingFragment StoreEntitySet="report_ticketsales">
+                <ScalarProperty Name="low_temp" ColumnName="low_temp" />
+                <ScalarProperty Name="high_temp" ColumnName="high_temp" />
+                <ScalarProperty Name="weather_conditions" ColumnName="weather_conditions" />
+                <ScalarProperty Name="weather_date" ColumnName="weather_date" />
+                <ScalarProperty Name="ticket_price" ColumnName="ticket_price" />
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="sale_location" ColumnName="sale_location" />
+                <ScalarProperty Name="redemption_date" ColumnName="redemption_date" />
+                <ScalarProperty Name="sale_date" ColumnName="sale_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

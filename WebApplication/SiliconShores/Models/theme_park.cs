@@ -20,6 +20,7 @@ namespace SiliconShores.Models
             this.employees = new HashSet<employee>();
             this.theme_areas = new HashSet<theme_areas>();
             this.ticket_sales = new HashSet<ticket_sales>();
+            this.ticket_types = new HashSet<ticket_types>();
         }
     
         public int theme_park_id { get; set; }
@@ -35,5 +36,6 @@ namespace SiliconShores.Models
         public virtual ICollection<employee> employees { get; set; }
         public virtual ICollection<theme_areas> theme_areas { get; set; }
         public virtual ICollection<ticket_sales> ticket_sales { get; set; }
+        public virtual ICollection<ticket_types> ticket_types { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="169b197a6d43452b9faacd0d524c5440" Name="Diagram1" ZoomLevel="93">
+      <Diagram DiagramId="169b197a6d43452b9faacd0d524c5440" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="theme_park_model.attraction" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="theme_park_model.breakdown" Width="1.5" PointX="7.5" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="theme_park_model.daily_ride_report" Width="1.5" PointX="7.5" PointY="16" IsExpanded="true" />
@@ -44,6 +44,10 @@
         <AssociationConnector Association="theme_park_model.ApplicationUser_Logins" />
         <EntityTypeShape EntityType="theme_park_model.role" Width="1.5" PointX="21.5" PointY="15.125" />
         <AssociationConnector Association="theme_park_model.userroles1" />
+        <EntityTypeShape EntityType="theme_park_model.report_restaurant" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="theme_park_model.report_rides" Width="1.5" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="theme_park_model.report_ticketsales" Width="1.5" PointX="7.375" PointY="3.75" />
+        <AssociationConnector Association="theme_park_model.theme_park_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
