@@ -14,7 +14,7 @@ using SiliconShores.Models;
  
 namespace SiliconShores.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;

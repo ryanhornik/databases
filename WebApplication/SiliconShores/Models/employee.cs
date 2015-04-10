@@ -11,22 +11,58 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class employee
     {
+        [Required]
+        [Display(Name = "SSN")]
         public int ssn { get; set; }
+        [Required]
+        [Display(Name = "Theme Park ID")]
         public int theme_park_id { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
         public string first_name { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
         public string last_name { get; set; }
+
+        [Required]
+        [Display(Name = "Middle Name Initial")]
         public string middle_initial { get; set; }
+
+        [Required]
+        [Display(Name = "Full Time (True or False)")]
         public bool full_time { get; set; }
+
+        [Required]
+        [Display(Name = "Pay Rate")]
         public decimal payrate { get; set; }
+
+        [Required]
+        [Display(Name = "Hired Date")]
         public System.DateTime hired_date { get; set; }
+
+        [Required]
+        [Display(Name = "Date Left")]
         public Nullable<System.DateTime> date_left { get; set; }
+
+        [Required]
+        [Display(Name = "Rehireable")]
         public Nullable<bool> rehireable { get; set; }
+
+        [Required]
+        [Display(Name = "Employee ID")]
         public string employee_id { get; set; }
     
+        [Required]
+        [Display(Name = "Theme Park")]
         public virtual theme_park theme_park { get; set; }
+
+        [Required]
+        [Display(Name = "User")]
         public virtual user user { get; set; }
     }
 }
