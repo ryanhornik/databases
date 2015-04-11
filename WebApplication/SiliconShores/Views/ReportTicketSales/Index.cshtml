@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SiliconShores.Models.report_ticketsales>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th> 
+            @Html.DisplayNameFor(model => model.restaurant_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.theme_areas.theme_area_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.food_categories.food_categories_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.restaurant_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.theme_areas.theme_area_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.food_categories.food_categories_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.restaurant_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.restaurant_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.restaurant_id })
+        </td>
+    </tr>
+}
+
+</table>
