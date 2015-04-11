@@ -13,13 +13,10 @@
 <table class="table">
     <tr>
         <th> 
-            @Html.DisplayNameFor(model => model.restaurant_name)
+            @Html.DisplayNameFor(model => model.ticket_id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.theme_areas.theme_area_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.food_categories.food_categories_name)
+            @Html.DisplayNameFor(model => model.ticket_price)
         </th>
         <th></th>
     </tr>
@@ -27,19 +24,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.restaurant_name)
+            @Html.DisplayFor(modelItem => item.ticket_id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.theme_areas.theme_area_name)
+            @Html.DisplayFor(modelItem => item.sale_date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.food_categories.food_categories_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.restaurant_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.restaurant_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.restaurant_id })
-        </td>
+            @Html.DisplayFor(modelItem => item.redemption_date)
     </tr>
 }
 

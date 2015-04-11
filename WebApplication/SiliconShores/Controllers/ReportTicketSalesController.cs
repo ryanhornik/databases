@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using SiliconShores.Models;
 
-    [Authorize]
+  //  [Authorize]
     public class ReportTicketSalesController: Controller
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
@@ -26,12 +26,12 @@ using SiliconShores.Models;
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            report_ticketsales ticketReport = db.report_ticketsales.Find(id);
+            report_ticketsale ticketReport = db.report_ticketsales.Find(id);
             if (ticketReport == null)
             {
                 return HttpNotFound();
             }
-            return View(report_ticketsales);
+            return View(ticketReport);
         }
 
         // GET: report_ticketsalesAdmin/Create
@@ -46,7 +46,7 @@ using SiliconShores.Models;
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "report_ticketsales_id,ticket_id,incidence_date,resolution_date,repair_cost")] report_ticketsales report_ticketsales)
+        public ActionResult Create([Bind(Include = "report_ticketsales_id,ticket_id,incidence_date,resolution_date,repair_cost")] report_ticketsale report_ticketsales)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ using SiliconShores.Models;
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            report_ticketsales report_ticketsales = db.report_ticketsales.Find(id);
+            report_ticketsale report_ticketsales = db.report_ticketsales.Find(id);
             if (report_ticketsales == null)
             {
                 return HttpNotFound();
@@ -80,7 +80,7 @@ using SiliconShores.Models;
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "report_ticketsales_id,ticket_id,incidence_date,resolution_date,repair_cost")] report_ticketsales report_ticketsales)
+        public ActionResult Edit([Bind(Include = "report_ticketsales_id,ticket_id,incidence_date,resolution_date,repair_cost")] report_ticketsale report_ticketsales)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ using SiliconShores.Models;
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            report_ticketsales report_ticketsales = db.report_ticketsales.Find(id);
+            report_ticketsale report_ticketsales = db.report_ticketsales.Find(id);
             if (report_ticketsales == null)
             {
                 return HttpNotFound();
@@ -112,7 +112,7 @@ using SiliconShores.Models;
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            report_ticketsales report_ticketsales = db.report_ticketsales.Find(id);
+            report_ticketsale report_ticketsales = db.report_ticketsales.Find(id);
             db.report_ticketsales.Remove(report_ticketsales);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -127,4 +127,4 @@ using SiliconShores.Models;
             base.Dispose(disposing);
         }
     }
-}
+
