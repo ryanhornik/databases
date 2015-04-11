@@ -12,108 +12,108 @@ using SiliconShores.Models;
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
-        // GET: BreakdownAdmin
+        // GET: report_ticketsalesAdmin
         public ActionResult Index()
         {
-            var breakdowns = db.breakdowns.Include(b => b.attraction);
-            return View(breakdowns.ToList());
+            var ticketReport = db.report_ticketsales.Include(r => r.ticket_id);
+            return View(ticketReport.ToList());
         }
 
-        // GET: BreakdownAdmin/Details/5
+        // GET: report_ticketsalesAdmin/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            breakdown breakdown = db.breakdowns.Find(id);
-            if (breakdown == null)
+            report_ticketsales ticketReport = db.report_ticketsales.Find(id);
+            if (ticketReport == null)
             {
                 return HttpNotFound();
             }
-            return View(breakdown);
+            return View(report_ticketsales);
         }
 
-        // GET: BreakdownAdmin/Create
+        // GET: report_ticketsalesAdmin/Create
         public ActionResult Create()
         {
-            ViewBag.attraction_id = new SelectList(db.attractions, "attractions_id", "attraction_name");
+            ViewBag.ticket_id = new SelectList(db.ticket_sales, "ticket_id", "ticket_type_id");
             return View();
         }
 
-        // POST: BreakdownAdmin/Create
+        // POST: report_ticketsalesAdmin/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "breakdown_id,attraction_id,incidence_date,resolution_date,repair_cost")] breakdown breakdown)
+        public ActionResult Create([Bind(Include = "report_ticketsales_id,ticket_id,incidence_date,resolution_date,repair_cost")] report_ticketsales report_ticketsales)
         {
             if (ModelState.IsValid)
             {
-                db.breakdowns.Add(breakdown);
+                db.report_ticketsales.Add(report_ticketsales);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.attraction_id = new SelectList(db.attractions, "attractions_id", "attraction_name", breakdown.attraction_id);
-            return View(breakdown);
+            ViewBag.ticket_id = new SelectList(db.attractions, "attractions_id", "attraction_name", report_ticketsales.ticket_id);
+            return View(report_ticketsales);
         }
 
-        // GET: BreakdownAdmin/Edit/5
+        // GET: report_ticketsalesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            breakdown breakdown = db.breakdowns.Find(id);
-            if (breakdown == null)
+            report_ticketsales report_ticketsales = db.report_ticketsales.Find(id);
+            if (report_ticketsales == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.attraction_id = new SelectList(db.attractions, "attractions_id", "attraction_name", breakdown.attraction_id);
-            return View(breakdown);
+            ViewBag.ticket_id = new SelectList(db.attractions, "attractions_id", "attraction_name", report_ticketsales.ticket_id);
+            return View(report_ticketsales);
         }
 
-        // POST: BreakdownAdmin/Edit/5
+        // POST: report_ticketsalesAdmin/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "breakdown_id,attraction_id,incidence_date,resolution_date,repair_cost")] breakdown breakdown)
+        public ActionResult Edit([Bind(Include = "report_ticketsales_id,ticket_id,incidence_date,resolution_date,repair_cost")] report_ticketsales report_ticketsales)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(breakdown).State = EntityState.Modified;
+                db.Entry(report_ticketsales).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.attraction_id = new SelectList(db.attractions, "attractions_id", "attraction_name", breakdown.attraction_id);
-            return View(breakdown);
+            ViewBag.ticket_id = new SelectList(db.attractions, "attractions_id", "attraction_name", report_ticketsales.ticket_id);
+            return View(report_ticketsales);
         }
 
-        // GET: BreakdownAdmin/Delete/5
+        // GET: report_ticketsalesAdmin/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            breakdown breakdown = db.breakdowns.Find(id);
-            if (breakdown == null)
+            report_ticketsales report_ticketsales = db.report_ticketsales.Find(id);
+            if (report_ticketsales == null)
             {
                 return HttpNotFound();
             }
-            return View(breakdown);
+            return View(report_ticketsales);
         }
 
-        // POST: BreakdownAdmin/Delete/5
+        // POST: report_ticketsalesAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            breakdown breakdown = db.breakdowns.Find(id);
-            db.breakdowns.Remove(breakdown);
+            report_ticketsales report_ticketsales = db.report_ticketsales.Find(id);
+            db.report_ticketsales.Remove(report_ticketsales);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

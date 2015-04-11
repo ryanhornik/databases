@@ -47,6 +47,7 @@ namespace SiliconShores.Models
         public virtual DbSet<userlogin> userlogins { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<role> roles { get; set; }
+        public virtual DbSet<report_ticketsales> report_ticketsales { get; set; }
 
         public ticket_sales CreateTicket(int type)
         {
