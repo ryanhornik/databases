@@ -33,9 +33,26 @@ namespace SiliconShores.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase)
+        public ActionResult Index(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room)
         {
             ticketPurchase = ticketPurchase.ToDictionary(s => s.Key, s => (nights+1)*s.Value);
+
+            var selectedRoom = db.hotel_rooms.First(s => s.hotel_id == Hotels && s.room_number == Room);
+            
+            var hotelReservation = new hotel_reservations
+            {
+                hotel_rooms = selectedRoom,
+                total_reservation_cost = selectedRoom.room_rate * nights,
+                paid_in_full = false,
+                reservation_checkin_date = arrivalDate,
+                reservation_checkout_date = arrivalDate.AddDays(nights)
+            };
+            if (ModelState.IsValid)
+            {
+                db.hotel_reservations.Add(hotelReservation);
+                db.SaveChanges();
+            }
+
             List<int> totalSales = new List<int>();
             
             foreach (var ticket in ticketPurchase)
