@@ -52,7 +52,17 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Room Type</label>
             <div class="col-md-10">
-                @Html.DropDownList("RoomTypes", null, htmlAttributes: new { @class = "form-control", @onChange = "updateRooms();", @id = "id_room_type"})
+                @Html.DropDownList("RoomTypes", null, htmlAttributes: new {@class = "form-control", @onChange = "updateRooms();", @id = "id_room_type"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Room</label>
+            <div class="col-md-10">
+                <select id="id_room_list_searched" disabled name="Room">
+                    <option value="-1">Select a Room</option>
+                </select>
+                @Html.DropDownList("Rooms", null, htmlAttributes: new {@id = "id_room_list_full"})
             </div>
         </div>
 
@@ -62,19 +72,33 @@
 
 <script type="text/javascript">
     function updateRooms($, window) {
-        var rooms = document.getElementById("id_room");
+        var room = document.getElementById("id_room_list_searched");
+        var roomList = document.getElementById("id_room_list_full").options;
+
         var hotel = document.getElementById("id_hotel");
         var roomType = document.getElementById("id_room_type");
 
         var selectedHotel = hotel.options[hotel.selectedIndex].value;
         var selectedRoomType = roomType.options[roomType.selectedIndex].value;
 
-        var list = @ViewBag.Rooms;
-        for (var k = 0; k < list.length; k++) {
-            if (list[k].hotel_id != selectedHotel || list[k].room_type_id != selectedRoomType) {
-                list.remove(k);
+        room.options = room.options.empty;
+        var defaultRoomOption = document.createElement("option");
+        defaultRoomOption.text = "Select a room";
+        defaultRoomOption.value = "-1";
+        room = room.add(defaultRoomOption);
+
+        for (var k = 0; k < roomList.length; k++) {
+            var listVal = roomList[k].value.split(" ");
+            var listHotel = listVal[0];
+            var listRoomType = listVal[1];
+            var listRoomNumber = roomList[k].Text;
+
+            if (selectedHotel === listHotel && selectedRoomType === listRoomType) {
+                var newOption = document.createElement("option");
+                newOption.text = roomList[k].text;
+                newOption.value = roomList[k].value;
             }
         }
-        
+        alert(selectedHotel + " = hotel, " + selectedRoomType + " = room type \n" + roomListString);
     }
 </script>

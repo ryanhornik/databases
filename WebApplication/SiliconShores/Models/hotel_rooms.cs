@@ -28,5 +28,10 @@ namespace SiliconShores.Models
         public virtual ICollection<hotel_reservations> hotel_reservations { get; set; }
         public virtual hotel hotel { get; set; }
         public virtual room_types room_types { get; set; }
+
+        public string hotel_and_room_type
+        {
+            get { return string.Format("{0} {1}", hotel_id, room_type_id); }
+        }
     }
 }
