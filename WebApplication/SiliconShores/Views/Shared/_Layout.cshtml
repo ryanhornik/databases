@@ -30,12 +30,12 @@
                             @Html.Partial("_AreaListPartial")
                         </ul>
                     </li>
-                    <li>@Html.ActionLink("Planning","Index","PlanVacation")
-                       
-                    </li>
-                        
+                    <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
+                    <li>@Html.ActionLink("Planning","Index","PlanVacation")</li> 
+                    <li>@Html.ActionLink("Map", "Index", "Maps")</li>          
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

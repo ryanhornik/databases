@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class theme_areas
     {
@@ -20,16 +21,32 @@ namespace SiliconShores.Models
             this.hotels = new HashSet<hotel>();
             this.restaurants = new HashSet<restaurant>();
         }
-    
+        [Required]
+        [Display(Name = "Theme Area ID")]
         public int theme_area_id { get; set; }
+        [Required]
+        [Display(Name = "Theme Area Name")]
         public string theme_area_name { get; set; }
+        [Required]
+        [Display(Name = "Theme Area Description")]
         public string theme_area_description { get; set; }
+        [Required]
+        [Display(Name = "Theme Area Pictures")]
         public string theme_area_pictures { get; set; }
+        [Required]
+        [Display(Name = "Theme Park ID")]
         public int theme_park_id { get; set; }
-    
+        [Required]
+        [Display(Name = "Attractions")]
         public virtual ICollection<attraction> attractions { get; set; }
+        [Required]
+        [Display(Name = "Hotels")]
         public virtual ICollection<hotel> hotels { get; set; }
+        [Required]
+        [Display(Name = "Restaurants")]
         public virtual ICollection<restaurant> restaurants { get; set; }
+        [Required]
+        [Display(Name = "Theme Park")]
         public virtual theme_park theme_park { get; set; }
 
         public List<String> getImagePaths()

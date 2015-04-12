@@ -11,14 +11,27 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class ticket_sales
     {
+        [Required]
+        [Display(Name = "Ticket ID")]
         public int ticket_id { get; set; }
+        [Required]
+        [Display(Name = "Ticket Type ID")]
         public int ticket_type_id { get; set; }
+        [Required]
+        [Display(Name = "Sale Date")]
         public System.DateTime sale_date { get; set; }
+        [Required]
+        [Display(Name = "Redemption Date")]
         public Nullable<System.DateTime> redemption_date { get; set; }
+        [Required]
+        [Display(Name = "Theme Park ID")]
         public int theme_park_id { get; set; }
+        [Required]
+        [Display(Name = "Sale Location")]
         public string sale_location { get; set; }
     
         public virtual theme_park theme_park { get; set; }

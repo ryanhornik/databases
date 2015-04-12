@@ -11,15 +11,27 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class breakdown
     {
+        [Required]
+        [Display(Name = "Breakdown ID")]
         public int breakdown_id { get; set; }
+        [Required]
+        [Display(Name = "Attraction ID")]
         public int attraction_id { get; set; }
+        [Required]
+        [Display(Name = "Incidence Date")]
         public System.DateTime incidence_date { get; set; }
+        [Required]
+        [Display(Name = "Resolution Date")]
         public Nullable<System.DateTime> resolution_date { get; set; }
+        [Required]
+        [Display(Name = "Repair Cost")]
         public Nullable<decimal> repair_cost { get; set; }
-    
+        [Required]
+        [Display(Name = "Attraction")]
         public virtual attraction attraction { get; set; }
     }
 }

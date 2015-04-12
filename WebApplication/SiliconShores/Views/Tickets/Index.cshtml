@@ -1,0 +1,33 @@
+﻿@model IEnumerable<SiliconShores.Models.ticket_types>
+
+@{
+    ViewBag.Title = "TicketInformation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ticket Information</h2>
+
+<div>
+    Ticket Prices:
+</div>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ticket_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ticket_restrictions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ticket_price)
+            </td>
+   
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Purchase tickets now", "Buy")
