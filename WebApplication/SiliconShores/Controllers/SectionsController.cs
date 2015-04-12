@@ -31,9 +31,5 @@ namespace SiliconShores.Controllers
 
             return View(theme_areas);
         }
-
-        //Retrieves a list of the theme_areas, Should use to modify _layout.cshtml
-        //var theme_areas = db.theme_areas.Include(t => t.theme_park);
-        //return View(theme_areas.ToList());
     }
 }

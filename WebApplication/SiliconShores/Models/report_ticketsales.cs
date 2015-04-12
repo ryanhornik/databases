@@ -12,7 +12,7 @@ namespace SiliconShores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class report_ticketsale
+    public partial class report_ticketsales
     {
         public System.DateTime sale_date { get; set; }
         public Nullable<System.DateTime> redemption_date { get; set; }

@@ -24,8 +24,8 @@ namespace SiliconShores.Models
         public int food_category_id { get; set; }
         public int theme_area_id { get; set; }
     
+        public virtual food_categories food_categories { get; set; }
         public virtual ICollection<restaurant_daily_reports> restaurant_daily_reports { get; set; }
         public virtual theme_areas theme_areas { get; set; }
-        public virtual food_categories food_categories { get; set; }
     }
 }

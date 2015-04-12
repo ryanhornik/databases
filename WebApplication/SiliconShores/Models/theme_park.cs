@@ -19,8 +19,8 @@ namespace SiliconShores.Models
             this.daily_weather = new HashSet<daily_weather>();
             this.employees = new HashSet<employee>();
             this.theme_areas = new HashSet<theme_areas>();
-            this.ticket_sales = new HashSet<ticket_sales>();
             this.ticket_types = new HashSet<ticket_types>();
+            this.ticket_sales = new HashSet<ticket_sales>();
         }
     
         public int theme_park_id { get; set; }

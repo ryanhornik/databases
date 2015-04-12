@@ -25,7 +25,7 @@ namespace SiliconShores.Models
         public Nullable<float> ticket_price { get; set; }
         public Nullable<int> theme_park_id { get; set; }
     
-        public virtual ICollection<ticket_sales> ticket_sales { get; set; }
         public virtual theme_park theme_park { get; set; }
+        public virtual ICollection<ticket_sales> ticket_sales { get; set; }
     }
 }
