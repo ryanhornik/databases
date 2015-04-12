@@ -24,7 +24,7 @@ namespace SiliconShores.Models
         [Required]
         [Display(Name = "Sale Date")]
         public System.DateTime sale_date { get; set; }
-        [Required]
+
         [Display(Name = "Redemption Date")]
         public Nullable<System.DateTime> redemption_date { get; set; }
         [Required]

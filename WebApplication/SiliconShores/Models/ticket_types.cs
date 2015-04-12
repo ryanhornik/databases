@@ -24,7 +24,7 @@ namespace SiliconShores.Models
         [Display(Name = "Ticket Type ID")]
         public int ticket_type_id { get; set; }
         [Required]
-        [Display(Name = "Ticke Name")]
+        [Display(Name = "Ticket Name")]
         public string ticket_name { get; set; }
         [Required]
         [Display(Name = "Ticket Restrictions")]

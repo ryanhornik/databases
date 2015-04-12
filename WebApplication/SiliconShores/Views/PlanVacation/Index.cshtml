@@ -14,91 +14,113 @@
     <div class="form-horizontal">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(m => m.ArrivalDate, new { @class = "col-md-2 control-label"})
+            @Html.LabelFor(m => m.ArrivalDate, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.ArrivalDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ArrivalDate, "", new {@class = "text-danger"})
                 @Html.Label("Format: MM/DD/YYYY")
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Nights, new {@class = "col-md-2 control-label"})
+            @Html.LabelFor(m => m.Nights, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Nights, new {@class = "form-control"})
+                @Html.TextBoxFor(m => m.Nights, new { @class = "form-control" })
             </div>
         </div>
 
         @{ var count = 0;}
         @foreach (var t in ViewBag.TicketTypes)
-         {
+        {
             var inputID = "id_" + t.ticket_name;
-             <div class="form-group">
-                 <label for=@inputID class="col-md-2 control-label">@t.ticket_name</label>
-                 <input type="hidden" name="@("ticketPurchase[" + count + "]").Key" value="@t.ticket_type_id"/>
-                 <div class="col-md-10">
-                     <input name="@("ticketPurchase[" + count + "]").Value" type="number" id=@inputID value="0" class="form-control" min="0"/>
-                 </div>
-             </div>
-             count++;
-         }
+            <div class="form-group">
+                <label for=@inputID class="col-md-2 control-label">@t.ticket_name</label>
+                <input type="hidden" name="@("ticketPurchase[" + count + "]").Key" value="@t.ticket_type_id" />
+                <div class="col-md-10">
+                    <input name="@("ticketPurchase[" + count + "]").Value" type="number" id=@inputID value="0" class="form-control" min="0" />
+                </div>
+            </div>
+            count++;
+        }
 
         <div class="form-group">
             <label class="col-md-2 control-label">Hotel</label>
             <div class="col-md-10">
-                @Html.DropDownList("Hotels", null, htmlAttributes: new {@class = "form-control", @onChange = "updateRooms();", @id = "id_hotel"})
+                @Html.DropDownList("Hotels", null, htmlAttributes: new { @class = "form-control magic", @id = "id_hotel" }, optionLabel: "Select a Hotel")
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label">Room Type</label>
             <div class="col-md-10">
-                @Html.DropDownList("RoomTypes", null, htmlAttributes: new {@class = "form-control", @onChange = "updateRooms();", @id = "id_room_type"})
+                @Html.DropDownList("RoomTypes", null, htmlAttributes: new { @class = "form-control magic", @id = "id_room_type" }, optionLabel: "Select a Room Type")
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label">Room</label>
             <div class="col-md-10">
-                <select id="id_room_list_searched" disabled name="Room">
-                    <option value="-1">Select a Room</option>
+                <select id="id_room" disabled name="Room" class="form-control">
+                    <option>Select a Room</option>
                 </select>
-                @Html.DropDownList("Rooms", null, htmlAttributes: new {@id = "id_room_list_full"})
             </div>
         </div>
 
         <input type="submit" value="Go" class="btn btn-success"/>
-    </div>   
+    </div>
 }
-
 <script type="text/javascript">
-    function updateRooms($, window) {
-        var room = document.getElementById("id_room_list_searched");
-        var roomList = document.getElementById("id_room_list_full").options;
+    $(document).ready(function () {
+        $("select").change(function (event) {
+            if (this == document.getElementById("id_room"))
+                return;
+            var selectedHotel = $("select[id=id_hotel]")[0].selectedOptions[0].value;
+            var selectedRoomType = $("select[id=id_room_type]")[0].selectedOptions[0].value;
+            $.getJSON("PlanVacation/RoomSelection",
+                "selectedHotel=" + selectedHotel + "\&" +
+                "selectedRoomType=" + selectedRoomType,
+                function (data) {
+                    var roomDropDown = $("select[id=id_room]");
+                    roomDropDown.find("option")
+                        .remove()
+                        .end()
+                        .append("<option>Select a Room</option>");
 
-        var hotel = document.getElementById("id_hotel");
-        var roomType = document.getElementById("id_room_type");
+                    if (data.length > 0) {
+                        roomDropDown.prop("disabled", false);
 
-        var selectedHotel = hotel.options[hotel.selectedIndex].value;
-        var selectedRoomType = roomType.options[roomType.selectedIndex].value;
+                        var optionList = {};
+                        for (var k = 0; k < data.length; k++) {
+                            var val = data[k].room_number;
+                            var text = "Room: " + data[k].room_number + " - $" + data[k].room_rate;
+                            optionList[val] = text;
+                        }
 
-        room.options = room.options.empty;
-        var defaultRoomOption = document.createElement("option");
-        defaultRoomOption.text = "Select a room";
-        defaultRoomOption.value = "-1";
-        room = room.add(defaultRoomOption);
+                        $.each(optionList, function(val, text) {
+                            roomDropDown.append($("<option></option>").val(val).html(text));
+                        });
+                    }
+                    else {
+                        roomDropDown.prop("disabled", true);
+                    }
+                });
 
-        for (var k = 0; k < roomList.length; k++) {
-            var listVal = roomList[k].value.split(" ");
-            var listHotel = listVal[0];
-            var listRoomType = listVal[1];
-            var listRoomNumber = roomList[k].Text;
+            /*$.ajax({
+                url: "PlanVacation/RoomSelection",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: "{" +
+                    "selectedHotel: " + selectedHotel +
+                    "selectedRoomType: " + selectedRoomType +
+                    "}",
+                success: function(data) {
+                    alert("Success");
+                    alert(data);
+                },
+                error: function() { alert("failed :(") }
 
-            if (selectedHotel === listHotel && selectedRoomType === listRoomType) {
-                var newOption = document.createElement("option");
-                newOption.text = roomList[k].text;
-                newOption.value = roomList[k].value;
-            }
-        }
-        alert(selectedHotel + " = hotel, " + selectedRoomType + " = room type \n" + roomListString);
-    }
+            });*/
+        });
+    });
 </script>

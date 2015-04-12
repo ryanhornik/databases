@@ -3,9 +3,17 @@ using System.Data.Entity;
 using System;
 using System.Net;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Web.Script.Services;
+using System.Web.Services;
+using System.Web.WebPages;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SiliconShores.Controllers
 {
@@ -104,6 +112,26 @@ namespace SiliconShores.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        public JsonResult RoomSelection(string selectedHotel, string selectedRoomType)
+        {
+            if (selectedHotel.IsEmpty() || selectedRoomType.IsEmpty())
+                return null;
 
+            int sh = Convert.ToInt32(selectedHotel);
+            int srt = Convert.ToInt32(selectedRoomType);
+
+            var rooms = db.hotel_rooms.Where(s =>
+                s.hotel_id == sh &&
+                s.room_type_id == srt);
+
+            return Json(rooms.Select(s => new
+            {
+                hotel_id = s.hotel_id,
+                room_number = s.room_number,
+                room_rate = s.room_rate,
+                room_type_id = s.room_type_id
+            }
+                ), JsonRequestBehavior.AllowGet);
+        }
     }
 }
