@@ -4,8 +4,33 @@
 }
 
 <h2>DisplayTicketSalesWeather</h2>
-  
 
-<div>
-    <img src="@Url.Action("GenerateChart")" width="500" height="400"/>
-</div>
+
+<img src="/ReportTicketSales/GenerateChart?@ViewBag.Params" width="500" height="400" class="img-rounded"/>
+
+@using (Html.BeginForm("DisplayTicketSalesWeather", "ReportTicketSales", FormMethod.Get))
+{
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label for="id_start" class="control-label col-md-2">Start Date</label>
+            <div class="col-md-10">
+                <input name="startDate" id="id_start" type="date" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="id_end" class="control-label col-md-2">End Date</label>
+            <div class="col-md-10">
+                <input name="endDate" id="id_end" type="date" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Run Report" class="btn btn-default"/>
+            </div>
+        </div>
+
+    </div>
+}

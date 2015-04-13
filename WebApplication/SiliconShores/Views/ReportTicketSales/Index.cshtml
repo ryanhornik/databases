@@ -1,6 +1,4 @@
-﻿@model IEnumerable<SiliconShores.Models.report_ticketsales>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,33 +6,29 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Ticket Redemption by Weather", "DisplayTicketSalesWeather")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ticket_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ticket_price)
-        </th>
-        <th></th>
-    </tr>
+@using (Html.BeginForm("DisplayTicketSalesWeather", "ReportTicketSales", FormMethod.Get))
+{
+    <div class="form-horizontal">
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ticket_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sale_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.redemption_date)
-        </tr>
-    }
-  
+        <div class="form-group">
+            <label for="id_start" class="control-label col-md-2">Start Date</label>
+            <div class="col-md-10">
+                <input name="startDate" id="id_start" type="date" class="form-control"/>
+            </div>
+        </div>
 
-</table>
+        <div class="form-group">
+            <label for="id_end" class="control-label col-md-2">End Date</label>
+            <div class="col-md-10">
+                <input name="endDate" id="id_end" type="date" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Run Report" class="btn btn-default"/>
+            </div>
+        </div>
+
+    </div>
+}

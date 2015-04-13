@@ -16,8 +16,7 @@ public class ReportTicketSalesController : Controller
     // GET: report_ticketsalesAdmin
     public ActionResult Index()
     {
-        var ticketReport = db.report_ticketsales.Select(r => r);
-        return View(ticketReport.ToList());
+        return View();
     }
 
     // GET: report_ticketsalesAdmin/Details/5
@@ -35,17 +34,24 @@ public class ReportTicketSalesController : Controller
         return View(ticketReport);
     }
 
-    public ActionResult DisplayTicketSalesWeather()
+    public ActionResult DisplayTicketSalesWeather(DateTime startDate, DateTime endDate)
     {
+        ViewBag.Params = Request.QueryString.ToString();
         return View();
     }
 
-    public ActionResult GenerateChart()
+    public ActionResult GenerateChart(DateTime startDate, DateTime endDate)
     {
-        var ticketReport = db.report_ticketsales.Select(r => r);
+        var ticketReport = db.report_ticketsales
+            .Where(r => DateTime.Compare(r.weather_date, startDate) >= 0 &&
+                        DateTime.Compare(r.weather_date, endDate) <= 0);
+
         var totalDaysOfWeatherCondition = new Dictionary<string, int>();
 
-        foreach (var weather in db.daily_weather.Select(s => s.weather_conditions))
+        foreach (var weather in db.daily_weather
+            .Where(r => DateTime.Compare(r.weather_date, startDate) >= 0 &&
+                        DateTime.Compare(r.weather_date, endDate) <= 0)
+            .Select(s => s.weather_conditions))
         {
             var result = 0;
             totalDaysOfWeatherCondition.TryGetValue(weather, out result);
