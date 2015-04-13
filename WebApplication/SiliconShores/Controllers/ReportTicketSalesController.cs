@@ -43,24 +43,43 @@ public class ReportTicketSalesController : Controller
     public ActionResult GenerateChart()
     {
         var ticketReport = db.report_ticketsales.Select(r => r);
-        SortedList<string, int> chartData = new SortedList<string, int>();
+        var totalDaysOfWeatherCondition = new Dictionary<string, int>();
 
-        foreach (var row in ticketReport)
+        foreach (var weather in db.daily_weather.Select(s => s.weather_conditions))
         {
-            if (!chartData.ContainsKey(row.weather_conditions))
-            {
-                chartData.Add(row.weather_conditions, 1);
-            }
-            else
-            {
-                chartData[row.weather_conditions]++;
-            }
+            var result = 0;
+            totalDaysOfWeatherCondition.TryGetValue(weather, out result);
+            if(result != 0)
+                totalDaysOfWeatherCondition.Remove(weather);
+            totalDaysOfWeatherCondition.Add(weather, result + 1);
         }
 
-        String[] xValues = chartData.Keys.ToArray<String>();
-        int[] yValues = chartData.Values.ToArray<int>();
+        var chartData = new Dictionary<string, int>();
+        foreach (var row in ticketReport)
+        {
+            var result = 0;
+            chartData.TryGetValue(row.weather_conditions, out result);
+            if (result != 0)
+                chartData.Remove(row.weather_conditions);
+            chartData.Add(row.weather_conditions, result + 1);
+        }
 
-        var myChart = new Chart(width: 400, height: 400)
+        String[] xValues = chartData.Keys.ToArray();
+        decimal[] yValues = new decimal[xValues.Length];
+
+        for (var k = 0; k < xValues.Length; k++)
+        {
+            var ticketSales = 0;
+            chartData.TryGetValue(xValues[k], out ticketSales);
+            var daysOfWeather = 1;
+            totalDaysOfWeatherCondition.TryGetValue(xValues[k], out daysOfWeather);
+            yValues[k] = (decimal)ticketSales/daysOfWeather;
+        }
+
+        var myChart = new Chart(
+            width: 1000,
+            height: 800,
+            theme: ChartTheme.Blue)
         .AddTitle("Ticket Redemption by Weather")
         .AddSeries(
             name: "Ticket Sales",
