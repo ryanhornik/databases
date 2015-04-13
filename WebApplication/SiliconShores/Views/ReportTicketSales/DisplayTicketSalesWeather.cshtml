@@ -1,19 +1,11 @@
-﻿@model SiliconShores.Models.report_ticketsalesChartData
-
-@{
+﻿@{
     ViewBag.Title = "DisplayTicketSalesWeather";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>DisplayTicketSalesWeather</h2>
   
-  @{
-   
-      var myChart = new Chart(width: 600, height: 400)
-          .AddTitle("Ticket Redemption by Weather")
-          .AddSeries(
-              name: "Ticket Sales", 
-              xValue: Model.xValues,
-              yValues: Model.yValues)
-          .Write();
-}
+
+<div>
+    <img src="@Url.Action("GenerateChart")"/>
+</div>
