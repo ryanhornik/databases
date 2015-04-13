@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Index</h2>
 
 <p>
@@ -12,7 +13,7 @@
 </p>
 <table class="table">
     <tr>
-        <th> 
+        <th>
             @Html.DisplayNameFor(model => model.ticket_id)
         </th>
         <th>
@@ -21,17 +22,19 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ticket_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sale_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.redemption_date)
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ticket_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sale_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.redemption_date)
+        </tr>
+    }
+  
 
 </table>

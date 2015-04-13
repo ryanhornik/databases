@@ -24,4 +24,10 @@ namespace SiliconShores.Models
         public int high_temp { get; set; }
         public int low_temp { get; set; }
     }
+
+    public class report_ticketsalesChartData
+    {
+        public string[] xValues;
+        public int[] yValues;
+    }
 }
