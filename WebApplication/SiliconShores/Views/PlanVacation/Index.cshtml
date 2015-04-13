@@ -17,7 +17,7 @@
             @Html.LabelFor(m => m.ArrivalDate, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.ArrivalDate, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ArrivalDate, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(m => m.ArrivalDate, "", new {@class = "text-danger", @type = "date"})
                 @Html.Label("Format: MM/DD/YYYY")
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Nights, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Nights, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Nights, new { @class = "form-control", @type = "number" })
             </div>
         </div>
 
@@ -34,10 +34,14 @@
         {
             var inputID = "id_" + t.ticket_name;
             <div class="form-group">
-                <label for=@inputID class="col-md-2 control-label">@t.ticket_name</label>
-                <input type="hidden" name="@("ticketPurchase[" + count + "]").Key" value="@t.ticket_type_id" />
+                <label for=@inputID class="col-md-2 control-label">
+                    @t.ticket_name<br/>
+                    $@t.ticket_price.00
+                    <span title="@t.ticket_restrictions" class="glyphicon glyphicon-info-sign"></span>
+                </label>
+                <input type="hidden" name="@("ticketPurchase[" + count + "]").Key" value="@t.ticket_type_id"/>
                 <div class="col-md-10">
-                    <input name="@("ticketPurchase[" + count + "]").Value" type="number" id=@inputID value="0" class="form-control" min="0" />
+                    <input name="@("ticketPurchase[" + count + "]").Value" type="number" id=@inputID value="0" class="form-control" min="0"/>
                 </div>
             </div>
             count++;
@@ -66,7 +70,7 @@
             </div>
         </div>
 
-        <input type="submit" value="Go" class="btn btn-success"/>
+        <input type="submit" value="Book Now" class="btn btn-success"/>
     </div>
 }
 <script type="text/javascript">
@@ -96,7 +100,7 @@
                             optionList[val] = text;
                         }
 
-                        $.each(optionList, function(val, text) {
+                        $.each(optionList, function (val, text) {
                             roomDropDown.append($("<option></option>").val(val).html(text));
                         });
                     }
@@ -104,23 +108,6 @@
                         roomDropDown.prop("disabled", true);
                     }
                 });
-
-            /*$.ajax({
-                url: "PlanVacation/RoomSelection",
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: "{" +
-                    "selectedHotel: " + selectedHotel +
-                    "selectedRoomType: " + selectedRoomType +
-                    "}",
-                success: function(data) {
-                    alert("Success");
-                    alert(data);
-                },
-                error: function() { alert("failed :(") }
-
-            });*/
         });
     });
 </script>
