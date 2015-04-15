@@ -48,6 +48,7 @@ public class ReportTicketSalesController : Controller
 
         var totalDaysOfWeatherCondition = new Dictionary<string, int>();
 
+        #region categoricalWeather
         foreach (var weather in db.daily_weather
             .Where(r => DateTime.Compare(r.weather_date, startDate) >= 0 &&
                         DateTime.Compare(r.weather_date, endDate) <= 0)
@@ -90,8 +91,13 @@ public class ReportTicketSalesController : Controller
         .AddSeries(
             name: "Ticket Sales",
             xValue: xValues,
-            yValues: yValues);
+            yValues: yValues)
+            .AddSeries(
+            );
         ViewBag.chart = myChart;
+        #endregion
+        
+        
         return View();
 
     }
