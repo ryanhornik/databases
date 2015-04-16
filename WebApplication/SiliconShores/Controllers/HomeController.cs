@@ -14,22 +14,63 @@ namespace SiliconShores.Controllers
         public ActionResult Index()
         {
             Random r = new Random();
-            var rideReports = new List<daily_ride_report>();
+            var hotelRooms = new List<hotel_rooms>();
             var stopDate = new DateTime(2015, 4, 14);
-            for (var date = stopDate.AddYears(-1); date < stopDate; date = date.AddDays(1))
+            
+            foreach(var h in db.hotels)
             {
-                int peopleInPark = db.ticket_sales.Count(s => s.redemption_date != null && (DateTime.Compare(s.redemption_date.Value ,date) == 0));
-                foreach (var ride in db.attractions)
+                int numFloors, roomsPerFloor;
+                do
                 {
-                    rideReports.Add(new daily_ride_report()
+                    numFloors = r.Next(2, 5);
+                    roomsPerFloor = r.Next(8, 13) * 5;
+                } while (numFloors*roomsPerFloor < 40);
+                
+                var roomTypeSelector = 0;
+                for (var floor = 1; floor <= numFloors; floor++)
+                {
+                    for (var room = 1; room <= roomsPerFloor; room++)
                     {
-                    attraction = ride,
-                    ride_report_date = date,
-                    total_riders = r.Next(peopleInPark/8, (int) (peopleInPark*1.5))
-                    });
+                        int roomTypeID;
+
+                        if (roomTypeSelector % 20 < 9)
+                        {
+                            roomTypeID = 1;
+                        }
+                        else if(roomTypeSelector % 20 < 14)
+                        {
+                            roomTypeID = 2;
+                        }
+                        else if (roomTypeSelector%20 < 17)
+                        {
+                            roomTypeID = 3;
+                        }
+                        else if (roomTypeSelector%20 < 19)
+                        {
+                            roomTypeID = 4;
+                        }
+                        else
+                        {
+                            roomTypeID = 5;
+                        }
+                        roomTypeSelector ++;
+
+                        var rate = (55 * Math.Pow(1.5, (double) roomTypeID) - 2.5);
+                        rate += rate* ((2 * r.NextDouble() - 1) * 0.1);
+                        var rateDec = Decimal.Round((decimal) rate, 2);
+
+                        hotelRooms.Add(new hotel_rooms()
+                        {
+                            hotel = h,
+                            occupied = false,
+                            room_number = floor * 100 + room,
+                            room_type_id = roomTypeID,
+                            room_rate = rateDec
+                        });
+                    }
                 }
             }
-            db.daily_ride_report.AddRange(rideReports);
+            db.hotel_rooms.AddRange(hotelRooms);
             db.SaveChanges();
             return View();
         }
