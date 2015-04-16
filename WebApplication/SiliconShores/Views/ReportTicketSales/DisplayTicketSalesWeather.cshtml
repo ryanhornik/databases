@@ -5,9 +5,14 @@
 
 <h2>DisplayTicketSalesWeather</h2>
 
-
-<img src="/ReportTicketSales/GenerateChart?@ViewBag.Params" width="500" height="400" class="img-rounded"/>
-
+<div class="row">
+    <div class="col-md-6">
+        <img src="/ReportTicketSales/GenerateChart?@ViewBag.Params" class="img-rounded"/>
+    </div>
+    <div class="col-md-6">
+        <img src="/ReportTicketSales/GenerateTemperatureReport?@ViewBag.Params" class="img-rounded"/>
+    </div>
+</div>
 @using (Html.BeginForm("DisplayTicketSalesWeather", "ReportTicketSales", FormMethod.Get))
 {
     <div class="form-horizontal">

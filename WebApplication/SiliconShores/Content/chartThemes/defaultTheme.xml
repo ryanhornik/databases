@@ -23,8 +23,5 @@
   <Titles>
     <Title _Template_="All" Font="Trebuchet MS, 36pt"/>
   </Titles>
-  <Series>
-    <Series Name="Default" _Template_="All" BorderWidth="3" IsValueShownAsLabel="False" Font="Trebuchet MS, 18pt, style=Bold"/>
-  </Series>
   <BorderSkin SkinStyle="Emboss" />
 </Chart>

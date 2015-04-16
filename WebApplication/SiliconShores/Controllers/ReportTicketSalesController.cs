@@ -88,8 +88,8 @@ public class ReportTicketSalesController : Controller
         var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
 
         var myChart = new Chart(
-            width: 1000,
-            height: 800,
+            width: 600,
+            height: 400,
             theme: chartTheme
             )
         .AddTitle("Ticket Redemption by Weather")
@@ -100,6 +100,64 @@ public class ReportTicketSalesController : Controller
         ViewBag.chart = myChart;
         return View();
 
+    }
+
+    public ActionResult GenerateTemperatureReport(DateTime startDate, DateTime endDate)
+    {
+        var ticketReport = db.ticket_sales
+            .Where(r => r.redemption_date != null &&
+                DateTime.Compare(r.redemption_date.Value, startDate) >= 0 &&
+                DateTime.Compare(r.redemption_date.Value, endDate) <= 0).ToList();
+        var temperatures = db.daily_weather
+            .Where(r => DateTime.Compare(r.weather_date, startDate) >= 0 &&
+                        DateTime.Compare(r.weather_date, endDate) <= 0);
+
+        var date = startDate;
+        var dataSet = new List<KeyValuePair<KeyValuePair<int,int>,int>>();
+        foreach (var temp in temperatures)
+        {
+            var sales = ticketReport.Count(r => DateTime.Compare(r.redemption_date.Value, temp.weather_date) == 0);
+            dataSet.Add(new KeyValuePair<KeyValuePair<int, int>, int>(
+                new KeyValuePair<int, int>(temp.low_temp, temp.high_temp) , sales));
+            date = date.AddDays(1);
+        }
+
+
+
+
+
+        var lowTemps = new List<int>();
+        var yAxisSales = new List<int>();
+        var highTemps = new List<int>();
+
+        foreach (var point in dataSet)
+        {
+            lowTemps.Add(point.Key.Key); // yolo
+            highTemps.Add(point.Key.Value);
+            yAxisSales.Add(point.Value);
+        }
+
+        var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
+
+        var myChart = new Chart(
+            width: 600,
+            height: 400,
+            theme: chartTheme
+            )
+        .AddTitle("Ticket Redemption by Temperature")
+        .AddSeries(
+            name: "Low Temperatures",
+            chartType: "Point",
+            xValue: lowTemps.ToArray(),
+            yValues: yAxisSales.ToArray())
+            .AddSeries(
+            name: "High Temperatures",
+            chartType: "Point",
+            xValue: highTemps.ToArray(),
+            yValues: yAxisSales.ToArray()
+            ).AddLegend("High/Low","Temp");
+        ViewBag.chart = myChart;
+        return View();
     }
 
     protected override void Dispose(bool disposing)
