@@ -1,7 +1,4 @@
-﻿@using SiliconShores.Models
-@model SiliconShores.Models.VacationPlanViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,18 +11,20 @@
     <div class="form-horizontal">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(m => m.ArrivalDate, new { @class = "col-md-2 control-label" })
+            <label for="id_arrival_date" class="col-md-2 control-label">
+                Arrival Date
+            </label>
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.ArrivalDate, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ArrivalDate, "", new {@class = "text-danger", @type = "date"})
-                @Html.Label("Format: MM/DD/YYYY")
+                <input type="date" class="form-control" name="arrivalDate" id="id_arrival_date"/>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Nights, new { @class = "col-md-2 control-label" })
+            <label for="id_nights" class="col-md-2 control-label">
+                Nights
+            </label>
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Nights, new { @class = "form-control", @type = "number" })
+                <input name="nights" id="id_nights" type="number" class="form-control"/>
             </div>
         </div>
 
@@ -36,13 +35,15 @@
             <div class="form-group">
                 <label for=@inputID class="col-md-2 control-label">
                     @t.ticket_name<br/>
-                    $@t.ticket_price.00
-                    <span title="@t.ticket_restrictions" class="glyphicon glyphicon-info-sign"></span>
                 </label>
                 <input type="hidden" name="@("ticketPurchase[" + count + "]").Key" value="@t.ticket_type_id"/>
-                <div class="col-md-10">
+                <div class="col-md-4">
                     <input name="@("ticketPurchase[" + count + "]").Value" type="number" id=@inputID value="0" class="form-control" min="0"/>
                 </div>
+                <label for=@inputID class="col-md-6 col-md-pull-1">
+                    <span title="@t.ticket_restrictions" class="glyphicon glyphicon-info-sign"></span>
+                    $@t.ticket_price
+                </label>
             </div>
             count++;
         }
