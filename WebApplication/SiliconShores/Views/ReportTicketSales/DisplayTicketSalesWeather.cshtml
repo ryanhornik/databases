@@ -3,16 +3,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DisplayTicketSalesWeather</h2>
+<h2>Weather and Ticket Redemptions</h2>
 
 <div class="row">
     <div class="col-md-6">
-        <img src="/ReportTicketSales/GenerateChart?@ViewBag.Params" class="img-rounded"/>
+        <img src="/ReportTicketSales/GenerateChart?@ViewBag.Params" alt="Ticket Redemptions vs Weather Conditions"/>
     </div>
     <div class="col-md-6">
-        <img src="/ReportTicketSales/GenerateTemperatureReport?@ViewBag.Params" class="img-rounded"/>
+        <img src="/ReportTicketSales/GenerateTemperatureReport?@ViewBag.Params" alt="Ticket Redemptions vs Temperature"/>
     </div>
 </div>
+<div class="row">
 @using (Html.BeginForm("DisplayTicketSalesWeather", "ReportTicketSales", FormMethod.Get))
 {
     <div class="form-horizontal">
@@ -39,3 +40,4 @@
 
     </div>
 }
+</div>

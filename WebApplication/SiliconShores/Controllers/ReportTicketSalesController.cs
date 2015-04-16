@@ -92,7 +92,6 @@ public class ReportTicketSalesController : Controller
             height: 400,
             theme: chartTheme
             )
-        .AddTitle("Ticket Redemption by Weather")
         .AddSeries(
             name: "Ticket Sales",
             xValue: xValues,
@@ -144,7 +143,6 @@ public class ReportTicketSalesController : Controller
             height: 400,
             theme: chartTheme
             )
-        .AddTitle("Ticket Redemption by Temperature")
         .AddSeries(
             name: "Low Temperatures",
             chartType: "Point",
