@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
+using System.IO;
+using System.Text;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -82,10 +85,13 @@ public class ReportTicketSalesController : Controller
             yValues[k] = (decimal)ticketSales/daysOfWeather;
         }
 
+        var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
+
         var myChart = new Chart(
             width: 1000,
             height: 800,
-            theme: ChartTheme.Blue)
+            theme: chartTheme
+            )
         .AddTitle("Ticket Redemption by Weather")
         .AddSeries(
             name: "Ticket Sales",

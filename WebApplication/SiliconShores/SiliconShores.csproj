@@ -332,6 +332,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chartThemes\defaultTheme.xml" />
     <Content Include="Content\Images\gpu\se.png" />
     <Content Include="Content\Images\nb\sc.png" />
     <Content Include="Content\Images\nb\tff.png" />
