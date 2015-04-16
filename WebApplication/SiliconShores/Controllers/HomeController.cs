@@ -13,66 +13,76 @@ namespace SiliconShores.Controllers
 
         public ActionResult Index()
         {
+            var startDate = new DateTime(2014, 4, 14);
+            var stopDate = startDate.AddYears(1);
+            var hotelReservations = new List<hotel_reservations>();
+            var totalRooms = db.hotel_rooms.Count();
+            var roomList = db.hotel_rooms.ToArray();
+            var saleList = db.ticket_sales.ToList();
             Random r = new Random();
-            var hotelRooms = new List<hotel_rooms>();
-            var stopDate = new DateTime(2015, 4, 14);
-            
-            foreach(var h in db.hotels)
+            foreach (var ticket in saleList)
             {
-                int numFloors, roomsPerFloor;
-                do
+                if (ticket.redemption_date != null)
                 {
-                    numFloors = r.Next(2, 5);
-                    roomsPerFloor = r.Next(8, 13) * 5;
-                } while (numFloors*roomsPerFloor < 40);
-                
-                var roomTypeSelector = 0;
-                for (var floor = 1; floor <= numFloors; floor++)
-                {
-                    for (var room = 1; room <= roomsPerFloor; room++)
+                    var date = ticket.redemption_date.Value;
+                    var multiNightChance = 0.0; //Chance of a second night given they stay the first night
+                    var percentOverNight = 0.0;
+                    switch (date.DayOfWeek)
                     {
-                        int roomTypeID;
-
-                        if (roomTypeSelector % 20 < 9)
+                        case DayOfWeek.Friday:
+                            multiNightChance = .5;
+                            percentOverNight = .075;
+                            break;
+                        case DayOfWeek.Saturday:
+                            multiNightChance = .1;
+                            percentOverNight = .075;
+                            break;
+                        case DayOfWeek.Thursday:
+                            multiNightChance = .75;
+                            percentOverNight = .03;
+                            break;
+                        case DayOfWeek.Sunday:
+                            multiNightChance = .05;
+                            percentOverNight = .03;
+                            break;
+                        default:
+                            multiNightChance = .05;
+                            percentOverNight = .01;
+                            break;
+                    }
+                    if (r.NextDouble() < percentOverNight)
+                    {
+                        var nights = multiNightChance > r.NextDouble() ? 2 : 1;
+                        var checkout = date.AddDays(nights);
+                        var room = roomList[r.Next(totalRooms)];
+                        while (RoomOccupied(room, date, checkout))
                         {
-                            roomTypeID = 1;
+                            room = roomList[r.Next(totalRooms)];
                         }
-                        else if(roomTypeSelector % 20 < 14)
+                        
+                        hotelReservations.Add(new hotel_reservations()
                         {
-                            roomTypeID = 2;
-                        }
-                        else if (roomTypeSelector%20 < 17)
-                        {
-                            roomTypeID = 3;
-                        }
-                        else if (roomTypeSelector%20 < 19)
-                        {
-                            roomTypeID = 4;
-                        }
-                        else
-                        {
-                            roomTypeID = 5;
-                        }
-                        roomTypeSelector ++;
-
-                        var rate = (55 * Math.Pow(1.5, (double) roomTypeID) - 2.5);
-                        rate += rate* ((2 * r.NextDouble() - 1) * 0.1);
-                        var rateDec = Decimal.Round((decimal) rate, 2);
-
-                        hotelRooms.Add(new hotel_rooms()
-                        {
-                            hotel = h,
-                            occupied = false,
-                            room_number = floor * 100 + room,
-                            room_type_id = roomTypeID,
-                            room_rate = rateDec
+                            hotel_rooms = room,
+                            paid_in_full = true,
+                            reservation_checkin_date = date,
+                            reservation_checkout_date = checkout,
+                            total_reservation_cost = nights * room.room_rate,
                         });
+                        var breakpoint = "excuse";
                     }
                 }
             }
-            db.hotel_rooms.AddRange(hotelRooms);
+
+            db.hotel_reservations.AddRange(hotelReservations);
             db.SaveChanges();
             return View();
+        }
+
+        private static bool RoomOccupied(hotel_rooms hr, DateTime arrival, DateTime checkout)
+        {
+            return hr.hotel_reservations.Any(s =>
+                (DateTime.Compare(s.reservation_checkin_date, arrival) <= 0 && DateTime.Compare(s.reservation_checkout_date, arrival) > 0 )||
+                (DateTime.Compare(arrival, s.reservation_checkin_date) <= 0 && DateTime.Compare(checkout, s.reservation_checkin_date) > 0));
         }
 
         public ActionResult About()
