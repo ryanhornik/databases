@@ -15,65 +15,32 @@ namespace SiliconShores.Controllers
         {
             var startDate = new DateTime(2014, 4, 14);
             var stopDate = startDate.AddYears(1);
-            var hotelReservations = new List<hotel_reservations>();
-            var totalRooms = db.hotel_rooms.Count();
-            var roomList = db.hotel_rooms.ToArray();
-            var saleList = db.ticket_sales.ToList();
+            var restaurantReports = new List<restaurant_daily_reports>();
+
             Random r = new Random();
-            foreach (var ticket in saleList)
+
+            for(var date = startDate; DateTime.Compare(date, stopDate) < 0; date = date.AddDays(1))
             {
-                if (ticket.redemption_date != null)
+                var numPatrons = (double) db.ticket_sales.Count(s => s.redemption_date != null && DateTime.Compare(s.redemption_date.Value, date) == 0);
+                numPatrons *= 1.25;
+
+                foreach (var restaurant in db.restaurants)
                 {
-                    var date = ticket.redemption_date.Value;
-                    var multiNightChance = 0.0; //Chance of a second night given they stay the first night
-                    var percentOverNight = 0.0;
-                    switch (date.DayOfWeek)
+                    double served = (numPatrons/6);
+                    served += served*(2*r.NextDouble() - 1)*.25;
+                    double plateCost = 10 * r.NextDouble() + 7.5;
+                    decimal grossIncome = (decimal) (plateCost*served);
+                    restaurantReports.Add(new restaurant_daily_reports()
                     {
-                        case DayOfWeek.Friday:
-                            multiNightChance = .5;
-                            percentOverNight = .075;
-                            break;
-                        case DayOfWeek.Saturday:
-                            multiNightChance = .1;
-                            percentOverNight = .075;
-                            break;
-                        case DayOfWeek.Thursday:
-                            multiNightChance = .75;
-                            percentOverNight = .03;
-                            break;
-                        case DayOfWeek.Sunday:
-                            multiNightChance = .05;
-                            percentOverNight = .03;
-                            break;
-                        default:
-                            multiNightChance = .05;
-                            percentOverNight = .01;
-                            break;
-                    }
-                    if (r.NextDouble() < percentOverNight)
-                    {
-                        var nights = multiNightChance > r.NextDouble() ? 2 : 1;
-                        var checkout = date.AddDays(nights);
-                        var room = roomList[r.Next(totalRooms)];
-                        while (RoomOccupied(room, date, checkout))
-                        {
-                            room = roomList[r.Next(totalRooms)];
-                        }
-                        
-                        hotelReservations.Add(new hotel_reservations()
-                        {
-                            hotel_rooms = room,
-                            paid_in_full = true,
-                            reservation_checkin_date = date,
-                            reservation_checkout_date = checkout,
-                            total_reservation_cost = nights * room.room_rate,
-                        });
-                        var breakpoint = "excuse";
-                    }
+                        restaurant = restaurant,
+                        report_date = date,
+                        gross_income = grossIncome,
+                        patrons_served = (int) Math.Ceiling(served)
+                    });
                 }
             }
 
-            db.hotel_reservations.AddRange(hotelReservations);
+            db.restaurant_daily_reports.AddRange(restaurantReports);
             db.SaveChanges();
             return View();
         }
