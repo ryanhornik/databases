@@ -12,6 +12,12 @@
     <div class="col-md-6">
         <img src="/ReportTicketSales/GenerateTemperatureReport?@ViewBag.Params" alt="Ticket Redemptions vs Temperature"/>
     </div>
+    
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <img src="/ReportTicketSales/GenerateRestReport?@ViewBag.Params" alt="Restaurant ID vs Sales and Income" />
+    </div>
 </div>
 <div class="row">
 @using (Html.BeginForm("DisplayTicketSalesWeather", "ReportTicketSales", FormMethod.Get))
