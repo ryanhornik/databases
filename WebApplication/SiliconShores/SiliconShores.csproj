@@ -514,7 +514,8 @@
     <Content Include="Views\ReportTicketSales\DisplayTicketSalesWeather.cshtml" />
     <Content Include="Views\ReportTicketSales\GenerateChart.cshtml" />
     <Content Include="Views\ReportTicketSales\GenerateTemperatureReport.cshtml" />
-    <Content Include="Views\ReportTicketSales\GenerateRestReport.cshtml" />
+    <Content Include="Views\ReportTicketSales\GenerateRestReport1.cshtml" />
+    <Content Include="Views\ReportTicketSales\GenerateRestReport2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

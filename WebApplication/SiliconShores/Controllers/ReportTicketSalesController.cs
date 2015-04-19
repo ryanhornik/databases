@@ -15,7 +15,7 @@ using SiliconShores.Models;
 public class ReportTicketSalesController : Controller
 {
     private theme_park_dbEntities db = new theme_park_dbEntities();
- 
+
 
     // GET: report_ticketsalesAdmin
     public ActionResult Index()
@@ -50,8 +50,8 @@ public class ReportTicketSalesController : Controller
         return View();
     }
 
-     
-  
+
+
     public ActionResult GenerateChart(DateTime startDate, DateTime endDate)
     {
         var ticketReport = db.report_ticketsales
@@ -67,7 +67,7 @@ public class ReportTicketSalesController : Controller
         {
             var result = 0;
             totalDaysOfWeatherCondition.TryGetValue(weather, out result);
-            if(result != 0)
+            if (result != 0)
                 totalDaysOfWeatherCondition.Remove(weather);
             totalDaysOfWeatherCondition.Add(weather, result + 1);
         }
@@ -91,7 +91,7 @@ public class ReportTicketSalesController : Controller
             chartData.TryGetValue(xValues[k], out ticketSales);
             var daysOfWeather = 1;
             totalDaysOfWeatherCondition.TryGetValue(xValues[k], out daysOfWeather);
-            yValues[k] = (decimal)ticketSales/daysOfWeather;
+            yValues[k] = (decimal)ticketSales / daysOfWeather;
         }
 
         var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
@@ -121,12 +121,12 @@ public class ReportTicketSalesController : Controller
                         DateTime.Compare(r.weather_date, endDate) <= 0);
 
         var date = startDate;
-        var dataSet = new List<KeyValuePair<KeyValuePair<int,int>,int>>();
+        var dataSet = new List<KeyValuePair<KeyValuePair<int, int>, int>>();
         foreach (var temp in temperatures)
         {
             var sales = ticketReport.Count(r => DateTime.Compare(r.redemption_date.Value, temp.weather_date) == 0);
             dataSet.Add(new KeyValuePair<KeyValuePair<int, int>, int>(
-                new KeyValuePair<int, int>(temp.low_temp, temp.high_temp) , sales));
+                new KeyValuePair<int, int>(temp.low_temp, temp.high_temp), sales));
             date = date.AddDays(1);
         }
 
@@ -162,7 +162,7 @@ public class ReportTicketSalesController : Controller
             chartType: "Point",
             xValue: highTemps.ToArray(),
             yValues: yAxisSales.ToArray()
-            ).AddLegend("High/Low","Temp");
+            ).AddLegend("High/Low", "Temp");
         ViewBag.chart = myChart;
         return View();
     }
@@ -170,84 +170,85 @@ public class ReportTicketSalesController : Controller
 
 
     public ActionResult GenerateRestReport(DateTime startDate, DateTime endDate)
-       {
+    {
         
         var restReport = db.restaurant_daily_reports
                .Where(r => r.report_date != null &&
                    DateTime.Compare(r.report_date, startDate) >= 0 &&
                    DateTime.Compare(r.report_date, endDate) <= 0).ToList();
 
-        var date = startDate;
+     
 
 
 
-        var dataSet = new Dictionary<int, KeyValuePair<decimal,int>>();
-        /*
-        foreach (var row in ticketReport)
-        {
-            var result = 0;
-            chartData.TryGetValue(row.weather_conditions, out result);
-            if (result != 0)
-                chartData.Remove(row.weather_conditions);
-            chartData.Add(row.weather_conditions, result + 1);
-        }
-        */
+        var dataSet = new Dictionary<int, KeyValuePair<int,int>>();
+     
         foreach(var report in restReport)
         {
-            var result = new KeyValuePair<decimal, int>();
-            var oldValue = new KeyValuePair<decimal, int>();
+            var result = new KeyValuePair<int, int>();
+
 
             dataSet.TryGetValue(report.restaurant_id, out result);
             if(result.Key!=0 && result.Value!=0)
             {
-                oldValue = result;
                 dataSet.Remove(report.restaurant_id);
             }
-             dataSet.Add(report.restaurant_id,  result.Key + report.Key,
-                 result.Value + report.Value)
-
+            dataSet.Add(report.restaurant_id, new KeyValuePair<int, int>(result.Key + (int)report.gross_income,
+                result.Value + report.patrons_served));
+        }
             
                 
             
-            dataSet.Add(new KeyValuePair<int, KeyValuePair<decimal, int>>(report.restaurant_id, new KeyValuePair<decimal, int>(report.gross_income, report.patrons_served)));
-        }
+           
+        
 
         var xAxisOne = new List<int>();
-        var yAxisOne = new List<decimal>();
+        var yAxisOne = new List<int>();
         var yAxisTwo = new List<int>();
 
 
         foreach (var point in dataSet)
         {
-            xAxisOne.Add(point.Key); // yolo
-            yAxisOne.Add(point.Value.Key);
+            xAxisOne.Add(point.Key);
+            yAxisOne.Add(point.Value.Key); 
             yAxisTwo.Add(point.Value.Value);
         }
 
         var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
 
-        var myChart = new Chart(
+        var myChart1 = new Chart(
             width: 600,
             height: 400,
             theme: chartTheme
             )
         .AddSeries(
-            name: "Patrons Served",
-            chartType: "Bar",
-            xValue: xAxisOne.ToArray(),
-            yValues: yAxisOne.ToArray())
-            .AddSeries(
             name: "Gross Income",
-            chartType: "Bar",
             xValue: xAxisOne.ToArray(),
+            yValues: yAxisOne.ToArray()).AddLegend("To add here");
+          
+
+        var myChart2 = new Chart(
+         width: 600,
+         height: 400,
+         theme: chartTheme
+         )
+       .AddSeries(
+            name: "Patrons Served",
+            xValue:  xAxisOne.ToArray(),
             yValues: yAxisTwo.ToArray()
             ).AddLegend("High/Low", "Temp");
-        ViewBag.chart = myChart;
+
+
+        ViewBag.chart1 = myChart1;
+        ViewBag.chart2 = myChart2;
+
+
+      
 
         return View();
-        }
+     }
 
-    
+
     protected override void Dispose(bool disposing)
     {
         if (disposing)
