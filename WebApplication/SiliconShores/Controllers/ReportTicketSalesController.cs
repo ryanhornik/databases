@@ -169,7 +169,7 @@ public class ReportTicketSalesController : Controller
 
 
 
-    public ActionResult GenerateRestReport(DateTime startDate, DateTime endDate)
+    public ActionResult GenerateRestReport1(DateTime startDate, DateTime endDate)
     {
         
         var restReport = db.restaurant_daily_reports
@@ -216,18 +216,8 @@ public class ReportTicketSalesController : Controller
 
         var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
 
-        var myChart1 = new Chart(
-            width: 600,
-            height: 400,
-            theme: chartTheme
-            )
-        .AddSeries(
-            name: "Gross Income",
-            xValue: xAxisOne.ToArray(),
-            yValues: yAxisOne.ToArray()).AddLegend("To add here");
-          
-
-        var myChart2 = new Chart(
+   
+        var myChart = new Chart(
          width: 600,
          height: 400,
          theme: chartTheme
@@ -239,9 +229,8 @@ public class ReportTicketSalesController : Controller
             ).AddLegend("High/Low", "Temp");
 
 
-        ViewBag.chart1 = myChart1;
-        ViewBag.chart2 = myChart2;
-
+        ViewBag.chart = myChart;
+        
 
       
 
@@ -249,6 +238,74 @@ public class ReportTicketSalesController : Controller
      }
 
 
+    public ActionResult GenerateRestReport2(DateTime startDate, DateTime endDate)
+    {
+
+        var restReport = db.restaurant_daily_reports
+               .Where(r => r.report_date != null &&
+                   DateTime.Compare(r.report_date, startDate) >= 0 &&
+                   DateTime.Compare(r.report_date, endDate) <= 0).ToList();
+
+
+
+
+
+        var dataSet = new Dictionary<int, KeyValuePair<int, int>>();
+
+        foreach (var report in restReport)
+        {
+            var result = new KeyValuePair<int, int>();
+
+
+            dataSet.TryGetValue(report.restaurant_id, out result);
+            if (result.Key != 0 && result.Value != 0)
+            {
+                dataSet.Remove(report.restaurant_id);
+            }
+            dataSet.Add(report.restaurant_id, new KeyValuePair<int, int>(result.Key + (int)report.gross_income,
+                result.Value + report.patrons_served));
+        }
+
+
+
+
+
+
+        var xAxisOne = new List<int>();
+        var yAxisOne = new List<int>();
+        var yAxisTwo = new List<int>();
+
+
+        foreach (var point in dataSet)
+        {
+            xAxisOne.Add(point.Key);
+            yAxisOne.Add(point.Value.Key);
+            yAxisTwo.Add(point.Value.Value);
+        }
+
+        var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
+
+        var myChart = new Chart(
+            width: 600,
+            height: 400,
+            theme: chartTheme
+            )
+        .AddSeries(
+            name: "Gross Income",
+            xValue: xAxisOne.ToArray(),
+            yValues: yAxisOne.ToArray()).AddLegend("To add here");
+
+
+
+
+        ViewBag.chart = myChart;
+       
+
+
+
+
+        return View();
+    }
     protected override void Dispose(bool disposing)
     {
         if (disposing)
