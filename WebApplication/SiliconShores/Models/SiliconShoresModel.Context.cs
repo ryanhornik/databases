@@ -47,16 +47,5 @@ namespace SiliconShores.Models
         public virtual DbSet<userlogin> userlogins { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<role> roles { get; set; }
-
-        public ticket_sales CreateTicket(int type)
-        {
-            var sale = this.ticket_sales.Create();
-            sale.sale_date = DateTime.Today;
-            sale.ticket_type_id = type;
-            sale.redemption_date = null;
-            sale.sale_location = "Online";
-            sale.theme_park = this.theme_park.First(s => s.theme_park_name.Equals("Silicon Shores"));
-            return sale;
-        }
     }
 }
