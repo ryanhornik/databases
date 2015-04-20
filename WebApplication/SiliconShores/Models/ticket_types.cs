@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class ticket_types
     {
@@ -23,7 +24,6 @@ namespace SiliconShores.Models
         public string ticket_name { get; set; }
         public string ticket_restrictions { get; set; }
         public Nullable<float> ticket_price { get; set; }
-    
         public virtual ICollection<ticket_sales> ticket_sales { get; set; }
     }
 }

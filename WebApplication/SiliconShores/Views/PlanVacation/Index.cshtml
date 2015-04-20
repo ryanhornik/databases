@@ -1,58 +1,114 @@
-﻿@model IEnumerable<SiliconShores.Models.hotel_reservations>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Plan Your Perfect Day</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="id_arrival_date" class="col-md-2 control-label">
+                Arrival Date
+            </label>
+            <div class="col-md-10">
+                <input type="date" class="form-control" name="arrivalDate" id="id_arrival_date"/>
+            </div>
+        </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.reservation_checkin_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.reservation_checkout_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.total_reservation_cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.paid_in_full)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hotel_rooms.hotel_id)
-        </th>
-        <th></th>
-    </tr>
+        <div class="form-group">
+            <label for="id_nights" class="col-md-2 control-label">
+                Nights
+            </label>
+            <div class="col-md-10">
+                <input name="nights" id="id_nights" type="number" class="form-control"/>
+            </div>
+        </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.reservation_checkin_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.reservation_checkout_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.total_reservation_cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.paid_in_full)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hotel_rooms.hotel_id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.reservation_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.reservation_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.reservation_id })
-        </td>
-    </tr>
+        @{ var count = 0;}
+        @foreach (var t in ViewBag.TicketTypes)
+        {
+            var inputID = "id_" + t.ticket_name;
+            <div class="form-group">
+                <label for=@inputID class="col-md-2 control-label">
+                    @t.ticket_name<br/>
+                </label>
+                <input type="hidden" name="@("ticketPurchase[" + count + "]").Key" value="@t.ticket_type_id"/>
+                <div class="col-md-4">
+                    <input name="@("ticketPurchase[" + count + "]").Value" type="number" id=@inputID value="0" class="form-control" min="0"/>
+                </div>
+                <label for=@inputID class="col-md-6 col-md-pull-1">
+                    <span title="@t.ticket_restrictions" class="glyphicon glyphicon-info-sign"></span>
+                    $@t.ticket_price
+                </label>
+            </div>
+            count++;
+        }
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Hotel</label>
+            <div class="col-md-10">
+                @Html.DropDownList("Hotels", null, htmlAttributes: new { @class = "form-control magic", @id = "id_hotel" }, optionLabel: "Select a Hotel")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Room Type</label>
+            <div class="col-md-10">
+                @Html.DropDownList("RoomTypes", null, htmlAttributes: new { @class = "form-control magic", @id = "id_room_type" }, optionLabel: "Select a Room Type")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Room</label>
+            <div class="col-md-10">
+                <select id="id_room" disabled name="Room" class="form-control">
+                    <option>Select a Room</option>
+                </select>
+            </div>
+        </div>
+
+        <input type="submit" value="Book Now" class="btn btn-success"/>
+    </div>
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select").change(function (event) {
+            if (this == document.getElementById("id_room"))
+                return;
+            var selectedHotel = $("select[id=id_hotel]")[0].selectedOptions[0].value;
+            var selectedRoomType = $("select[id=id_room_type]")[0].selectedOptions[0].value;
+            $.getJSON("PlanVacation/RoomSelection",
+                "selectedHotel=" + selectedHotel + "\&" +
+                "selectedRoomType=" + selectedRoomType,
+                function (data) {
+                    var roomDropDown = $("select[id=id_room]");
+                    roomDropDown.find("option")
+                        .remove()
+                        .end()
+                        .append("<option>Select a Room</option>");
 
-</table>
+                    if (data.length > 0) {
+                        roomDropDown.prop("disabled", false);
+
+                        var optionList = {};
+                        for (var k = 0; k < data.length; k++) {
+                            var val = data[k].room_number;
+                            var text = "Room: " + data[k].room_number + " - $" + data[k].room_rate;
+                            optionList[val] = text;
+                        }
+
+                        $.each(optionList, function (val, text) {
+                            roomDropDown.append($("<option></option>").val(val).html(text));
+                        });
+                    }
+                    else {
+                        roomDropDown.prop("disabled", true);
+                    }
+                });
+        });
+    });
+</script>

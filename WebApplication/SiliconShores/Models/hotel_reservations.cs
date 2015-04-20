@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class hotel_reservations
     {
@@ -21,7 +22,6 @@ namespace SiliconShores.Models
         public System.DateTime reservation_checkout_date { get; set; }
         public decimal total_reservation_cost { get; set; }
         public bool paid_in_full { get; set; }
-    
         public virtual hotel_rooms hotel_rooms { get; set; }
     }
 }

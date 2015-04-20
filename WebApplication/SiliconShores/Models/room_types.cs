@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class room_types
     {
@@ -18,10 +19,10 @@ namespace SiliconShores.Models
         {
             this.hotel_rooms = new HashSet<hotel_rooms>();
         }
-    
+
         public int room_type_id { get; set; }
         public string room_types_string { get; set; }
-    
+
         public virtual ICollection<hotel_rooms> hotel_rooms { get; set; }
     }
 }
