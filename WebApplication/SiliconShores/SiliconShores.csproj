@@ -338,11 +338,11 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SiliconShoresModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Home\map.jpg" />
-    <Content Include="Home\plan vacation.gif" />
-    <Content Include="Home\plan vacation.jpg" />
-    <Content Include="Home\rollercoaster pic.png" />
-    <Content Include="Home\tickets.png" />
+    <Content Include="Content\Images\Home\map.jpg" />
+    <Content Include="Content\Images\Home\plan vacation.gif" />
+    <Content Include="Content\Images\Home\plan vacation.jpg" />
+    <Content Include="Content\Images\Home\rollercoaster pic.png" />
+    <Content Include="Content\Images\Home\tickets.png" />
     <Content Include="Models\SiliconShoresModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SiliconShoresModel.edmx</DependentUpon>
@@ -396,9 +396,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\PlanVacation\Home\About.cshtml" />
-    <Content Include="Views\PlanVacation\Home\Contact.cshtml" />
-    <Content Include="Views\PlanVacation\Home\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
@@ -514,6 +511,9 @@
     <Content Include="Views\PlanVacation.cshtml" />
     <Content Include="Views\PlanVacation\Index.cshtml" />
     <Content Include="Views\Maps\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
