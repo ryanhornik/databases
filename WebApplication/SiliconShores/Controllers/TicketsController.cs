@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Net;
+using System.Net.Mail;
 
 namespace SiliconShores.Controllers
 {
@@ -27,8 +28,18 @@ namespace SiliconShores.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmPurchase(IDictionary<int, int> ticketPurchase)
+        public ActionResult ConfirmPurchase(IDictionary<int, int> ticketPurchase, string email)
         {
+            MailMessage mail = new MailMessage("siliconshoressmtp@gmail.com", email)
+            {
+                Subject = "This is only a test",
+                Body = "This is the body of that test",
+                Attachments = {null/*TODO Add a .PDF of the tickets here*/}
+            };
+            SmtpClient client = new SmtpClient();
+            client.EnableSsl = true;
+            client.Send(mail);
+
             List<int> totalSales = new List<int>();
 
             foreach (var ticket in ticketPurchase)

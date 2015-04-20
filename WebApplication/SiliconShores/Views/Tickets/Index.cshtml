@@ -8,7 +8,6 @@
 @using (Html.BeginForm("ConfirmPurchase", "Tickets", FormMethod.Get))
 {
     <div class="form-horizontal">
-    @Html.AntiForgeryToken()
     @{ var count = 0; }
     @foreach(var t in ViewBag.TicketTypes)
     {
