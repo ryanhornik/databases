@@ -20,15 +20,9 @@ namespace SiliconShores.Models
             this.users = new HashSet<user>();
         }
 
-        [Required]
-        [Display(Name = "ID")]
         public string Id { get; set; }
-        [Required]
-        [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Users")]
         public virtual ICollection<user> users { get; set; }
     }
 }

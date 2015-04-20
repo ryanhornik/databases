@@ -15,21 +15,11 @@ namespace SiliconShores.Models
     
     public partial class restaurant_daily_reports
     {
-        [Required]
-        [Display(Name = "Report Date")]
         public System.DateTime report_date { get; set; }
-        [Required]
-        [Display(Name = "Restaurant ID")]
         public int restaurant_id { get; set; }
-        [Required]
-        [Display(Name = "Gross Income")]
         public decimal gross_income { get; set; }
-        [Required]
-        [Display(Name = "Patrons Served")]
         public int patrons_served { get; set; }
 
-        [Required]
-        [Display(Name = "Restaurant")]
         public virtual restaurant restaurant { get; set; }
     }
 }

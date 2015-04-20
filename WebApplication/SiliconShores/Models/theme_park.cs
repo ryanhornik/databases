@@ -22,42 +22,18 @@ namespace SiliconShores.Models
             this.theme_areas = new HashSet<theme_areas>();
             this.ticket_sales = new HashSet<ticket_sales>();
         }
-        [Required]
-        [Display(Name = "Theme Park ID")]
         public int theme_park_id { get; set; }
-        [Required]
-        [Display(Name = "Theme Park Name")]
         public string theme_park_name { get; set; }
-        [Required]
-        [Display(Name = "Park Open")]
         public System.TimeSpan park_open { get; set; }
-        [Required]
-        [Display(Name = "Park Close")]
         public System.TimeSpan park_close { get; set; }
-        [Required]
-        [Display(Name = "Park Country")]
         public string park_country { get; set; }
-        [Required]
-        [Display(Name = "Park State or Province")]
         public string park_state_or_province { get; set; }
-        [Required]
-        [Display(Name = "Park City")]
         public string park_city { get; set; }
-        [Required]
-        [Display(Name = "Park Street Address")]
         public string park_street_address { get; set; }
 
-        [Required]
-        [Display(Name = "Daily Weather")]
         public virtual ICollection<daily_weather> daily_weather { get; set; }
-        [Required]
-        [Display(Name = "Employees")]
         public virtual ICollection<employee> employees { get; set; }
-        [Required]
-        [Display(Name = "Theme Areas")]
         public virtual ICollection<theme_areas> theme_areas { get; set; }
-        [Required]
-        [Display(Name = "Ticket Sales")]
         public virtual ICollection<ticket_sales> ticket_sales { get; set; }
     }
 }

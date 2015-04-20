@@ -20,15 +20,9 @@ namespace SiliconShores.Models
             this.hotel_rooms = new HashSet<hotel_rooms>();
         }
 
-        [Required]
-        [Display(Name = "Room Type ID")]
         public int room_type_id { get; set; }
-        [Required]
-        [Display(Name = "Room Name")]
         public string room_types_string { get; set; }
 
-        [Required]
-        [Display(Name = "Hotel Rooms")]
         public virtual ICollection<hotel_rooms> hotel_rooms { get; set; }
     }
 }

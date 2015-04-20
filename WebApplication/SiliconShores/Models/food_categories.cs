@@ -20,15 +20,9 @@ namespace SiliconShores.Models
             this.restaurants = new HashSet<restaurant>();
         }
 
-        [Required]
-        [Display(Name = "Food Category ID")]
         public int food_category_id { get; set; }
-        [Required]
-        [Display(Name = "Food Categories Name")]
         public string food_categories_name { get; set; }
 
-        [Required]
-        [Display(Name = "Restaurants")]
         public virtual ICollection<restaurant> restaurants { get; set; }
     }
 }
