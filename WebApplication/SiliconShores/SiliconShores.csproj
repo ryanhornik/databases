@@ -268,6 +268,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModelExtensions.cs" />
     <Compile Include="Models\restaurant.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
@@ -530,7 +531,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3489</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
