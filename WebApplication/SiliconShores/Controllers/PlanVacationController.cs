@@ -31,9 +31,18 @@ namespace SiliconShores.Controllers
             return View();
         }
 
+        public ActionResult ConfirmPurchase() 
+        {
+            ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
+            ViewBag.Hotels = new SelectList(db.hotels, "hotel_id", "hotel_name");
+            ViewBag.Rooms = new SelectList(db.hotel_rooms, "hotel_and_room_type", "room_number");
+            ViewBag.TicketTypes = db.ticket_types.ToList();
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room)
+        public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room)
         {
             ticketPurchase = ticketPurchase.ToDictionary(s => s.Key, s => (nights+1)*s.Value);
 

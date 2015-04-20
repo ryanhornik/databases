@@ -5,7 +5,7 @@
 
 <h2>Plan Your Perfect Day</h2>
 <hr />
-@using (Html.BeginForm())
+@using (Html.BeginForm("ConfirmPurchase", "PlanVacation", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <input type="submit" value="Book Now" class="btn btn-success"/>
+        <input type="submit" value="Next" class="btn btn-success"/>
     </div>
 }
 <script type="text/javascript">

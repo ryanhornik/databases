@@ -19,9 +19,15 @@ namespace SiliconShores.Controllers
             return View();
         }
 
+        public ActionResult ConfirmPurchase() 
+        {
+            ViewBag.TicketTypes = db.ticket_types.ToList();
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(IDictionary<int, int> ticketPurchase)
+        public ActionResult ConfirmPurchase(IDictionary<int, int> ticketPurchase)
         {
             List<int> totalSales = new List<int>();
 

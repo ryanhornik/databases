@@ -5,7 +5,7 @@
 
 <h2>Buy Tickets</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("ConfirmPurchase", "Tickets", FormMethod.Get))
 {
     <div class="form-horizontal">
     @Html.AntiForgeryToken()
@@ -26,6 +26,6 @@
         </div>
         count++;
     }
-        <input type="submit" value="Buy now" class="btn btn-success"/>
+        <input type="submit" value="Next" class="btn btn-success"/>
     </div>
 }
