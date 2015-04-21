@@ -326,10 +326,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\home\slide1.jpg" />
+    <Content Include="Content\Images\Home\slide1.jpg" />
     <Content Include="Content\Carousel.css" />
-    <Content Include="Content\home\slide2.jpg" />
-    <Content Include="Content\home\slide3.jpg" />
+    <Content Include="Content\Images\Home\slide2.jpg" />
+    <Content Include="Content\Images\Home\slide3.jpg" />
     <Content Include="Content\Images\gpu\se.png" />
     <Content Include="Content\Images\Home\carouselbkg.gif" />
     <Content Include="Content\Images\nb\sc.png" />
