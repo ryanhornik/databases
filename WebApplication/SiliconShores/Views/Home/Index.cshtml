@@ -2,24 +2,91 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Silicon Shores</h1>
-    <p class="lead">Silicon Shores is the greatest vacation destination for families big and small</p>
-    <p><a href="/Home/About" class="btn btn-primary btn-lg">About us... &raquo;</a></p>
+<div id="myCarousel" class="carousel slide">
+    <ol class="carousel-indicators">
+        <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#mycarousel" data-slide-to="1"></li>
+        <li data-target="#mycarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner">
+
+        <div class="item active">
+            <img src="content/home/slide1.jpg" class - "img-responsive" width="100%" />
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Silicon Shores</h1>
+                    <p>A place of Wonder</p>
+                    
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="item ">
+            <img src="content/home/slide2.jpg" class - "img-responsive" width="100%" />
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Crazy Rides</h1>
+                    <p>A stomach churning adrenaline rush</p>
+                    <p><a class="btn btn-large btn-primary">Sign Up</a></p>
+
+                </div>
+            </div>
+        </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Book your vacation</h2>
-        <p>
-            Unfortunately our online booking system is not yet up. However, you can still book by contacting us
-            the old fashioned way
-        </p>
-        <p><a class="btn btn-default" href="/Home/Contact">Contact us &raquo;</a></p>
+
+        <div class="item ">
+            <img src="content/home/slide3.jpg" class - "img-responsive" width="100%" />
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Plan Your Trip Today</h1>
+                   
+
+                </div>
+            </div>
+        </div>
+
+
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
+
     </div>
-    <div class="col-md-4">
-        <h2>Not Convinced Yet?</h2>
-        <p>Your loss, I would link you to more info to convince you but there is nothing else to link you to yet</p>
-        <p><a class="btn btn-default" href="/">This link just reloads the page &raquo;</a></p>
+    <br />
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4">
+                <center><img class="img-circle" src="content/home/vacation.gif" alt="Vacation" width="140" height="140"></center>
+                <center><h2>Plan Vacation</h2></center>
+                <center><p>Plan your trip! Check out a hotel and enjoy your time at Silicon Shores</p></center>
+                <center><p><a class="btn btn-default" href="#" role="button">Plan Vacation &raquo;</a></p></center>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <center><img class="img-circle" src="content/home/tickets.jpg" alt="Tickets" width="140" height="140"></center>
+                <center><h2>Buy Tickets</h2></center>
+                <center><p>Purchase your ticket here!</p></center>
+                <center><p><a class="btn btn-default" href="#" role="button">Buy Tickets &raquo;</a></p></center>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <center><img class="img-circle" src="content/home/map.jpg" alt="Map" width="140" height="140"></center>
+                <center><h2>Map</h2></center>
+                <center><p>Check out the map of Silicon Shores!</p></center>
+                <center><p><a class="btn btn-default" href="#" role="button">Map &raquo;</a></p></center>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
     </div>
-</div>

@@ -321,6 +321,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\home\slide1.jpg" />
+    <Content Include="Content\home\slide2.jpg" />
+    <Content Include="Content\home\slide3.jpg" />
     <Content Include="Content\Images\gpu\se.png" />
     <Content Include="Content\Images\nb\sc.png" />
     <Content Include="Content\Images\nb\tff.png" />
