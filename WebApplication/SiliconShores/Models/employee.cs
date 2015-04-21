@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class employee
     {
@@ -25,7 +26,6 @@ namespace SiliconShores.Models
         public Nullable<System.DateTime> date_left { get; set; }
         public Nullable<bool> rehireable { get; set; }
         public string employee_id { get; set; }
-    
         public virtual theme_park theme_park { get; set; }
         public virtual user user { get; set; }
     }

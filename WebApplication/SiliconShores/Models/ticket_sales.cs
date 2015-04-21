@@ -11,12 +11,14 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class ticket_sales
     {
         public int ticket_id { get; set; }
         public int ticket_type_id { get; set; }
         public System.DateTime sale_date { get; set; }
+
         public Nullable<System.DateTime> redemption_date { get; set; }
         public int theme_park_id { get; set; }
         public string sale_location { get; set; }

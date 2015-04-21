@@ -11,6 +11,7 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class food_categories
     {
@@ -18,10 +19,10 @@ namespace SiliconShores.Models
         {
             this.restaurants = new HashSet<restaurant>();
         }
-    
+
         public int food_category_id { get; set; }
         public string food_categories_name { get; set; }
-    
+
         public virtual ICollection<restaurant> restaurants { get; set; }
     }
 }

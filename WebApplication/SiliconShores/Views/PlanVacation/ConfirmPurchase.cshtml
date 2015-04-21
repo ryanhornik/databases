@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmPurchase";
+}
+
+<h2>Confirm Order</h2>
+
+<table class="table table-striped table-bordered">
+
+    <tr>
+        <th>Hotel</th>
+        <th>@Request["selectedHotel"]</th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>@Request["arrivalDate"]</th>
+        <th>@Request["arrivalDate"].AsDateTime().AddDays(@Request["nights"].AsInt())</th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Room Type</th>
+        <th>Rate</th>
+        <th>Price</th>
+    </tr>
+
+    <tr>
+        <th>@Request["selectedRoomType"]</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </tr>
+
+    @{float total = 0;}
+    @{var count = 0;}
+    @foreach (var t in ViewBag.TicketTypes)
+    {
+        <tr>
+            <th>@t.ticket_name</th>
+            <th>@Request["ticketPurchase[" + count + "].value"]</th>
+            <th>$@(t.ticket_price * @Request["ticketPurchase[" + count + "].value"].AsFloat()).00</th>
+        </tr>
+        total = total + (t.ticket_price * @Request["ticketPurchase[" + count + "].value"].AsFloat());
+        count++;
+    }
+
+     <tr>
+        <th>Total</th>
+        <th></th>
+        <th>$@(total).00</th>
+    </tr>
+
+</table>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Checkout" class="btn btn-success" />
+    </div>
+}

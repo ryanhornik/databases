@@ -1,0 +1,67 @@
+﻿@model SiliconShores.Models.VacationPlanViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Plan Your Perfect Day</h2>
+<hr />
+@using (Html.BeginForm("Planning", "PlanVacation", FormMethod.Get, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.ArrivalDate, new { @class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ArrivalDate, new { @class = "form-control" })
+            @Html.Label("Format: MM/DD/YYYY")
+        </div>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nights, new { @class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Nights, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m=>m.Adults, new { @class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m=>m.Adults,null, htmlAttributes: new {@class = "form-control"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m=>m.Children, new{@class="col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Children, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Infants, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Infants, null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.RoomType, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.RoomType, new { @class = "form-control" })
+            <!--Html.DropDownList("room_types",new SelectList(ViewBag.RoomTypes,"room_type_id","room_types_string"))-->
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rooms, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Rooms, null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+    <input type="submit" value="Check Now" class="btn btn-success"/>
+}
+

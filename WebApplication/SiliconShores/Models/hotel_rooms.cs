@@ -7,10 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Web.Script.Serialization;
+
 namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class hotel_rooms
     {
@@ -18,13 +21,12 @@ namespace SiliconShores.Models
         {
             this.hotel_reservations = new HashSet<hotel_reservations>();
         }
-    
+
         public int hotel_id { get; set; }
         public int room_number { get; set; }
         public int room_type_id { get; set; }
         public decimal room_rate { get; set; }
         public bool occupied { get; set; }
-    
         public virtual ICollection<hotel_reservations> hotel_reservations { get; set; }
         public virtual hotel hotel { get; set; }
         public virtual room_types room_types { get; set; }

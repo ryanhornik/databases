@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using SiliconShores.Models;
 using System.Data.Entity;
-using System.Linq;
+using System;
 using System.Net;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SiliconShores.Models;
+using System.Web.Script.Serialization;
+using System.Web.Script.Services;
+using System.Web.Services;
+using System.Web.WebPages;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SiliconShores.Controllers
 {
@@ -17,100 +24,140 @@ namespace SiliconShores.Controllers
         // GET: PlanVacation
         public ActionResult Index()
         {
-            var hotel_reservations = db.hotel_reservations.Include(h => h.hotel_rooms);
-            return View(hotel_reservations.ToList());
-        }
-
-        // GET: PlanVacation/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            hotel_reservations hotel_reservations = db.hotel_reservations.Find(id);
-            if (hotel_reservations == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hotel_reservations);
-        }
-
-        // GET: PlanVacation/Create
-        public ActionResult Create()
-        {
-            ViewBag.hotel_id = new SelectList(db.hotel_rooms, "hotel_id", "hotel_id");
+            ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
+            ViewBag.Hotels = new SelectList(db.hotels, "hotel_id", "hotel_name");
+            ViewBag.Rooms = new SelectList(db.hotel_rooms, "hotel_and_room_type", "room_number");
+            ViewBag.TicketTypes = db.ticket_types.ToList();
             return View();
         }
 
-        // POST: PlanVacation/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        public ActionResult ConfirmPurchase() 
+        {
+            ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
+            ViewBag.Hotels = new SelectList(db.hotels, "hotel_id", "hotel_name");
+            ViewBag.Rooms = new SelectList(db.hotel_rooms, "hotel_and_room_type", "room_number");
+            ViewBag.TicketTypes = db.ticket_types.ToList();
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "reservation_id,hotel_id,room_number,reservation_checkin_date,reservation_checkout_date,total_reservation_cost,paid_in_full")] hotel_reservations hotel_reservations)
+        public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room)
         {
+            ticketPurchase = ticketPurchase.ToDictionary(s => s.Key, s => (nights+1)*s.Value);
+
+            var selectedRoom = db.hotel_rooms.First(s => s.hotel_id == Hotels && s.room_number == Room);
+            
+            var hotelReservation = new hotel_reservations
+            {
+                hotel_rooms = selectedRoom,
+                total_reservation_cost = selectedRoom.room_rate * nights,
+                paid_in_full = false,
+                reservation_checkin_date = arrivalDate,
+                reservation_checkout_date = arrivalDate.AddDays(nights)
+            };
             if (ModelState.IsValid)
             {
-                db.hotel_reservations.Add(hotel_reservations);
+                db.hotel_reservations.Add(hotelReservation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            ViewBag.hotel_id = new SelectList(db.hotel_rooms, "hotel_id", "hotel_id", hotel_reservations.hotel_id);
-            return View(hotel_reservations);
+            List<int> totalSales = new List<int>();
+            
+            foreach (var ticket in ticketPurchase)
+            {
+                totalSales.AddRange(Enumerable.Repeat(ticket.Key,ticket.Value));
+            }
+            foreach (var s in totalSales)
+            {
+                db.ticket_sales.Add(db.CreateTicket(s));
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
-        // POST: PlanVacation/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "reservation_id,hotel_id,room_number,reservation_checkin_date,reservation_checkout_date,total_reservation_cost,paid_in_full")] hotel_reservations hotel_reservations)
+        public ActionResult CheckNow(DateTime arrivalDate, int nights, int adults, int children, int infants, room_types roomtype, int rooms)
         {
-            if (ModelState.IsValid)
+            var theme_park = db.theme_park.First(s => s.theme_park_name.Equals("Silicon Shores"));
+            var ticket_types = db.ticket_types;
+            
+            
+            if(ModelState.IsValid)
             {
-                db.Entry(hotel_reservations).State = EntityState.Modified;
+                ticket_sales sale = new ticket_sales();
+                sale.sale_date = arrivalDate;
+                sale.redemption_date = null;
+                sale.theme_park = theme_park;
+                sale.sale_location = "Online";
+
+                List<ticket_sales> fullSale = new List<ticket_sales>();
+
+                if(nights > 0)
+                {
+                    nights++;
+                    adults = nights * adults;
+                    children = nights * children;
+                }
+
+                hotel_reservations reservation = new hotel_reservations();
+                reservation.reservation_checkin_date = arrivalDate;
+                TimeSpan duration = new TimeSpan(nights,0,0,0);
+                DateTime endDate = arrivalDate.Add(duration);
+                reservation.reservation_checkout_date = endDate;
+                reservation.reservation_id = 3;
+                reservation.hotel_id = 2;
+                reservation.room_number = 3;
+
+                decimal price = 102.99m;
+                reservation.total_reservation_cost = price;
+                reservation.paid_in_full = true;
+
+
+
+                sale.ticket_types = ticket_types.First(s => s.ticket_name.Equals("Adult"));
+                fullSale.AddRange(Enumerable.Repeat(sale, adults));
+
+                sale.ticket_types = ticket_types.First(s => s.ticket_name.Equals("Child"));
+                fullSale.AddRange(Enumerable.Repeat(sale, children));
+
+
+                foreach (var ticket in fullSale)
+                {
+                    db.ticket_sales.Add(ticket);
+                    db.SaveChanges();
+                }
+
+                db.hotel_reservations.Add(reservation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.hotel_id = new SelectList(db.hotel_rooms, "hotel_id", "hotel_id", hotel_reservations.hotel_id);
-            return View(hotel_reservations);
+
+            return RedirectToAction("Index","Home");
         }
 
-        // GET: PlanVacation/Delete/5
-        public ActionResult Delete(int? id)
+        public JsonResult RoomSelection(string selectedHotel, string selectedRoomType)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            hotel_reservations hotel_reservations = db.hotel_reservations.Find(id);
-            if (hotel_reservations == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hotel_reservations);
-        }
+            if (selectedHotel.IsEmpty() || selectedRoomType.IsEmpty())
+                return null;
 
-        // POST: PlanVacation/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            hotel_reservations hotel_reservations = db.hotel_reservations.Find(id);
-            db.hotel_reservations.Remove(hotel_reservations);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            int sh = Convert.ToInt32(selectedHotel);
+            int srt = Convert.ToInt32(selectedRoomType);
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            var rooms = db.hotel_rooms.Where(s =>
+                s.hotel_id == sh &&
+                s.room_type_id == srt);
+
+            return Json(rooms.Select(s => new
             {
-                db.Dispose();
+                hotel_id = s.hotel_id,
+                room_number = s.room_number,
+                room_rate = s.room_rate,
+                room_type_id = s.room_type_id
             }
-            base.Dispose(disposing);
+                ), JsonRequestBehavior.AllowGet);
         }
     }
 }
