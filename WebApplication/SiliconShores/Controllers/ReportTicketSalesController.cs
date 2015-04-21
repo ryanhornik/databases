@@ -11,7 +11,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using SiliconShores.Models;
 
-//  [Authorize]
+  [Authorize]
 public class ReportTicketSalesController : Controller
 {
     private theme_park_dbEntities db = new theme_park_dbEntities();
@@ -214,6 +214,8 @@ public class ReportTicketSalesController : Controller
             yAxisTwo.Add(point.Value.Value);
         }
 
+
+
         var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
 
    
@@ -226,13 +228,11 @@ public class ReportTicketSalesController : Controller
             name: "Patrons Served",
             xValue:  xAxisOne.ToArray(),
             yValues: yAxisTwo.ToArray()
-            ).AddLegend("High/Low", "Temp");
+            ).AddLegend("1 - MegaByte \n 2- The Stack \n 3- Gone Phishing \n 4 - Taco Bell \n 5 - The Agora \n 6 - Szechuan");
+
 
 
         ViewBag.chart = myChart;
-        
-
-      
 
         return View();
      }
@@ -283,6 +283,8 @@ public class ReportTicketSalesController : Controller
             yAxisTwo.Add(point.Value.Value);
         }
 
+       
+
         var chartTheme = System.IO.File.ReadAllText(Server.MapPath("/Content/chartThemes/defaultTheme.xml"));
 
         var myChart = new Chart(
@@ -293,7 +295,7 @@ public class ReportTicketSalesController : Controller
         .AddSeries(
             name: "Gross Income",
             xValue: xAxisOne.ToArray(),
-            yValues: yAxisOne.ToArray()).AddLegend("To add here");
+            yValues: yAxisOne.ToArray()).AddLegend("1 - MegaByte \n 2- The Stack \n 3- Gone Phishing \n 4 - Taco Bell \n 5 - The Agora \n 6 - Szechuan");
 
 
 
