@@ -14,38 +14,8 @@
 <body>
     <div class="navbar-wrapper">
         <div class="container">
-
             <nav class="navbar navbar-inverse navbar-static-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        @Html.ActionLink("Silicon Shores", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Sections
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    @Html.Partial("_AreaListPartial")
-                                </ul>
-                            </li>
-                            <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
-                            <li>@Html.ActionLink("Planning", "Index", "PlanVacation")</li>
-                            <li>@Html.ActionLink("Map", "Index", "Maps")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
-                        </ul>
-                        @Html.Partial("_LoginPartial")
-                    </div>
-                </div>
+                    @Html.Partial("_NavbarContent")
             </nav>
         </div>
     </div>
