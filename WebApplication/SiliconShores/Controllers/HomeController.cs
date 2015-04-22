@@ -15,29 +15,12 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
         public ActionResult Index()
         {
-            var theme_parks = from m in db.theme_park
-                              select m;
-            theme_parks = theme_parks.Where(s => s.theme_park_name.Equals("Silicon Shores"));
-            theme_park themePark = theme_parks.First();
+            var themePark =  db.theme_park.First(s => s.theme_park_name.Equals("Silicon Shores"));
             if (themePark == null)
             {
                 return HttpNotFound();
             }
             return View(themePark);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "About us";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Contact Us";
-
-            return View();
         }
     }
 }

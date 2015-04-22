@@ -329,6 +329,7 @@
     <Content Include="Content\Images\Home\slide1.jpg" />
     <Content Include="Content\Carousel.css" />
     <Content Include="Content\Images\Home\slide2.jpg" />
+    <Content Include="Content\dashboard.css" />
     <Content Include="Content\Images\Home\slide3.jpg" />
     <Content Include="Content\Images\gpu\se.png" />
     <Content Include="Content\Images\Home\carouselbkg.gif" />
@@ -518,10 +519,10 @@
     <Content Include="Views\Maps\Index.cshtml" />
     <Content Include="Views\Tickets\ConfirmPurchase.cshtml" />
     <Content Include="Views\PlanVacation\ConfirmPurchase.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
+    <Content Include="Views\Shared\_NavbarContent.cshtml" />
+    <Content Include="Views\Shared\_LayoutPortal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
