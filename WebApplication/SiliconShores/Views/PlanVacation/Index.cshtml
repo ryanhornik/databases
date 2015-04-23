@@ -7,7 +7,6 @@
 <hr />
 @using (Html.BeginForm("ConfirmPurchase", "PlanVacation", FormMethod.Get))
 {
-    @Html.AntiForgeryToken()
     <div class="form-horizontal">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
