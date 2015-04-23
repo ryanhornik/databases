@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.DisplayFor(model => model.theme_area_name)</h2>
+<h1>@Html.DisplayFor(model => model.theme_area_name)</h1>
 
 <div>
     <p>
@@ -16,7 +16,10 @@
             <img src = "@s"/>
         }
     </p>
-    <p>
-        @Html.DisplayFor(model => model.theme_area_description)
-    </p>
+    <div>
+        <fieldset>
+
+            <blockquote> @Html.DisplayFor(model => model.theme_area_description) </blockquote>
+        </fieldset>
+    </div>
 </div>
