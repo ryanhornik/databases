@@ -33,8 +33,8 @@ namespace SiliconShores.Controllers
 
         public ActionResult ConfirmPurchase() 
         {
-            ViewBag.RoomTypes = new SelectList(db.room_types, "room_type_id", "room_types_string");
-            ViewBag.Hotels = new SelectList(db.hotels, "hotel_id", "hotel_name");
+            ViewBag.RoomTypes = db.room_types.ToList();
+            ViewBag.Hotels = db.hotels.ToList();
             ViewBag.Rooms = new SelectList(db.hotel_rooms, "hotel_and_room_type", "room_number");
             ViewBag.TicketTypes = db.ticket_types.ToList();
             return View();

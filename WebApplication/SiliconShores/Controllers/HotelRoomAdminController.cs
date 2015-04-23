@@ -9,7 +9,7 @@ using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HotelRoomAdminController : Controller
     {
         private theme_park_dbEntities db = new theme_park_dbEntities();
