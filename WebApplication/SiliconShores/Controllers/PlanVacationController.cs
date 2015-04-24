@@ -14,6 +14,7 @@ using System.Web.WebPages;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
 
 namespace SiliconShores.Controllers
 {
@@ -35,15 +36,25 @@ namespace SiliconShores.Controllers
         {
             ViewBag.RoomTypes = db.room_types.ToList();
             ViewBag.Hotels = db.hotels.ToList();
-            ViewBag.Rooms = new SelectList(db.hotel_rooms, "hotel_and_room_type", "room_number");
+            ViewBag.Rooms = db.hotel_rooms.ToList();
             ViewBag.TicketTypes = db.ticket_types.ToList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room, bool? post)
+        public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room, bool? post, string email)
         {
+            MailMessage mail = new MailMessage("siliconshoressmtp@gmail.com", email)
+            {
+                Subject = "This is only a test",
+                Body = "This is the body of that test",
+                Attachments = { null/*TODO Add a .PDF of the tickets here*/}
+            };
+            SmtpClient client = new SmtpClient();
+            client.EnableSsl = true;
+            client.Send(mail);
+
             ticketPurchase = ticketPurchase.ToDictionary(s => s.Key, s => (nights+1)*s.Value);
 
             var selectedRoom = db.hotel_rooms.First(s => s.hotel_id == Hotels && s.room_number == Room);
@@ -79,6 +90,7 @@ namespace SiliconShores.Controllers
 
         public JsonResult RoomSelection(string selectedHotel, string selectedRoomType)
         {
+
             if (selectedHotel.IsEmpty() || selectedRoomType.IsEmpty())
                 return null;
 
