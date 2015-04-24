@@ -4,10 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.WebPages;
+<<<<<<< HEAD
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+=======
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
 using Spire.Barcode;
 using System.Drawing;
+>>>>>>> Email with PDF attachment, Barcode for the tickets are working.
 using System.Net.Mail;
 
 namespace SiliconShores.Controllers
@@ -39,12 +45,20 @@ namespace SiliconShores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room, bool? post, string email)
         {
+<<<<<<< HEAD
+            MailMessage mail = new MailMessage("siliconshoressmtp@gmail.com", email)
+            {
+                Subject = "This is only a test",
+                Body = "This is the body of that test",
+                Attachments = { null/*TODO Add a .PDF of the tickets here*/}
+=======
             GenerateBarCode();
             GeneratePDF();
             MailMessage mail = new MailMessage("siliconshoressmtp@gmail.com", email)
             {
                 Subject = "PURCHASE CONFIRMATION",
                 Attachments = { new Attachment(@"C:\Users\Public\Documents\eTickets.pdf") }
+>>>>>>> Email with PDF attachment, Barcode for the tickets are working.
             };
             SmtpClient client = new SmtpClient();
             client.EnableSsl = true;
