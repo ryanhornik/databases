@@ -158,22 +158,22 @@ namespace SiliconShores.Models
         [Required]
         [Display(Name = "Pay Rate")]
         public decimal payrate { get; set; }
-        [Required]
+    //    [Required]
         [Display(Name = "Hired Date")]
         public System.DateTime hired_date { get; set; }
-        [Required]
+      //  [Required]
         [Display(Name = "Date Left")]
         public Nullable<System.DateTime> date_left { get; set; }
-        [Required]
+      //  [Required]
         [Display(Name = "Rehireable")]
         public Nullable<bool> rehireable { get; set; }
-        [Required]
+     //   [Required]
         [Display(Name = "Employee ID")]
         public string employee_id { get; set; }
-        [Required]
+      //  [Required]
         [Display(Name = "Theme Park")]
         public virtual theme_park theme_park { get; set; }
-        [Required]
+      //  [Required]
         [Display(Name = "User")]
         public virtual user user { get; set; }
     }
