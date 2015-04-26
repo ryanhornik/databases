@@ -1,10 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Get Reports";
+    Layout = "~/Views/Shared/_LayoutPortal.cshtml";
 }
 
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("DisplayTicketSalesWeather", "ReportTicketSales", FormMethod.Get))
 {
@@ -32,3 +32,7 @@
 
     </div>
 }
+
+<script>
+    $(document).ready(setActiveLink("#id_report"));
+</script>

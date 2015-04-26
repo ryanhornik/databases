@@ -37,33 +37,6 @@ namespace SiliconShores.Controllers
             return View(employee);
         }
 
-        // GET: EmployeeAdmin/Create
-        public ActionResult Create()
-        {
-            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name");
-            ViewBag.employee_id = new SelectList(db.users, "Id", "Email");
-            return View();
-        }
-
-        // POST: EmployeeAdmin/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,date_left,rehireable,employee_id")] employee employee)
-        {
-            if (ModelState.IsValid)
-            {
-                db.employees.Add(employee);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name", employee.theme_park_id);
-            ViewBag.employee_id = new SelectList(db.users, "Id", "Email", employee.employee_id);
-            return View(employee);
-        }
-
         // GET: EmployeeAdmin/Edit/5
         public ActionResult Edit(string id)
         {

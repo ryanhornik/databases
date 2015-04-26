@@ -33,3 +33,8 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ride_report_date }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<script>
+    $(document).ready(function () {
+        setActiveLink("#id_rides");
+    });
+</script>

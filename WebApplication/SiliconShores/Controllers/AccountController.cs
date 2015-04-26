@@ -162,6 +162,7 @@ namespace SiliconShores.Controllers
         // GET: /Account/Register
         public ActionResult Register()
         {
+            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name");
             return View();
         }
 

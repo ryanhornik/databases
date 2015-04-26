@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace SiliconShores.Models
@@ -23,13 +24,13 @@ namespace SiliconShores.Models
     public class attractionMetadata
     {
         [Required]
-        [Display(Name = "Attractions ID")]
+        [Display(Name = "Attraction")]
         public int attractions_id { get; set; }
         [Required]
         [Display(Name = "Attraction Name")]
         public string attraction_name { get; set; }
         [Required]
-        [Display(Name = "Theme Area ID")]
+        [Display(Name = "Theme Area")]
         public int theme_area_id { get; set; }
         [Required]
         [Display(Name = "Attraction Description")]
@@ -41,6 +42,7 @@ namespace SiliconShores.Models
         [Display(Name = "Is Working?")]
         public bool is_working { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Date Opened")]
         public System.DateTime date_opened { get; set; }
         [Required]
@@ -68,9 +70,10 @@ namespace SiliconShores.Models
         [Display(Name = "Breakdown ID")]
         public int breakdown_id { get; set; }
         [Required]
-        [Display(Name = "Attraction ID")]
+        [Display(Name = "Attraction")]
         public int attraction_id { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Incidence Date")]
         public System.DateTime incidence_date { get; set; }
         [Required]
@@ -91,10 +94,11 @@ namespace SiliconShores.Models
     public class daily_ride_reportMetadata
     {
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Ride Report Date")]
         public System.DateTime ride_report_date { get; set; }
         [Required]
-        [Display(Name = "Attraction ID")]
+        [Display(Name = "Attraction")]
         public int attraction_id { get; set; }
         [Required]
         [Display(Name = "Total Riders")]
@@ -112,10 +116,11 @@ namespace SiliconShores.Models
     public class daily_weatherMetadata
     {
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Weather Date")]
         public System.DateTime weather_date { get; set; }
         [Required]
-        [Display(Name = "Theme Park ID")]
+        [Display(Name = "Theme Park")]
         public int theme_park_id { get; set; }
         [Required]
         [Display(Name = "Weather Conditions")]
@@ -138,10 +143,11 @@ namespace SiliconShores.Models
     public class employeeMetadata
     {
         [Required]
+        [Range(100000000,999999999)]
         [Display(Name = "SSN")]
         public int ssn { get; set; }
         [Required]
-        [Display(Name = "Theme Park ID")]
+        [Display(Name = "Theme Park")]
         public int theme_park_id { get; set; }
         [Required]
         [Display(Name = "First Name")]
@@ -149,8 +155,7 @@ namespace SiliconShores.Models
         [Required]
         [Display(Name = "Last Name")]
         public string last_name { get; set; }
-        [Required]
-        [Display(Name = "Middle Name Initial")]
+        [Display(Name = "Middle Initial")]
         public string middle_initial { get; set; }
         [Required]
         [Display(Name = "Full Time (True or False)")]
@@ -158,22 +163,20 @@ namespace SiliconShores.Models
         [Required]
         [Display(Name = "Pay Rate")]
         public decimal payrate { get; set; }
-    //    [Required]
+        [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Hired Date")]
         public System.DateTime hired_date { get; set; }
-      //  [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Date Left")]
         public Nullable<System.DateTime> date_left { get; set; }
-      //  [Required]
         [Display(Name = "Rehireable")]
         public Nullable<bool> rehireable { get; set; }
-     //   [Required]
         [Display(Name = "Employee ID")]
         public string employee_id { get; set; }
-      //  [Required]
+        [Required]
         [Display(Name = "Theme Park")]
         public virtual theme_park theme_park { get; set; }
-      //  [Required]
         [Display(Name = "User")]
         public virtual user user { get; set; }
     }
@@ -182,10 +185,10 @@ namespace SiliconShores.Models
     {     
     }
 
-    public class food_dategoriesMetadata
+    public class food_categoriesMetadata
     {
         [Required]
-        [Display(Name = "Food Category ID")]
+        [Display(Name = "Food Category")]
         public int food_category_id { get; set; }
         [Required]
         [Display(Name = "Food Categories Name")]
@@ -194,7 +197,7 @@ namespace SiliconShores.Models
         [Display(Name = "Restaurants")]
         public virtual ICollection<restaurant> restaurants { get; set; }
     }
-    [MetadataType(typeof(food_dategoriesMetadata))]
+    [MetadataType(typeof(food_categoriesMetadata))]
     public partial class food_categories
     {
     }
@@ -202,7 +205,7 @@ namespace SiliconShores.Models
     public class hotelMetadata
     {
         [Required]
-        [Display(Name = "Hotel ID")]
+        [Display(Name = "Hotel")]
         public int hotel_id { get; set; }
         [Required]
         [Display(Name = "Hotel Name")]
@@ -211,7 +214,7 @@ namespace SiliconShores.Models
         [Display(Name = "Pets Allowed")]
         public bool pets_allowed { get; set; }
         [Required]
-        [Display(Name = "Theme Area ID")]
+        [Display(Name = "Theme Area")]
         public int theme_area_id { get; set; }
         [Required]
         [Display(Name = "Hotel Rooms")]
@@ -231,15 +234,17 @@ namespace SiliconShores.Models
         [Display(Name = "Reservation ID")]
         public int reservation_id { get; set; }
         [Required]
-        [Display(Name = "Hotel ID")]
+        [Display(Name = "Hotel")]
         public int hotel_id { get; set; }
         [Required]
         [Display(Name = "Room Number")]
         public int room_number { get; set; }
         [Required]
         [Display(Name = "Reservation Check-In Date")]
+        [DataType(DataType.Date)]
         public System.DateTime reservation_checkin_date { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Reservation Check-Out Date")]
         public System.DateTime reservation_checkout_date { get; set; }
         [Required]
@@ -260,13 +265,13 @@ namespace SiliconShores.Models
     public class hotel_roomsMetadata
     {
         [Required]
-        [Display(Name = "Hotel ID")]
+        [Display(Name = "Hotel")]
         public int hotel_id { get; set; }
         [Required]
         [Display(Name = "Room Number")]
         public int room_number { get; set; }
         [Required]
-        [Display(Name = "Room Type ID")]
+        [Display(Name = "Room Type")]
         public int room_type_id { get; set; }
         [Required]
         [Display(Name = "Room Rate")]
@@ -292,16 +297,16 @@ namespace SiliconShores.Models
     public class restaurantMetadata
     {
         [Required]
-        [Display(Name = "Restaurant ID")]
+        [Display(Name = "Restaurant")]
         public int restaurant_id { get; set; }
         [Required]
         [Display(Name = "Restaurant Name")]
         public string restaurant_name { get; set; }
         [Required]
-        [Display(Name = "Food Category ID")]
+        [Display(Name = "Food Category")]
         public int food_category_id { get; set; }
         [Required]
-        [Display(Name = "Theme Area ID")]
+        [Display(Name = "Theme Area")]
         public int theme_area_id { get; set; }
 
         [Required]
@@ -322,10 +327,11 @@ namespace SiliconShores.Models
     public class restaurant_daily_reportsMetadata
     {
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Report Date")]
         public System.DateTime report_date { get; set; }
         [Required]
-        [Display(Name = "Restaurant ID")]
+        [Display(Name = "Restaurant")]
         public int restaurant_id { get; set; }
         [Required]
         [Display(Name = "Gross Income")]
@@ -364,7 +370,7 @@ namespace SiliconShores.Models
     public class room_typesMetadata
     {
         [Required]
-        [Display(Name = "Room Type ID")]
+        [Display(Name = "Room Type")]
         public int room_type_id { get; set; }
         [Required]
         [Display(Name = "Room Name")]
@@ -382,7 +388,7 @@ namespace SiliconShores.Models
     public class theme_areasMetadata
     {
         [Required]
-        [Display(Name = "Theme Area ID")]
+        [Display(Name = "Theme Area")]
         public int theme_area_id { get; set; }
         [Required]
         [Display(Name = "Theme Area Name")]
@@ -394,7 +400,7 @@ namespace SiliconShores.Models
         [Display(Name = "Theme Area Pictures")]
         public string theme_area_pictures { get; set; }
         [Required]
-        [Display(Name = "Theme Park ID")]
+        [Display(Name = "Theme Park")]
         public int theme_park_id { get; set; }
         [Required]
         [Display(Name = "Attractions")]
@@ -426,7 +432,7 @@ namespace SiliconShores.Models
     public class theme_parkMetadata
     {
         [Required]
-        [Display(Name = "Theme Park ID")]
+        [Display(Name = "Theme Park")]
         public int theme_park_id { get; set; }
         [Required]
         [Display(Name = "Theme Park Name")]
@@ -474,16 +480,17 @@ namespace SiliconShores.Models
         [Display(Name = "Ticket ID")]
         public int ticket_id { get; set; }
         [Required]
-        [Display(Name = "Ticket Type ID")]
+        [Display(Name = "Ticket Type")]
         public int ticket_type_id { get; set; }
         [Required]
         [Display(Name = "Sale Date")]
+        [DataType(DataType.Date)]
         public System.DateTime sale_date { get; set; }
-
+        [DataType(DataType.Date)]
         [Display(Name = "Redemption Date")]
         public Nullable<System.DateTime> redemption_date { get; set; }
         [Required]
-        [Display(Name = "Theme Park ID")]
+        [Display(Name = "Theme Park")]
         public int theme_park_id { get; set; }
         [Required]
         [Display(Name = "Sale Location")]
@@ -497,7 +504,7 @@ namespace SiliconShores.Models
     public class ticket_typesMetadata
     {
         [Required]
-        [Display(Name = "Ticket Type ID")]
+        [Display(Name = "Ticket Type")]
         public int ticket_type_id { get; set; }
         [Required]
         [Display(Name = "Ticket Name")]

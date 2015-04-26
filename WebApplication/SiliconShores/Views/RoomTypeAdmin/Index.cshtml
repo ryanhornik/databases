@@ -18,17 +18,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.room_types_string)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.room_type_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.room_type_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.room_type_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.room_types_string)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.room_type_id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.room_type_id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.room_type_id})
+            </td>
+        </tr>
+    }
 
 </table>
+<script>
+    $(document).ready(function () {
+        setActiveLink("#id_hotel");
+    });
+</script>

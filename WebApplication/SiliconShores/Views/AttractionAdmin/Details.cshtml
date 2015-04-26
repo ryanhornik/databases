@@ -65,3 +65,8 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.attractions_id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<script>
+    $(document).ready(function () {
+        setActiveLink("#id_rides");
+    });
+</script>

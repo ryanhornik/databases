@@ -403,6 +403,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\portal.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -521,7 +522,6 @@
     <Content Include="Views\TicketTypeAdmin\Index.cshtml" />
     <Content Include="Views\Portal\Index.cshtml" />
     <Content Include="Views\Tickets\Index.cshtml" />
-    <Content Include="Views\EmployeeAdmin\Create.cshtml" />
     <Content Include="Views\EmployeeAdmin\Delete.cshtml" />
     <Content Include="Views\EmployeeAdmin\Details.cshtml" />
     <Content Include="Views\EmployeeAdmin\Edit.cshtml" />
@@ -546,6 +546,7 @@
     <Content Include="Views\ReportTicketSales\GenerateRestReport1.cshtml" />
     <Content Include="Views\ReportTicketSales\GenerateRestReport2.cshtml" />
     <Content Include="Views\Shared\_LayoutPortal.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

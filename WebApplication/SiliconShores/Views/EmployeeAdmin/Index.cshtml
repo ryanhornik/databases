@@ -5,24 +5,21 @@
     Layout = "~/Views/Shared/_LayoutPortal.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Employees</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Hire new employee", "Register", "Account")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ssn)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.first_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.last_name)
+            @Html.DisplayNameFor(model => model.middle_initial)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.middle_initial)
+            @Html.DisplayNameFor(model => model.last_name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.full_time)
@@ -40,55 +37,56 @@
             @Html.DisplayNameFor(model => model.rehireable)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.theme_park.theme_park_name)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.user.Email)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ssn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.first_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.last_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.middle_initial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.full_time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.payrate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hired_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_left)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.rehireable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.theme_park.theme_park_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.employee_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.employee_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.employee_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.middle_initial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.last_name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.full_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.payrate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hired_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_left)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rehireable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.employee_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.employee_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.employee_id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<script>
+    $(document).ready(function () {
+        setActiveLink("#id_emp");
+        enableOmniSearch();
+    });
+</script>

@@ -56,4 +56,9 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ticket_id }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>
+<script>
+    $(document).ready(function () {
+        setActiveLink("#id_ticket");
+    });
+</script>
