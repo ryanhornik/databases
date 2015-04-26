@@ -11,21 +11,23 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
-    public partial class ticket_types
+    public partial class report_ticketsales
     {
-        public ticket_types()
-        {
-            this.ticket_sales = new HashSet<ticket_sales>();
-        }
-    
-        public int ticket_type_id { get; set; }
-        public string ticket_name { get; set; }
-        public string ticket_restrictions { get; set; }
+        public System.DateTime sale_date { get; set; }
+        public Nullable<System.DateTime> redemption_date { get; set; }
+        public string sale_location { get; set; }
+        public int ticket_id { get; set; }
         public Nullable<float> ticket_price { get; set; }
-        public Nullable<int> theme_park_id { get; set; }
-        public virtual theme_park theme_park { get; set; }
-        public virtual ICollection<ticket_sales> ticket_sales { get; set; }
+        public System.DateTime weather_date { get; set; }
+        public string weather_conditions { get; set; }
+        public int high_temp { get; set; }
+        public int low_temp { get; set; }
+    }
+
+    public class report_ticketsalesChartData
+    {
+        public string[] xValues;
+        public int[] yValues;
     }
 }

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Chart BackColor="#16AF0F" BackGradientStyle="TopBottom"
+       BackSecondaryColor="White" BorderColor="26, 59, 105"
+       BorderlineDashStyle="Solid" BorderWidth="2" Palette="BrightPastel">
+  <ChartAreas>
+    <ChartArea Name="Default" _Template_="All" BackColor="64, 165, 191, 228"
+               BackGradientStyle="TopBottom" BackSecondaryColor="White"
+               BorderColor="64, 64, 64, 64" BorderDashStyle="Solid"
+               ShadowColor="Transparent">
+      <AxisY>
+        <MajorGrid Interval="Auto" LineColor="64, 64, 64, 64"/>
+        <LabelStyle Font="Trebuchet MS, 24pt" />
+      </AxisY>
+      <AxisX>
+        <MajorGrid Interval="Auto" LineColor="64, 64, 64, 64"/>
+        <LabelStyle Font="Trebuchet MS, 24pt" />
+      </AxisX>
+    </ChartArea>
+  </ChartAreas>
+  <Legends>
+    <Legend _Template_="All" BackColor="Transparent" Font="Trebuchet MS, 48pt, style=Italic" IsTextAutoFit="True" />
+  </Legends>
+  <Titles>
+    <Title _Template_="All" Font="Trebuchet MS, 36pt"/>
+  </Titles>
+  <BorderSkin SkinStyle="Emboss" />
+</Chart>

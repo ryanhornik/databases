@@ -38,6 +38,7 @@ namespace SiliconShores.Models
         public virtual DbSet<hotel> hotels { get; set; }
         public virtual DbSet<restaurant_daily_reports> restaurant_daily_reports { get; set; }
         public virtual DbSet<restaurant> restaurants { get; set; }
+        public virtual DbSet<role> roles { get; set; }
         public virtual DbSet<room_types> room_types { get; set; }
         public virtual DbSet<theme_areas> theme_areas { get; set; }
         public virtual DbSet<theme_park> theme_park { get; set; }
@@ -46,6 +47,8 @@ namespace SiliconShores.Models
         public virtual DbSet<userclaim> userclaims { get; set; }
         public virtual DbSet<userlogin> userlogins { get; set; }
         public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<role> roles { get; set; }
+        public virtual DbSet<report_restaurant> report_restaurant { get; set; }
+        public virtual DbSet<report_rides> report_rides { get; set; }
+        public virtual DbSet<report_ticketsales> report_ticketsales { get; set; }
     }
 }

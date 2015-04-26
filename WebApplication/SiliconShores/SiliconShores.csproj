@@ -232,6 +232,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PlanVacationController.cs" />
+    <Compile Include="Controllers\ReportTicketSalesController.cs" />
     <Compile Include="Controllers\RestaurantAdminController.cs" />
     <Compile Include="Controllers\RestaurantReportAdminController.cs" />
     <Compile Include="Controllers\RideReportAdminController.cs" />
@@ -278,6 +279,15 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModelExtensions.cs" />
+    <Compile Include="Models\report_restaurant.cs">
+      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report_rides.cs">
+      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report_ticketsales.cs">
+      <DependentUpon>SiliconShoresModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\restaurant.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
     </Compile>
@@ -336,6 +346,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Carousel.css" />
+    <Content Include="Content\chartThemes\defaultTheme.xml" />
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\Images\gpu\se.png" />
     <Content Include="Content\Images\Home\carouselbkg.gif" />
@@ -346,6 +357,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <EntityDeploy Include="Models\SiliconShoresModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SiliconShoresModel.Designer.cs</LastGenOutput>
@@ -368,12 +385,6 @@
       <DependentUpon>SiliconShoresModel.edmx</DependentUpon>
       <LastGenOutput>SiliconShoresModel.cs</LastGenOutput>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\siliconshores.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
@@ -528,6 +539,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Shared\_NavbarContent.cshtml" />
+    <Content Include="Views\ReportTicketSales\Index.cshtml" />
+    <Content Include="Views\ReportTicketSales\DisplayTicketSalesWeather.cshtml" />
+    <Content Include="Views\ReportTicketSales\GenerateChart.cshtml" />
+    <Content Include="Views\ReportTicketSales\GenerateTemperatureReport.cshtml" />
+    <Content Include="Views\ReportTicketSales\GenerateRestReport1.cshtml" />
+    <Content Include="Views\ReportTicketSales\GenerateRestReport2.cshtml" />
     <Content Include="Views\Shared\_LayoutPortal.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,8 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         @Html.Partial("_NavbarContent")
+                    <li>@Html.ActionLink("Reports", "Index", "ReportTicketSales")</li>
+
     </div>
     <div class="container body-content">
         @RenderBody()
