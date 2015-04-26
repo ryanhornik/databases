@@ -326,6 +326,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\gpu\slide 2.jpg" />
+    <Content Include="Content\Images\gpu\slide1.jpg" />
+    <Content Include="Content\Images\gpu\slide3.jpg" />
     <Content Include="Content\Images\Home\slide1.jpg" />
     <Content Include="Content\Carousel.css" />
     <Content Include="Content\Images\Home\slide2.jpg" />
@@ -334,8 +337,14 @@
     <Content Include="Content\Images\gpu\se.png" />
     <Content Include="Content\Images\Home\carouselbkg.gif" />
     <Content Include="Content\Images\nb\sc.png" />
+    <Content Include="Content\Images\nb\slide 1.jpg" />
+    <Content Include="Content\Images\nb\slide2.jpg" />
+    <Content Include="Content\Images\nb\slide3.jpg" />
     <Content Include="Content\Images\nb\tff.png" />
     <Content Include="Content\Images\sb\ios.png" />
+    <Content Include="Content\Images\sb\slide1.jpg" />
+    <Content Include="Content\Images\sb\slide2.jpg" />
+    <Content Include="Content\Images\sb\slide3.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
