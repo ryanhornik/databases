@@ -11,7 +11,6 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class daily_weather
     {
@@ -20,6 +19,7 @@ namespace SiliconShores.Models
         public string weather_conditions { get; set; }
         public int high_temp { get; set; }
         public int low_temp { get; set; }
+    
         public virtual theme_park theme_park { get; set; }
     }
 }

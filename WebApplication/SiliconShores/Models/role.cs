@@ -11,7 +11,6 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class role
     {
@@ -19,10 +18,10 @@ namespace SiliconShores.Models
         {
             this.users = new HashSet<user>();
         }
-
+    
         public string Id { get; set; }
         public string Name { get; set; }
-
+    
         public virtual ICollection<user> users { get; set; }
     }
 }

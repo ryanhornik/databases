@@ -11,7 +11,6 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class breakdown
     {
@@ -20,6 +19,7 @@ namespace SiliconShores.Models
         public System.DateTime incidence_date { get; set; }
         public Nullable<System.DateTime> resolution_date { get; set; }
         public Nullable<decimal> repair_cost { get; set; }
+    
         public virtual attraction attraction { get; set; }
     }
 }

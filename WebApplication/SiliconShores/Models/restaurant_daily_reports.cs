@@ -11,7 +11,6 @@ namespace SiliconShores.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class restaurant_daily_reports
     {
@@ -19,7 +18,7 @@ namespace SiliconShores.Models
         public int restaurant_id { get; set; }
         public decimal gross_income { get; set; }
         public int patrons_served { get; set; }
-
+    
         public virtual restaurant restaurant { get; set; }
     }
 }

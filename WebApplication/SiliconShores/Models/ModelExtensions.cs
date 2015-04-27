@@ -587,7 +587,7 @@ namespace SiliconShores.Models
         [Required]
         [Display(Name = "Ticket Price")]
         [DataType(DataType.Currency)]
-        public Nullable<float> ticket_price { get; set; }
+        public Nullable<decimal> ticket_price { get; set; }
         [Required]
         [Display(Name = "Ticket Sales")]
         public virtual ICollection<ticket_sales> ticket_sales { get; set; }

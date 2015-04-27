@@ -26,12 +26,16 @@ namespace SiliconShores.Controllers
             return View();
         }
 
-        public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room) 
+        public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room)
         {
-            ViewBag.RoomTypes = db.room_types.ToList();
-            ViewBag.Hotels = db.hotels.ToList();
-            ViewBag.Rooms = db.hotel_rooms.ToList();
-            ViewBag.TicketTypes = db.ticket_types.ToList();
+            ViewBag.RoomType = db.room_types.Find(RoomTypes);
+            ViewBag.Hotel = db.hotels.Find(Hotels);
+            ViewBag.Room = db.hotel_rooms.First(s => s.hotel_id == Hotels && s.room_number == Room);
+            ViewBag.Checkin = arrivalDate;
+            ViewBag.Checkout = arrivalDate.AddDays(nights);
+            ViewBag.Nights = nights;
+
+            ViewBag.TicketPurchase = ticketPurchase.ToDictionary(d => db.ticket_types.Find(d.Key) , d => d.Value*(nights + 1) );
             return View();
         }
 

@@ -18,16 +18,10 @@ namespace SiliconShores.Models
         public Nullable<System.DateTime> redemption_date { get; set; }
         public string sale_location { get; set; }
         public int ticket_id { get; set; }
-        public Nullable<float> ticket_price { get; set; }
+        public Nullable<decimal> ticket_price { get; set; }
         public System.DateTime weather_date { get; set; }
         public string weather_conditions { get; set; }
         public int high_temp { get; set; }
         public int low_temp { get; set; }
-    }
-
-    public class report_ticketsalesChartData
-    {
-        public string[] xValues;
-        public int[] yValues;
     }
 }
