@@ -38,8 +38,9 @@ public class ReportTicketSalesController : Controller
         return View(ticketReport);
     }
 
-    public ActionResult DisplayTicketSalesWeather(DateTime startDate, DateTime endDate)
+    public ActionResult DisplayTicketSalesWeather(DateTime? startDate, DateTime? endDate)
     {
+        
         ViewBag.Params = Request.QueryString.ToString();
         return View();
     }
