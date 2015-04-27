@@ -155,7 +155,7 @@ namespace SiliconShores.Models
     {
         public string fullSearchString()
         {
-            return weather_date.ToLongDateString() + " " + weather_date.ToShortDateString()+ " " +
+            return weather_date.ToLongDateString() + " " + weather_date.ToShortDateString() + " " +
                    weather_conditions + " " + high_temp + " " + low_temp;
         }
     }
@@ -216,7 +216,7 @@ namespace SiliconShores.Models
                    ((!date_left.HasValue)
                        ? ""
                        : date_left.Value.ToLongDateString() + date_left.Value.ToShortDateString()) + " " +
-                       ((user != null)?user.Email:"");
+                       ((user != null) ? user.Email : "");
         }
     }
 
@@ -295,6 +295,19 @@ namespace SiliconShores.Models
     [MetadataType(typeof(hotel_reservationsMetadata))]
     public partial class hotel_reservations
     {
+        public string fullSearchString()
+        {
+            return reservation_id + " " +
+                   hotel_rooms.hotel.hotel_name + " " + room_number + " " +
+                   total_reservation_cost + " " +
+                   reservation_checkin_date.ToLongDateString() + " " + reservation_checkin_date.ToShortDateString() +
+                   " " +
+                   reservation_checkout_date.ToLongDateString() + " " + reservation_checkout_date.ToShortDateString() +
+                   " " +
+                   ((paid_in_full)
+                    ? "Fully Paid in full"
+                    : "Unpaid");
+        }
     }
 
     public class hotel_roomsMetadata
@@ -327,6 +340,11 @@ namespace SiliconShores.Models
     [MetadataType(typeof(hotel_roomsMetadata))]
     public partial class hotel_rooms
     {
+        public string fullSearchString()
+        {
+            return hotel.hotel_name + " " + room_number + " " +
+                   room_rate + " " + room_types.room_types_string;
+        }
     }
 
     public class restaurantMetadata
@@ -408,7 +426,7 @@ namespace SiliconShores.Models
         [Display(Name = "Room Type")]
         public int room_type_id { get; set; }
         [Required]
-        [Display(Name = "Room Name")]
+        [Display(Name = "Room Type")]
         public string room_types_string { get; set; }
 
         [Required]

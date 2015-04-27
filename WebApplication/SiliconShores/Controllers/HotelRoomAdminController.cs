@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
@@ -15,10 +16,15 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: HotelRoomAdmin
-        public ActionResult Index()
+        public ActionResult Index(string genericSearch)
         {
-            var hotel_rooms = db.hotel_rooms.Include(h => h.hotel).Include(h => h.room_types);
-            return View(hotel_rooms.ToList());
+            var hotelRooms= db.hotel_rooms.ToList();
+            var roomsToPrint = hotelRooms.Skip(new Random().Next(hotelRooms.Count - 15)).Take(15).ToList();
+            if (!genericSearch.IsEmpty())
+            {
+                roomsToPrint = hotelRooms.Where(s => s.fullSearchString().Contains(genericSearch)).ToList();
+            }
+            return View(roomsToPrint);
         }
 
         // GET: HotelRoomAdmin/Details/5

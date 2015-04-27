@@ -13,11 +13,15 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.room_rate)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.hotel.hotel_name)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.room_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.room_rate)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.room_types.room_types_string)
         </th>
@@ -27,18 +31,22 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.room_rate)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.hotel.hotel_name)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.room_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.room_rate)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.room_types.room_types_string)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
         </td>
     </tr>
 }
