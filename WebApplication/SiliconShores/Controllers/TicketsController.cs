@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Net.Mail;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -47,7 +48,7 @@ namespace SiliconShores.Controllers
 
             var allTickets = db.ticket_sales
                 .OrderByDescending(t => t.ticket_id)
-                .Take(totalSales.Count());
+                .Take(totalSales.Count()).ToList();
             var pdfs = new List<MemoryStream>();
             foreach (var ticket in allTickets)
             {
@@ -62,7 +63,7 @@ namespace SiliconShores.Controllers
             var count = new Random().Next(500);
             foreach (var pdf in pdfs)
             {
-                mail.Attachments.Add(new Attachment(pdf, "Ticket"+count.ToString("X")+".pdf", "application/pdf"));
+                mail.Attachments.Add(new Attachment(pdf, "Ticket"+count.ToString("X")+".pdf"));
                 count+=3;
             }
 
@@ -72,6 +73,14 @@ namespace SiliconShores.Controllers
 
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult TicketPdf(System.Drawing.Image barcode, int ticketId)
+        {
+            var ticket = db.ticket_sales.Find(ticketId);
+            ViewBag.Ticket = ticket;
+            ViewBag.BarcodeImage = barcode;
+            return View();
         }
     }
 }

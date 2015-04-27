@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Policy;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using Microsoft.Ajax.Utilities;
+using SiliconShores.Controllers;
 using Spire.Barcode;
+using System.Web;
 using Image = System.Drawing.Image;
 
 namespace SiliconShores.Models
@@ -571,30 +578,70 @@ namespace SiliconShores.Models
         public MemoryStream GeneratePDF()
         {
             var doc = new Document();
-
             var ms = new MemoryStream();
 
-            PdfWriter.GetInstance(doc, ms);
+            var writer = PdfWriter.GetInstance(doc, ms);
+
             doc.Open();
-            doc.Add(new Paragraph("Some words"));
-            //doc.Add(BarCodeImage());
+
+            PdfPTable table = new PdfPTable(1);
+            PdfPCell cell = new PdfPCell();
+
+            string htmlBeforeImage =
+                "<h1 class=\"text-center\">Silicon Shores</h1>\n" +
+                "<h3 class=\"col-md-4\">One " + ticket_types.ticket_name + " Ticket</h3>";
+
+            string htmlAfterImage =
+                "<p>Thank you for your ticket purchase! This ticket is redeemable any time at Silicon Shores Theme Park for a days admission</p>\n" +
+                "<p>Requirements for redemption: " + ticket_types.ticket_restrictions + ".</p>\n"+
+                File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Tickets/TicketPdf.cshtml"));
+
+            var bootstrap = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Content/bootstrap.min.css"))
+                          + File.ReadAllText(HttpContext.Current.Server.MapPath("~/Content/bootstrap-theme.min.css"));
+
+            ElementList list = XMLWorkerHelper.ParseToElementList(htmlBeforeImage, bootstrap);
+            foreach (var element in list)
+            {
+                cell.AddElement(element);
+            }
+
+            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(BarCodeImage(), BaseColor.WHITE);
+            var scale = 115;
+            img.ScalePercent(scale);
+            cell.AddElement(img);
+
+            list = XMLWorkerHelper.ParseToElementList(htmlAfterImage, bootstrap);
+            foreach (var element in list)
+            {
+                cell.AddElement(element);
+            }
+
+            table.AddCell(cell);
+
+            doc.Add(table);
+
+            writer.CloseStream = false;
+            doc.Close();
+            ms.Position = 0;
 
             return ms;
+
         }
 
-        private Image BarCodeImage()
+        private System.Drawing.Image BarCodeImage()
         {
             BarcodeSettings setting = new BarcodeSettings
             {
-                Type = BarCodeType.UPCA,
+                Type = BarCodeType.Code39,
                 Unit = GraphicsUnit.Millimeter,
-                X = 0.8F,
-                Data = ticket_id.ToString()
+                X = 0.4F,
+                Data = ticket_id.ToString(),
+                ShowText = false
             };
 
 
             BarCodeGenerator generator = new BarCodeGenerator(setting);
-            return generator.GenerateImage();
+            return  generator.GenerateImage();
         }
 
         public string fullSearchString()
