@@ -85,7 +85,7 @@ namespace SiliconShores.Controllers
             {
                 Subject = "PURCHASE CONFIRMATION",
 
-                Attachments = { new Attachment(@"C:\Users\Public\Documents\eTicketsForVacation.pdf") }
+                Attachments = { new Attachment("~/App_Data/eTicketsForVacation.pdf") }
             };
             SmtpClient client = new SmtpClient();
             client.EnableSsl = true;
@@ -216,7 +216,7 @@ namespace SiliconShores.Controllers
             format3.ParagraphIndent = font3.Size * 2;
             page.Canvas.DrawString(text4, font3, brush2, 0, y, format3);
 
-            doc.SaveToFile(@"C:\Users\Public\Documents\eTicketsForVacation.pdf");
+            doc.SaveToFile("~/App_Data/eTicketsForVacation.pdf");
             doc.Close();
 
         }
