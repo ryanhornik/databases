@@ -184,6 +184,21 @@ namespace SiliconShores.Models
     [MetadataType(typeof(employeeMetadata))]
     public partial class employee
     {
+        public string fullSearchString()
+        {
+            return ssn + " " +
+                   first_name + " " + middle_initial + " " + last_name + " " +
+                   (full_time ? "full time" : "part time") + " " +
+                   ((!rehireable.HasValue)
+                       ? "Current Employee"
+                       : (rehireable.Value) ? "Quit Rehireable" : "Fired Not Rehireable") + " " +
+                   payrate + " " +
+                   hired_date.ToLongDateString() + hired_date.ToShortDateString() + " " +
+                   ((!date_left.HasValue)
+                       ? ""
+                       : date_left.Value.ToLongDateString() + date_left.Value.ToShortDateString()) + " " +
+                       ((user != null)?user.Email:"");
+        }
     }
 
     public class food_categoriesMetadata
@@ -505,8 +520,8 @@ namespace SiliconShores.Models
             return ticket_id + " " +
                    ticket_types.ticket_name + " " +
                    sale_date.ToLongDateString() + " " +
-                   sale_date.ToShortDateString()+ " " +
-                   (redemption_date.IfNotNull(s => s.Value.ToLongDateString() + " " + s.Value.ToShortDateString()))+ " " +
+                   sale_date.ToShortDateString() + " " +
+                   (redemption_date.IfNotNull(s => s.Value.ToLongDateString() + " " + s.Value.ToShortDateString())) + " " +
                    sale_location;
         }
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
@@ -16,10 +17,15 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: EmployeeAdmin
-        public ActionResult Index()
+        public ActionResult Index(string genericSearch)
         {
-            var employees = db.employees.Include(e => e.theme_park).Include(e => e.user);
-            return View(employees.ToList());
+            var allEmployees = db.employees.ToList();
+            var employeesToPrint = allEmployees;
+            if (!genericSearch.IsEmpty())
+            {
+                employeesToPrint = allEmployees.Where(s => s.fullSearchString().Contains(genericSearch)).ToList();
+            }
+            return View(employeesToPrint);
         }
 
         // GET: EmployeeAdmin/Details/5

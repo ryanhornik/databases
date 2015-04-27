@@ -11,10 +11,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SiliconShores.Models;
- 
+
 namespace SiliconShores.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -24,7 +24,7 @@ namespace SiliconShores.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -49,21 +49,11 @@ namespace SiliconShores.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                if (Request.UrlReferrer != null)
-                {
-                    return Redirect(Request.UrlReferrer.ToString());
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                return RedirectToAction("Index", "Portal");
             }
-            else
-            {
-                ViewBag.ReturnUrl = returnUrl;
-                return View();
-            }
-            
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+
         }
 
         private ApplicationSignInManager _signInManager;
@@ -88,7 +78,7 @@ namespace SiliconShores.Controllers
             {
                 return View(model);
             }
-            
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -96,7 +86,7 @@ namespace SiliconShores.Controllers
             {
                 case SignInStatus.Success:
                     if (returnUrl == null || returnUrl.IsEmpty())
-                        return RedirectToAction("Index","Portal");
+                        return RedirectToAction("Index", "Portal");
                     else
                         return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
@@ -144,7 +134,7 @@ namespace SiliconShores.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -169,7 +159,6 @@ namespace SiliconShores.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
