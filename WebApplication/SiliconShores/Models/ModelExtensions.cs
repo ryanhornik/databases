@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace SiliconShores.Models
 {
@@ -110,7 +111,7 @@ namespace SiliconShores.Models
     [MetadataType(typeof(daily_ride_reportMetadata))]
     public partial class daily_ride_report
     {
-         
+
     }
 
     public class daily_weatherMetadata
@@ -143,7 +144,7 @@ namespace SiliconShores.Models
     public class employeeMetadata
     {
         [Required]
-        [Range(100000000,999999999)]
+        [Range(100000000, 999999999)]
         [Display(Name = "SSN")]
         public int ssn { get; set; }
         [Required]
@@ -158,7 +159,7 @@ namespace SiliconShores.Models
         [Display(Name = "Middle Initial")]
         public string middle_initial { get; set; }
         [Required]
-        [Display(Name = "Full Time (True or False)")]
+        [Display(Name = "Full Time")]
         public bool full_time { get; set; }
         [Required]
         [Display(Name = "Pay Rate")]
@@ -182,7 +183,7 @@ namespace SiliconShores.Models
     }
     [MetadataType(typeof(employeeMetadata))]
     public partial class employee
-    {     
+    {
     }
 
     public class food_categoriesMetadata
@@ -499,6 +500,15 @@ namespace SiliconShores.Models
     [MetadataType(typeof(ticket_salesMetadata))]
     public partial class ticket_sales
     {
+        public string fullSearchString()
+        {
+            return ticket_id + " " +
+                   ticket_types.ticket_name + " " +
+                   sale_date.ToLongDateString() + " " +
+                   sale_date.ToShortDateString()+ " " +
+                   (redemption_date.IfNotNull(s => s.Value.ToLongDateString() + " " + s.Value.ToShortDateString()))+ " " +
+                   sale_location;
+        }
     }
 
     public class ticket_typesMetadata

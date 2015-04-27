@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SiliconShores.Models.food_categories>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Restaurant Categories";
     Layout = "~/Views/Shared/_LayoutPortal.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Restaurant Categories</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -31,7 +31,8 @@
     </tr>
 }
 
-</table>
+</table>
+
 <script>
     $(document).ready(function () {
         setActiveLink("#id_food");

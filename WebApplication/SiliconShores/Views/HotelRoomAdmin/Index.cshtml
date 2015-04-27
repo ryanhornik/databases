@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SiliconShores.Models.hotel_rooms>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Hotel Rooms";
     Layout = "~/Views/Shared/_LayoutPortal.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Hotel Rooms</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -14,9 +14,6 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.room_rate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.occupied)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.hotel.hotel_name)
@@ -31,9 +28,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.room_rate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.occupied)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.hotel.hotel_name)

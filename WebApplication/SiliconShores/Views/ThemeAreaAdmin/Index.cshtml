@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SiliconShores.Models.theme_areas>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Theme Areas";
     Layout = "~/Views/Shared/_LayoutPortal.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Theme Areas</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,15 +15,6 @@
         <th>
             @Html.DisplayNameFor(model => model.theme_area_name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.theme_area_description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.theme_area_pictures)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.theme_park.theme_park_name)
-        </th>
         <th></th>
     </tr>
 
@@ -31,15 +22,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.theme_area_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.theme_area_description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.theme_area_pictures)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.theme_park.theme_park_name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.theme_area_id }) |

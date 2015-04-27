@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
@@ -15,10 +16,15 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: TicketSaleAdmin
-        public ActionResult Index()
+        public ActionResult Index(string genericSearch)
         {
-            var ticket_sales = db.ticket_sales.Include(t => t.theme_park).Include(t => t.ticket_types);
-            return View(ticket_sales.ToList());
+            var allTicketSales = db.ticket_sales.Include(t => t.theme_park).Include(t => t.ticket_types).ToList();
+            var ticketToPrint = allTicketSales.OrderByDescending(s => s.sale_date).Take(25).ToList();
+            if (!genericSearch.IsEmpty())
+            {
+                ticketToPrint = allTicketSales.Where(s => s.fullSearchString().Contains(genericSearch)).ToList();
+            }
+            return View(ticketToPrint);
         }
 
         // GET: TicketSaleAdmin/Details/5

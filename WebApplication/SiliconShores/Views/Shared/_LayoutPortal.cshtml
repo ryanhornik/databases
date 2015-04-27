@@ -24,12 +24,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Silicon Shores", "Index", "Home", htmlAttributes: new { @class = "navbar-brand" })
+                <form class="navbar-form navbar-left" method="GET">
+                    <input name="genericSearch" type="text" class="form-control hidden" placeholder="Search..." id="id_omni_search" disabled />
+                </form>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right" method="GET">
-                    <input name="genericSearch" type="text" class="form-control" placeholder="Search..." id="id_omni_search" disabled/>
-                </form>
-                    @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>

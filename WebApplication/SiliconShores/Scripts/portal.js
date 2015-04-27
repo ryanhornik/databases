@@ -1,5 +1,5 @@
 ﻿function enableOmniSearch() {
-    $("#id_omni_search").prop("disabled", true);
+    $("#id_omni_search").prop("disabled", false).removeClass("hidden");
 }
 
 function setActiveLink(id) {
