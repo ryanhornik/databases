@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.Ajax.Utilities;
+using Spire.Barcode;
+using Image = System.Drawing.Image;
 
 namespace SiliconShores.Models
 {
@@ -562,6 +568,35 @@ namespace SiliconShores.Models
     [MetadataType(typeof(ticket_salesMetadata))]
     public partial class ticket_sales
     {
+        public MemoryStream GeneratePDF()
+        {
+            var doc = new Document();
+
+            var ms = new MemoryStream();
+
+            PdfWriter.GetInstance(doc, ms);
+            doc.Open();
+            doc.Add(new Paragraph("Some words"));
+            //doc.Add(BarCodeImage());
+
+            return ms;
+        }
+
+        private Image BarCodeImage()
+        {
+            BarcodeSettings setting = new BarcodeSettings
+            {
+                Type = BarCodeType.UPCA,
+                Unit = GraphicsUnit.Millimeter,
+                X = 0.8F,
+                Data = ticket_id.ToString()
+            };
+
+
+            BarCodeGenerator generator = new BarCodeGenerator(setting);
+            return generator.GenerateImage();
+        }
+
         public string fullSearchString()
         {
             return ticket_id + " " +
