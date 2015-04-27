@@ -19,7 +19,7 @@ namespace SiliconShores.Controllers
         public ActionResult Index(string genericSearch)
         {
             var allTicketSales = db.ticket_sales.Include(t => t.theme_park).Include(t => t.ticket_types).ToList();
-            var ticketToPrint = allTicketSales.OrderByDescending(s => s.sale_date).Take(25).ToList();
+            var ticketToPrint = allTicketSales.OrderByDescending(s => s.sale_date).Take(15).ToList();
             if (!genericSearch.IsEmpty())
             {
                 ticketToPrint = allTicketSales.Where(s => s.fullSearchString().Contains(genericSearch)).ToList();

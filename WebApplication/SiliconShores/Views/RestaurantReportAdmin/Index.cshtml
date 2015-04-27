@@ -13,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.report_date)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.gross_income)
         </th>
         <th>
@@ -27,6 +30,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.report_date)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.gross_income)
         </td>
         <td>
@@ -36,9 +42,9 @@
             @Html.DisplayFor(modelItem => item.restaurant.restaurant_name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.report_date }) |
-            @Html.ActionLink("Details", "Details", new { id=item.report_date }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.report_date })
+            @Html.ActionLink("Edit", "Edit", new {id = item.report_date}) |
+            @Html.ActionLink("Details", "Details", new {id = item.report_date}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.report_date})
         </td>
     </tr>
 }

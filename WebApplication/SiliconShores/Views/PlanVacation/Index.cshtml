@@ -41,7 +41,7 @@
                 </div>
                 <label for=@inputID class="col-md-6 col-md-pull-1">
                     <span title="@t.ticket_restrictions" class="glyphicon glyphicon-info-sign"></span>
-                    $@t.ticket_price
+                    @t.ticket_price.ToString("C")
                 </label>
             </div>
             count++;

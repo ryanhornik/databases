@@ -82,6 +82,7 @@ namespace SiliconShores.Models
         public Nullable<System.DateTime> resolution_date { get; set; }
         [Required]
         [Display(Name = "Repair Cost")]
+        [DataType(DataType.Currency)]
         public Nullable<decimal> repair_cost { get; set; }
         [Required]
         [Display(Name = "Attraction")]
@@ -182,6 +183,7 @@ namespace SiliconShores.Models
         public bool full_time { get; set; }
         [Required]
         [Display(Name = "Pay Rate")]
+        [DataType(DataType.Currency)]
         public decimal payrate { get; set; }
         [Required]
         [DataType(DataType.Date)]
@@ -284,6 +286,7 @@ namespace SiliconShores.Models
         public System.DateTime reservation_checkout_date { get; set; }
         [Required]
         [Display(Name = "Total Reservation Cost")]
+        [DataType(DataType.Currency)]
         public decimal total_reservation_cost { get; set; }
         [Required]
         [Display(Name = "Paid In Full")]
@@ -323,6 +326,7 @@ namespace SiliconShores.Models
         public int room_type_id { get; set; }
         [Required]
         [Display(Name = "Room Rate")]
+        [DataType(DataType.Currency)]
         public decimal room_rate { get; set; }
         [Required]
         [Display(Name = "Occupied")]
@@ -387,6 +391,7 @@ namespace SiliconShores.Models
         [Display(Name = "Restaurant")]
         public int restaurant_id { get; set; }
         [Required]
+        [DataType(DataType.Currency)]
         [Display(Name = "Gross Income")]
         public decimal gross_income { get; set; }
         [Required]
@@ -400,6 +405,11 @@ namespace SiliconShores.Models
     [MetadataType(typeof(restaurant_daily_reportsMetadata))]
     public partial class restaurant_daily_reports
     {
+        public string fullSearchString()
+        {
+            return report_date.ToLongDateString() + " " + report_date.ToShortDateString() + " " +
+                   restaurant.restaurant_name + " " + gross_income.ToString("C") + " " + patrons_served;
+        }
     }
 
     public class roleMetadata
@@ -576,6 +586,7 @@ namespace SiliconShores.Models
         public string ticket_restrictions { get; set; }
         [Required]
         [Display(Name = "Ticket Price")]
+        [DataType(DataType.Currency)]
         public Nullable<float> ticket_price { get; set; }
         [Required]
         [Display(Name = "Ticket Sales")]
