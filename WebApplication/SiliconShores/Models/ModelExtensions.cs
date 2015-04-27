@@ -90,6 +90,16 @@ namespace SiliconShores.Models
     [MetadataType(typeof(breakdownMetadata))]
     public partial class breakdown
     {
+        public string fullSearchString()
+        {
+            return incidence_date.ToLongDateString() + " " + incidence_date.ToShortDateString() + " " +
+                   ((!resolution_date.HasValue)
+                       ? "Unresolved Broken"
+                       : "Fixed" + resolution_date.Value.ToLongDateString() + " " +
+                         resolution_date.Value.ToShortDateString()) + " " +
+                   ((!repair_cost.HasValue) ? "" : repair_cost.Value.ToString("C")) + " " +
+                   attraction.attraction_name;
+        }
     }
 
     public class daily_ride_reportMetadata
@@ -111,7 +121,11 @@ namespace SiliconShores.Models
     [MetadataType(typeof(daily_ride_reportMetadata))]
     public partial class daily_ride_report
     {
-
+        public string fullSearchString()
+        {
+            return ride_report_date.ToLongDateString() + " " + ride_report_date.ToShortDateString() +
+                   attraction.attraction_name + " " + total_riders;
+        }
     }
 
     public class daily_weatherMetadata

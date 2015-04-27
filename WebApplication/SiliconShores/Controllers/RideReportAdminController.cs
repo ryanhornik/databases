@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
@@ -15,10 +16,16 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: RideReportAdmin
-        public ActionResult Index()
+        public ActionResult Index(string genericSearch)
         {
-            var daily_ride_report = db.daily_ride_report.Include(d => d.attraction);
-            return View(daily_ride_report.ToList());
+            var allRideReports = db.daily_ride_report.ToList();
+            var reportsToPrint = allRideReports.OrderByDescending(s => s.ride_report_date).Take(15);
+            if (!genericSearch.IsEmpty())
+            {
+                reportsToPrint = allRideReports.Where(s => s.fullSearchString().Contains(genericSearch));
+            }
+
+            return View(reportsToPrint);
         }
 
         // GET: RideReportAdmin/Details/5

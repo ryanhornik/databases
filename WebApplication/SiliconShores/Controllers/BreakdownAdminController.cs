@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
@@ -15,10 +16,15 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: BreakdownAdmin
-        public ActionResult Index()
+        public ActionResult Index(string genericSearch)
         {
-            var breakdowns = db.breakdowns.Include(b => b.attraction);
-            return View(breakdowns.ToList());
+            var breakdowns = db.breakdowns.ToList();
+            var breakdownsToPrint = breakdowns.OrderByDescending(s => s.incidence_date).Take(15).ToList();
+            if (!genericSearch.IsEmpty())
+            {
+                breakdownsToPrint = breakdowns.Where(s => s.fullSearchString().Contains(genericSearch)).ToList();
+            }
+            return View(breakdownsToPrint);
         }
 
         // GET: BreakdownAdmin/Details/5
