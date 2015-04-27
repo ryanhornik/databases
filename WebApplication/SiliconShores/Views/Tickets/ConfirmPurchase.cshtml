@@ -6,49 +6,51 @@
 
 <h2>Confirm Order</h2>
 
+@{ decimal total = 0;}
 <table class="table table-striped table-bordered">
-
     <tr>
-        <th>Item</th>
+        <th>Ticket Type</th>
         <th>Quantity</th>
         <th>Price</th>
     </tr>
-
-    @{float total = 0;}
     @{var count = 0;}
-    @foreach (var t in ViewBag.TicketTypes)
+    @foreach (var t in ViewBag.TicketPurchase)
     {
-        if(!Request["ticketPurchase["+count+"].value"].Equals("0")){
-        <tr>
-            <th>@t.ticket_name</th>
-            <th>@Request["ticketPurchase[" + count + "].value"]</th>
-            <th>$@(t.ticket_price * @Request["ticketPurchase[" + count + "].value"].AsFloat()).00</th>
-        </tr>
-            total = total + (t.ticket_price * @Request["ticketPurchase[" + count + "].value"].AsFloat());
+        if (t.Value > 0)
+        {
+            var ticketTypeTotalCost = t.Value * t.Key.ticket_price;
+            <tr>
+                <td>@t.Key.ticket_name</td>
+                <td>@t.Value</td>
+                <td>@(ticketTypeTotalCost.ToString("C"))</td>
+            </tr>
+            total = total + ticketTypeTotalCost;
         }
-        count++;
     }
     <tr>
-        <th>Total</th>
-        <th></th>
-        <th>$@(total).00</th>
+        <td>Total</td>
+        <td></td>
+        <td>@total.ToString("C")</td>
     </tr>
 
 </table>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <div class="form-group">
-            <label for="id_email_field" class="col-md-2 control-label">E-mail</label>
-            <div class="col-md-10">
-                <input name="email" class="form-control" type="email" id="id_email_field"/>
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="id_email_field" class="col-md-3 control-label">E-mail</label>
+                <div class="col-md-7">
+                    <input name="email" class="form-control" type="email" id="id_email_field" />
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="Checkout" class="btn btn-success" />
+                </div>
             </div>
+
         </div>
-            <input type="submit" value="Checkout" class="btn btn-success" />
-        
-    </div>
 
-}
-
+    }
+</div>

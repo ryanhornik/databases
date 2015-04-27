@@ -22,9 +22,9 @@ namespace SiliconShores.Controllers
             return View();
         }
 
-        public ActionResult ConfirmPurchase() 
+        public ActionResult ConfirmPurchase(IDictionary<int, int> ticketPurchase) 
         {
-            ViewBag.TicketTypes = db.ticket_types.ToList();
+            ViewBag.TicketPurchase = ticketPurchase.ToDictionary(d => db.ticket_types.Find(d.Key), d => d.Value);
             return View();
         }
 
