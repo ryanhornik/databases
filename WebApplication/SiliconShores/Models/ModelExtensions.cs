@@ -139,6 +139,11 @@ namespace SiliconShores.Models
     [MetadataType(typeof(daily_weatherMetadata))]
     public partial class daily_weather
     {
+        public string fullSearchString()
+        {
+            return weather_date.ToLongDateString() + " " + weather_date.ToShortDateString()+ " " +
+                   weather_conditions + " " + high_temp + " " + low_temp;
+        }
     }
 
     public class employeeMetadata

@@ -13,41 +13,45 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.weather_conditions)
+            @Html.DisplayNameFor(model => model.weather_date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.high_temp)
+            @Html.DisplayNameFor(model => model.weather_conditions)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.low_temp)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.theme_park.theme_park_name)
+            @Html.DisplayNameFor(model => model.high_temp)
         </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.weather_conditions)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.high_temp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.low_temp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.theme_park.theme_park_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.weather_date }) |
-            @Html.ActionLink("Details", "Details", new { id=item.weather_date }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.weather_date })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.weather_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.weather_conditions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.low_temp)&deg;F
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.high_temp)&deg;F
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.weather_date }) |
+                @Html.ActionLink("Details", "Details", new { id = item.weather_date }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.weather_date })
+            </td>
+        </tr>
+    }
 
 </table>
 <script>

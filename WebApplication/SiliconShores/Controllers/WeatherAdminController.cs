@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using SiliconShores.Models;
 
 namespace SiliconShores.Controllers
@@ -15,10 +16,15 @@ namespace SiliconShores.Controllers
         private theme_park_dbEntities db = new theme_park_dbEntities();
 
         // GET: WeatherAdmin
-        public ActionResult Index()
+        public ActionResult Index(string genericSearch)
         {
-            var daily_weather = db.daily_weather.Include(d => d.theme_park);
-            return View(daily_weather.ToList());
+            var allWeather = db.daily_weather.ToList();
+            var weatherToprint = db.daily_weather.OrderByDescending(s => s.weather_date).Take(15).ToList();
+            if (!genericSearch.IsEmpty())
+            {
+                weatherToprint = allWeather.Where(s => s.fullSearchString().Contains(genericSearch)).ToList();
+            }
+            return View(weatherToprint);
         }
 
         // GET: WeatherAdmin/Details/5
