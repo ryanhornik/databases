@@ -67,6 +67,7 @@ namespace SiliconShores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ssn,theme_park_id,first_name,last_name,middle_initial,full_time,payrate,hired_date,date_left,rehireable,employee_id")] employee employee)
         {
+            employee.theme_park = db.theme_park.Find(6);
             if (ModelState.IsValid)
             {
                 db.Entry(employee).State = EntityState.Modified;

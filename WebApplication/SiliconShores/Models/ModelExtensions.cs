@@ -208,7 +208,6 @@ namespace SiliconShores.Models
         [Required]
         [Display(Name = "Theme Park")]
         public int theme_park_id { get; set; }
-        [Required]
         [Display(Name = "First Name")]
         public string first_name { get; set; }
         [Required]
@@ -234,7 +233,6 @@ namespace SiliconShores.Models
         public Nullable<bool> rehireable { get; set; }
         [Display(Name = "Employee ID")]
         public string employee_id { get; set; }
-        [Required]
         [Display(Name = "Theme Park")]
         public virtual theme_park theme_park { get; set; }
         [Display(Name = "User")]

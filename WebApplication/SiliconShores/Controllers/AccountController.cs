@@ -162,8 +162,10 @@ namespace SiliconShores.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ViewBag.theme_park_id = new SelectList(db.theme_park, "theme_park_id", "theme_park_name");
             model.RegisterEmployee.employee_id = "TEMPORARY_ID";
             model.RegisterEmployee.hired_date = DateTime.Today;
+            model.RegisterEmployee.theme_park = db.theme_park.Find(6);
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
