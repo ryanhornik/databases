@@ -223,6 +223,7 @@
     <Compile Include="Controllers\AttractionAdminController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
+    <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\PortalController.cs" />
     <Compile Include="Controllers\FoodCategoryAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -551,6 +552,7 @@
     <Content Include="Views\TicketPdf.cshtml" />
     <Content Include="Views\Tickets\ThankYou.cshtml" />
     <Content Include="Views\PlanVacation\ThankYou.cshtml" />
+    <Content Include="Views\Jobs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
