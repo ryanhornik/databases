@@ -56,7 +56,8 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+        $("#id_brand").attr("href", "/Home");
         $("#id_sidebar").hide();
         $("#id_page_content")
             .removeClass("col-md-push-3")
