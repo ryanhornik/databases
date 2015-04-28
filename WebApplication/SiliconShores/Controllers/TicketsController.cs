@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Spire.Barcode;
@@ -39,8 +40,7 @@ namespace SiliconShores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmPurchase(IDictionary<int, int> ticketPurchase, string email)
         {
-
-            List<int> totalSales = new List<int>();
+            var totalSales = new List<int>();
 
             foreach (var ticket in ticketPurchase)
             {
@@ -51,41 +51,11 @@ namespace SiliconShores.Controllers
             db.ticket_sales.AddRange(fullPurchase);
             db.SaveChanges();
 
-            var allTickets = db.ticket_sales
-                .OrderByDescending(t => t.ticket_id)
-                .Take(totalSales.Count()).ToList();
-            var pdfs = new List<MemoryStream>();
-            foreach (var ticket in allTickets)
-            {
-                pdfs.Add(ticket.GeneratePDF());
-            }
-
-            
-            MailMessage mail = new MailMessage("siliconshoressmtp@gmail.com", email)
-            {
-                Subject = "PURCHASE CONFIRMATION",
-            };
-            var count = new Random().Next(500);
-            foreach (var pdf in pdfs)
-            {
-                mail.Attachments.Add(new Attachment(pdf, "Ticket"+count.ToString("X")+".pdf"));
-                count+=3;
-            }
-
-            SmtpClient client = new SmtpClient();
-            client.EnableSsl = true;
-            client.Send(mail);
-
+            var thread = new Thread(() => db.sendLastTickets(email, totalSales.Count,
+                "Thank you for your ticket purchase! Please enjoy your day in the park.\n\n - Silicon Shores\n"));
+            thread.Start();
 
             return RedirectToAction("ThankYou", "Tickets");
-        }
-
-        public ActionResult TicketPdf(System.Drawing.Image barcode, int ticketId)
-        {
-            var ticket = db.ticket_sales.Find(ticketId);
-            ViewBag.Ticket = ticket;
-            ViewBag.BarcodeImage = barcode;
-            return View();
         }
     }
 }

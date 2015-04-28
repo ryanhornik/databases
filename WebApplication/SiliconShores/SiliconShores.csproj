@@ -248,6 +248,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\attraction.cs">
       <DependentUpon>SiliconShoresModel.tt</DependentUpon>
@@ -547,7 +548,7 @@
     <Content Include="Views\ReportTicketSales\GenerateRestReport2.cshtml" />
     <Content Include="Views\Shared\_LayoutPortal.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Tickets\TicketPdf.cshtml" />
+    <Content Include="Views\TicketPdf.cshtml" />
     <Content Include="Views\Tickets\ThankYou.cshtml" />
     <Content Include="Views\PlanVacation\ThankYou.cshtml" />
   </ItemGroup>

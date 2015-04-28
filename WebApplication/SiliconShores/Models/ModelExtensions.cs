@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.Security.Policy;
 using System.Web;
@@ -16,7 +17,6 @@ using iTextSharp.tool.xml;
 using Microsoft.Ajax.Utilities;
 using SiliconShores.Controllers;
 using Spire.Barcode;
-using System.Web;
 using Image = System.Drawing.Image;
 
 namespace SiliconShores.Models
@@ -32,6 +32,31 @@ namespace SiliconShores.Models
             sale.sale_location = "Online";
             sale.theme_park = this.theme_park.First(s => s.theme_park_name.Equals("Silicon Shores"));
             return sale;
+        }
+
+        public void sendLastTickets(string email, int numTickets, string bodyText)
+        {
+            var allTickets = ticket_sales
+                .Include("ticket_types")
+                .OrderByDescending(t => t.ticket_id)
+                .Take(numTickets).ToList();
+            var pdfs = new List<MemoryStream>();
+            foreach (var ticket in allTickets)
+            {
+                pdfs.Add(ticket.GeneratePDF());
+            }
+            var pdfFinal = Helper.MergePdf(pdfs);
+
+            MailMessage mail = new MailMessage("siliconshoressmtp@gmail.com", email)
+            {
+                Subject = "Your Silicon Shores Purchase",
+                Body = bodyText
+            };
+            mail.Attachments.Add(new Attachment(pdfFinal, "Silicon Shores Tickets.pdf"));
+
+            SmtpClient client = new SmtpClient();
+            client.EnableSsl = true;
+            client.Send(mail);
         }
     }
 
@@ -593,11 +618,11 @@ namespace SiliconShores.Models
 
             string htmlAfterImage =
                 "<p>Thank you for your ticket purchase! This ticket is redeemable any time at Silicon Shores Theme Park for a days admission</p>\n" +
-                "<p>Requirements for redemption: " + ticket_types.ticket_restrictions + ".</p>\n"+
-                File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Tickets/TicketPdf.cshtml"));
+                "<p>Requirements for redemption: " + ticket_types.ticket_restrictions + ".</p>\n" +
+                File.ReadAllText(System.Web.Hosting.HostingEnvironment.MapPath("~/Views/TicketPdf.cshtml"));
 
-            var bootstrap = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Content/bootstrap.min.css"))
-                          + File.ReadAllText(HttpContext.Current.Server.MapPath("~/Content/bootstrap-theme.min.css"));
+            var bootstrap = File.ReadAllText(System.Web.Hosting.HostingEnvironment.MapPath("~/Content/bootstrap.min.css"))
+                          + File.ReadAllText(System.Web.Hosting.HostingEnvironment.MapPath("~/Content/bootstrap-theme.min.css"));
 
             ElementList list = XMLWorkerHelper.ParseToElementList(htmlBeforeImage, bootstrap);
             foreach (var element in list)
@@ -641,7 +666,7 @@ namespace SiliconShores.Models
 
 
             BarCodeGenerator generator = new BarCodeGenerator(setting);
-            return  generator.GenerateImage();
+            return generator.GenerateImage();
         }
 
         public string fullSearchString()

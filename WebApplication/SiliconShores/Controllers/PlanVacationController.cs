@@ -6,7 +6,9 @@ using System.Web.Mvc;
 using System.Web.WebPages;
 using Spire.Barcode;
 using System.Drawing;
+using System.IO;
 using System.Net.Mail;
+using System.Threading;
 
 namespace SiliconShores.Controllers
 {
@@ -46,10 +48,6 @@ namespace SiliconShores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room, bool? post, string email)
         {
-
-            List<ticket_sales> Sales = new List<ticket_sales>();
-            List<int> ticketID = new List<int>();
-
             ticketPurchase = ticketPurchase.ToDictionary(s => s.Key, s => (nights+1)*s.Value);
 
             var selectedRoom = db.hotel_rooms.First(s => s.hotel_id == Hotels && s.room_number == Room);
@@ -68,33 +66,22 @@ namespace SiliconShores.Controllers
                 db.SaveChanges();
             }
 
-            List<int> totalSales = new List<int>();
+            var totalSales = new List<int>();
             
             foreach (var ticket in ticketPurchase)
             {
                 totalSales.AddRange(Enumerable.Repeat(ticket.Key,ticket.Value));
             }
-            foreach (var s in totalSales)
-            {
-                db.ticket_sales.Add(db.CreateTicket(s));
-                db.SaveChanges();
-            }
 
-            Sales = db.ticket_sales.OrderByDescending(t => t.ticket_id).Take(totalSales.Count()).ToList();
-            foreach (ticket_sales sales in Sales)
-            {
-                ticketID.Add(sales.ticket_id);
-            }
+            var fullPurchase = totalSales.Select(s => db.CreateTicket(s));
+            db.ticket_sales.AddRange(fullPurchase);
+            db.SaveChanges();
 
-            MailMessage mail = new MailMessage("siliconshoressmtp@gmail.com", email)
-            {
-                Subject = "PURCHASE CONFIRMATION",
-
-                Attachments = { new Attachment("~/App_Data/eTicketsForVacation.pdf") }
-            };
-            SmtpClient client = new SmtpClient();
-            client.EnableSsl = true;
-            client.Send(mail);
+            var thread = new Thread(() => db.sendLastTickets(email, totalSales.Count, 
+                "Thank you for your reservation at our resort! Your stay has been scheduled at "
+                + selectedRoom.hotel.hotel_name + " in room number "+selectedRoom.room_number+" for " + arrivalDate.ToLongDateString() + 
+                " through " + arrivalDate.AddDays(nights).ToLongDateString() + "\nEnjoy your stay at Silicon Shores\n\n - Silicon Shores"));
+            thread.Start();
 
             return RedirectToAction("ThankYou", "PlanVacation");
         }
