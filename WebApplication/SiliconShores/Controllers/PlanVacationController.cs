@@ -37,6 +37,11 @@ namespace SiliconShores.Controllers
             return View();
         }
 
+        public ActionResult ThankYou() 
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmPurchase(DateTime arrivalDate, int nights, IDictionary<int, int> ticketPurchase, int Hotels, int RoomTypes, int Room, bool? post, string email)
@@ -91,7 +96,7 @@ namespace SiliconShores.Controllers
             client.EnableSsl = true;
             client.Send(mail);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ThankYou", "PlanVacation");
         }
 
         public JsonResult RoomSelection(string selectedHotel, string selectedRoomType)

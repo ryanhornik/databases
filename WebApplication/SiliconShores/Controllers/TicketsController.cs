@@ -30,6 +30,11 @@ namespace SiliconShores.Controllers
             return View();
         }
 
+        public ActionResult ThankYou() 
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmPurchase(IDictionary<int, int> ticketPurchase, string email)
@@ -72,7 +77,7 @@ namespace SiliconShores.Controllers
             client.Send(mail);
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ThankYou", "Tickets");
         }
 
         public ActionResult TicketPdf(System.Drawing.Image barcode, int ticketId)
