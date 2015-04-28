@@ -224,6 +224,7 @@
     <Compile Include="Controllers\BoxofficeController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
+    <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\PortalController.cs" />
     <Compile Include="Controllers\FoodCategoryAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -553,6 +554,7 @@
     <Content Include="Views\Tickets\ThankYou.cshtml" />
     <Content Include="Views\PlanVacation\ThankYou.cshtml" />
     <Content Include="Views\Boxoffice\Index.cshtml" />
+    <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Boxoffice\Ticket.cshtml" />
   </ItemGroup>
   <ItemGroup>
