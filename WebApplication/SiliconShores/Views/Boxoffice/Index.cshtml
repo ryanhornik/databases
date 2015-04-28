@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Box Office";
+    Layout = "~/Views/Shared/_LayoutPortal.cshtml";
+}
+
+<h2>Box Office</h2>
+<h4 class="text-success">@ViewBag.Success</h4>
+<h4 class="text-danger">@ViewBag.Failure</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row center-block form-inline">
+            @foreach (var type in ViewBag.types)
+            {
+                <div class="col-md-1">
+                    <button type="submit" value="@type.ticket_type_id" name="ticketTypeId" class="btn btn-primary">@type.ticket_name</button>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <hr class="col-md-8" />
+        </div>
+        <div class="row center-block form-inline">
+            <div class="col-md-3">
+                <input type="text" name="ticketId" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success">Redeem Ticket &raquo;</button>
+            </div>
+        </div>
+    </div>
+<br/>
+}
+<script>
+    $(document).ready(function() {
+        setActiveLink("#id_box");
+    });
+</script>

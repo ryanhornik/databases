@@ -1,0 +1,10 @@
+﻿@{
+            Response.Buffer = false;
+            Response.Clear();
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "Application/pdf";
+            Response.BinaryWrite(ViewBag.MS.ToArray());
+            Response.Flush();
+            Response.End();
+}

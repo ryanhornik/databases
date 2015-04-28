@@ -221,6 +221,7 @@
     <Compile Include="App_Start\WebApiConfig2.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttractionAdminController.cs" />
+    <Compile Include="Controllers\BoxofficeController.cs" />
     <Compile Include="Controllers\BreakdownAdminController.cs" />
     <Compile Include="Controllers\EmployeeAdminController.cs" />
     <Compile Include="Controllers\PortalController.cs" />
@@ -551,6 +552,8 @@
     <Content Include="Views\TicketPdf.cshtml" />
     <Content Include="Views\Tickets\ThankYou.cshtml" />
     <Content Include="Views\PlanVacation\ThankYou.cshtml" />
+    <Content Include="Views\Boxoffice\Index.cshtml" />
+    <Content Include="Views\Boxoffice\Ticket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
