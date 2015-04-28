@@ -3,7 +3,11 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
+ body{
+    color:#00ff00;
+    background-color: #323232;
+    font-family:Consolas,monaco,'Lucida Bright', 'Lucida Console','Liberation Mono','DejaVu Sans Mono',bitstream vera sans-serif monospace, 'Courier New';
+ }
 .btn-default,
 .btn-primary,
 .btn-success,
