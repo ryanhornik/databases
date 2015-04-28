@@ -568,6 +568,7 @@
     <Content Include="Views\Boxoffice\Index.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Boxoffice\Ticket.cshtml" />
+    <Content Include="Views\ReportTicketSales\DisplayRestaurantSales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

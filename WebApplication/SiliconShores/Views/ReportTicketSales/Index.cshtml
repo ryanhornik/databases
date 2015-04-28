@@ -6,8 +6,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("DisplayTicketSalesWeather", "ReportTicketSales", FormMethod.Get))
-{
+<form action="/ReportTicketSales/DisplayTicketSalesWeather" method="get" id="id_repform">
     <div class="form-horizontal">
 
         <div class="form-group">
@@ -25,14 +24,42 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Run Report" class="btn btn-default"/>
+            <label for="id_end" class="control-label col-md-2">Report Type</label>
+            <div class="col-md-10">
+                <select name="reportChoice" id="id_rep" class="form-control">
+                    <option value="0">Ticket Sales and Weather</option>
+                    <option value="1">Restaurant Sales</option>
+                </select>
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="id_submitButton" value="Run Report" class="btn btn-default" onclick=""/>
+            </div>
+        </div>
     </div>
-}
+</form>
 
 <script>
-    $(document).ready(setActiveLink("#id_report"));
+    $(document).ready(function (){
+        setActiveLink("#id_report");
+
+        $("#id_rep").change(function (event) {
+            var selected = $("select[id=id_rep]")[0].selectedOptions[0].value;
+            var action = "";
+            switch (selected) {
+                case "0":
+                    action = "/ReportTicketSales/DisplayTicketSalesWeather";
+                    break;
+                case "1":
+                    action = "/ReportTicketSales/DisplayRestaurantSales";
+                    break;
+                default:
+            }
+            $("#id_repform").attr("action", action);
+        });
+
+    });
+    
 </script>
